@@ -1,0 +1,11 @@
+🔴ROUTING INFORMATION PROTOCOL V2(RIP V2): LAB: *
+------------------------------------------
+	🔹Loopback interface are logical interfaces.	
+	🔹it allows us to assign an IP @ to a Router/L3-SW, which is not tied to a physical interface.
+	🔹always up .
+	🔹its a logical interface.
+
+
+	⚙️Configuration :
+	CLI(config)#int loopback 0
+	CLI(config-if)#ip 172.165.14.1 255.255.255.252

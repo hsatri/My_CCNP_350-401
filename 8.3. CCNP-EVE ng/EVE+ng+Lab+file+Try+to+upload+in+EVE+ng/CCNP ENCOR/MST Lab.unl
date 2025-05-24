@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<lab name="MST Lab" version="1" scripttimeout="300" lock="0">
+  <topology>
+    <nodes>
+      <node id="1" name="SW1" type="iol" template="iol" image="i86bi_linux_l2-ipbasek9-ms.high_iron_aug9_2017b.bin" ethernet="1" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch L3.png" config="0" left="45" top="39">
+        <interface id="0" name="e0/0" type="ethernet" network_id="1"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="2"/>
+      </node>
+      <node id="2" name="SW2" type="iol" template="iol" image="i86bi_linux_l2-ipbasek9-ms.high_iron_aug9_2017b.bin" ethernet="1" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch L3.png" config="0" left="225" top="39">
+        <interface id="0" name="e0/0" type="ethernet" network_id="1"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="2"/>
+      </node>
+    </nodes>
+    <networks>
+      <network id="1" type="bridge" name="Net-SW1iface_0" left="105" top="79" visibility="0"/>
+      <network id="2" type="bridge" name="Net-SW1iface_16" left="105" top="79" visibility="0"/>
+    </networks>
+  </topology>
+</lab>

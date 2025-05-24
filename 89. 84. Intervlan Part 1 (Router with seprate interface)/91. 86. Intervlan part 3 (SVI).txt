@@ -1,0 +1,75 @@
+🔴 Remarks :
+------------
+🔹ip routing: to enable the routing intervilan
+
+
+
+🔴 Lab_eveng: "11 Intervlan SVI" :
+-----------------------------------
+
+! SW Configuration 
+en
+conf t
+hostname SW
+
+ip routing
+
+vlan 10
+name R-D
+vlan 20
+name CIT
+
+interface vlan 10
+ip add 172.16.10.1 255.255.255.0
+no shut
+
+ip dhcp pool VLAN10
+network 172.16.10.0 255.255.255.0
+default-router 172.16.10.1 
+
+interface vlan 20
+ip add 172.16.20.1 255.255.255.0
+no shut
+
+ip dhcp pool VLAN20
+network 172.16.20.0 255.255.255.0
+default-router 172.16.20.1 
+
+
+interface range e0/0-1
+switchport mode access
+switchport access vlan 10
+
+interface range e0/2-3
+switchport mode access
+switchport access vlan 20
+
+##############
+Verification
+##############
+SW#show vlan
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active
+10   R-D                              active    Et0/0, Et0/1
+20   CIT                              active    Et0/2, Et0/3
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+
+SW#show ip dhcp binding
+Bindings from all pools not associated with VRF:
+IP address      Client-ID/              Lease expiration        Type       State      Interface
+                Hardware address/
+                User name
+172.16.10.3     0100.5079.6668.04       Mar 03 2025 11:24 PM    Automatic  Active     Vlan10
+172.16.20.2     0100.5079.6668.02       Mar 03 2025 11:24 PM    Automatic  Active     Vlan20
+172.16.20.3     0100.5079.6668.03       Mar 03 2025 11:25 PM    Automatic  Active     Vlan20
+
+
+
+
+
+

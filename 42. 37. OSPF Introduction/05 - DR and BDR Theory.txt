@@ -1,0 +1,33 @@
+DR = Designated Router
+BDR = Backup Designated Router
+
+🔴DR/BDR:
+---------
+🔹Ospf uses DR/BDR on each multi-access network.
+🔹possible to change the priority and select the DR/BDR MANUALLY "ip ospf priority (0-255)"
+🔹default priority is 1.
+🔹priority 0 : this router is out of election the DR/BDR
+🔹Election accurs in multi-access Broadcast/Non-Broadcast network types.
+🔹DR:
+	-> to maintain the OSPF topology table.
+	-> to distribute updates to other routers within same segment.
+	-> reduce the network traffic between neighbors by providing single source of updates.
+🔹Drothers: 
+	-> when the router not a DR/BDR.
+	-> form adjacencies only with the elected DR/BDR.
+	-> Only exchange routing information with the DR/BDR.
+🔹OSPF use "clear ip ospf process" before change takes effect.
+
+🔴The default DR election criteria:
+-----------------------------------
+🔹Highst priority
+🔹the second highst priority --> BDR.
+🔹if the DR fails --> BDR become the DR.
+🔹DR/BDR preemption is not supported.
+	-> first router to come up will be DR and the second become the BDR.
+🔹DR distribute topology information only with every other ruter on the same area.
+🔹224.0.0.6 : to send information to DR/BDR.
+🔹224.0.0.5 : DR sends routing updates . 
+
+
+🔴 Lab : [02 OSPF-DR-BDR]
