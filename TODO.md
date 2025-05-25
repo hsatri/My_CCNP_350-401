@@ -11,7 +11,7 @@ This document tracks future labs and tasks related to networking practice (RIP, 
 - [ ] **RIP v2 Lab**  
   _Reference: 39. 34. RIP Version 2 Theory with Lab in EVE-NG_
 
-- [ ] **OSPF Basic Lab**  
+- [x] **OSPF Basic Lab**  
   _Reference: 43. 38. OSPF Basic Lab in EVE-NG_
 
 - [ ] **Point-to-Multipoint Lab**  
