@@ -73,9 +73,3 @@
 	#sh etherchannel summary
 	#sh etherchannel detail
 	#sh etherchannel port-channel
-
-
-
- 
-
-➤
