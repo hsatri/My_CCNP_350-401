@@ -8,5 +8,5 @@ Welcome to my personal journey toward achieving the **Cisco Certified Network Pr
 ---
 
 ## Exam Topics
-[View Official Cisco ENCOR 350-401 Exam Topics (PDF)](./350-401-ENCORE-v1,1.pdf)
+[View Official Cisco ENCOR 350-401 Exam Topics (PDF)](./350-401-ENCORE-v1.1.pdf)
 
