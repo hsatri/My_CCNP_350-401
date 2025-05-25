@@ -1,5 +1,6 @@
 # My_CCNP_300-401
-![CCNP300401.png](..%2F..%2F..%2FDownloads%2FCCNP300401.png)
+
+![Uploading CCNP300401.png…]()
 
 # My CCNP Journey
 
