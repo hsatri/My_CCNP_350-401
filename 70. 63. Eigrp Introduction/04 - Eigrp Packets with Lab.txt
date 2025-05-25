@@ -1,0 +1,38 @@
+🔴EIGRP Packet Types
+#####################
+
+
+🔴EIGRP Pakcets : 
+-----------------
+🔹HELLO :
+	- to identify neighbors.
+	- multicast @ : 224.0.0.10
+	- send every 5 sec.
+
+🔹UPDATE :
+	- contain routing information for DST.
+	- multicast @ : 224.0.0.10
+	- when a link or a metric changes.
+	- acknowledged to ensure reliable transmission.
+
+🔹QUERY :
+	- Used to find qlternate paths when all paths to a DST have failed.
+	- always Multicast.
+
+🔹Replay :
+	- To respond to query packets.
+	- provides feasible successor to the sender of the query.
+	- unicast to the sender of the query packet.
+
+🔹ACK :
+	- used to acknowledge the receipt of update, (query/replay packets).
+	- sent by using unicast.
+
+
+🔴 Show commands: 
+-----------------
+	CLI#show ip eigrp traffic :
+		- Traffic Statistivs For 5 EIGRP packets types.
+
+
+	

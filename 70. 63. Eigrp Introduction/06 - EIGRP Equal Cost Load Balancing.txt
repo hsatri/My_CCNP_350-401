@@ -1,0 +1,11 @@
+🔴EIGRP Equal Cost Load Balancing
+##################################
+
+
+🔴EIGRP Equal Cost : 
+--------------------
+🔹By default : EIGRP support equal-cost load balancing over 4 links.
+	-> equal-cost : means multiple route have the same metric to the DST.
+
+🔹'maximum-paths' : configuration to request up to 16 equally paths.
+	->maximum paths 1 --> disable load balancing.

@@ -1,0 +1,163 @@
+🔴5.5 Describe the components of network security design
+5.5.a Threat defense
+5.5.b Endpoint security
+5.5.c Next-generation firewall
+5.5.d TrustSec and MACsec
+5.5.e Network access control with 802.1X, MAB, and WebAuth
+#############################################################
+
+🔴Network Security Design : 
+----------------------------
+🔹EndPoint Security : Protects devices (mobile, laptops) from malware, ransomware, phishing, threats.
+🔹Access Control: Validates user identities before granting network access.
+🔹Cisco Cyber Threat Defense (CTD): provides tools to detect and mitigate advanced threats.
+🔹Threat Visibility & Control: Helps security analysts monitor and manage network threats effectively.
+
+
+🔴 Endpoint security: 
+---------------------
+🔹EndPoints: Includes (desktops, laptops, mobile devces, tables, printers)
+
+🔹EndPoints Security Tools: 
+	- Personal firewalls 
+	- antivirus, 
+	- antispyware software protect against malware
+	- spyware
+	- Malicious traffic.
+
+ 🔹Cisco Security Solutions:
+	- ESA(Email Security Appliance): Blocks Email threats like (spam, malware, phishing).
+	- WSA(Web Security Appliance): Monitors web traffic to detect and block malware.
+	- AMP(Advanced Malware Protection): Provides advanced threat detection and IP reputation-based blocking.
+
+🔹Firewall Protection : 
+	- Controls host traffic.
+	- Defines security policies
+	- Integrated into modern OS.
+
+🔹Data encryption :
+	- Protect endpoint data using tools like BiteLocker.
+	- TrueCrypt
+	- macOS disk utility.
+
+🔹Additional Security Solutions: 
+	- Cisco Threat Grid.
+	- AnyConnect, 
+	- Umbrella
+
+
+🔴 Firewall Technology: 
+-----------------------
+🔹is a security system:
+	- hardware
+	- software
+	- cloud-based
+🔹Function: Monitors and filters incoming/outgoing traffic based on security rules.
+🔹Placement: sits between a trusted and an untrused network to prevent unauthorized access.
+🔹Traffic Control: Grants or blocks access based on predefined firewalll policies.
+🔹Firewall types :
+	- Hardware
+	- Software
+	- virtual
+	- Cloud-based.
+🔹Evolution:
+	- First Generation: Used packet filtering techniques.
+	- Second generation : Introduced application-layer filtering.
+🔹Usage: 
+	- Protect both home and corporate network from cyber threats.
+
+
+🔴 Stateful firewall: 
+----------------------
+🔹State Tracking: Maintins connection states in a state table.
+🔹Packet Handling: Forwards packets after storing connection details.
+🔹Replay Matching: Checks replay packets against the state table.
+🔹Security Control: 
+	- Accept matching packets.
+	- Drops unmatched ones.
+
+🔴Next-generation firewall:
+---------------------------
+🔹NGFW enhances traditional firewalls with 
+	- application awareness 
+	- intrusion prevention
+	- cloud-based threat ontelligence.
+🔹Firewall Generations:
+	-First Gen: Packet filtering.
+	-Second Gen: Deep packet inspection.
+	-Third Gen (Next-Gen): Layer 7 filtering, user/content policies.
+	-Fourth Gen: Cloud-based security and control.
+
+
+🔴TrustSec:
+-----------
+🔹is a next-generation access control solution for managing firewall rules and ACLs.
+🔹SGT(Security Group Tag): Used for ingress tagging and engress filtering to enforce access policies.
+🔹Authentication & Authorization: Cisco ISE assigns SGT tags via 802.1x, MAB, or WebAuth.
+🔹Policy Enforcement: Access control (Allow/Drop) is applied at the egress point based on SGT tags.
+
+
+🔴MACsec(Media Access Control security):
+----------------------------------------
+🔹A L2 encryption method (IEEE 802.1AE) that encrypts traffic hop-by-hop between MACsec peers.
+🔹Encryption Scope: Traffic is encrypted only on the wire but decrypted inside switches for packet enforcement and QoS.
+🔹Hardware Acceleration: Uses onboard ASICs for encryption/decryption instead of offloading to a crypto engine like IPsec.
+🔹Frame Format: Adds a 16-byte MACsec Security Tag and a 16-byte Integrity Check Value (ICV).
+🔹Device Compatibility: All devices in the communication path must support MACsec for encryption to work.
+🔹Security Mechanisms: Uses GMAC for authentication and AES-GCM for authenticated encryption.
+
+🔴Implement 802.1X:
+-------------------
+🔹802.1X (Dot1x) is a standard developed by the IEEE 802.1 working group.
+🔹It is a port-based authentication method used for network access control at the Data Link Layer (Layer 2) of the OSI model.
+🔹EAPOL (Extensible Authentication Protocol over LANs) is used to encapsulate authentication messages.
+🔹Port-level authentication ensures that only authenticated devices can access the network.
+🔹The protocol relies on EAP (Extensible Authentication Protocol) for communication between devices.
+🔹802.1X (Dot1x) prevents unauthorized devices from accessing the network by providing port-based authentication and authorization services.
+🔹It ensures security for both wired and wireless networks at the Data Link Layer (Layer 2).
+🔹Client-server authentication protocol where devices must authenticate before accessing the network.
+🔹Initially, all traffic is blocked except for EAPoL (used for authentication), and only after successful credential verification is user traffic allowed.
+
+🔴802.1X Components - Supplicant:
+---------------------------------
+🔹The Supplicant is the user or device requesting access to the network (wired or wireless).
+🔹It can be a client, host, or workstation connected through a network access switch.
+🔹The Supplicant requests authentication to access network resources.
+🔹The device must run 802.1X client software to function as a Supplicant.
+🔹It could be any device such as a PC, printer, fax machine, or IP phone.
+🔹All Windows operating systems come with a native supplicant for wired network connections.
+
+
+🔴802.1X Components - Authentication Server:
+---------------------------------------------
+🔹The Authentication Server processes authentication requests, such as through RADIUS.
+🔹It authenticates the Supplicant (client or device) and validates its identity.
+🔹After validation, it informs the Authenticator whether to allow or deny the client's network access.
+🔹Examples of Authentication Servers include RADIUS servers like ACS.
+
+🔴Web Authentication:
+---------------------
+🔹Web Authentication allows authentication and authorization via an HTTP/HTTPS portal, redirecting users automatically to the portal.
+🔹Primarily used for guests, visitors, and as a fallback for 802.1X.
+🔹Works with both wired and wireless access.
+🔹Users are redirected to Cisco ISE for authentication, after which Cisco ISE sends a CoA request to the Network Access Device.
+🔹Ideal for interactive users with a web browser who manually enter credentials.
+🔹Requires proper configuration, such as redirection ACL and ISE authentication/authorization rules.
+🔹Typically used when clients fail authentication via Dot1x or MAB, redirecting them to the web portal.
+🔹The authorization profile on the Authentication Server determines guest login access.
+🔹CWA works alongside Dot1x and MAB.
+🔹For CWA to function, the switch must support HTTP/HTTPS services and have a redirect ACL.
+🔹CWA is often used for centralized guest authentication and authorization.
+🔹This method requires an IP address and is considered a Layer 3 (L3) authentication method.
+
+🔴MAB (MAC Authentication Bypass):
+----------------------------------
+🔹MAB allows network access control at Layer 2 using a device's MAC address instead of 802.1X authentication.
+🔹It is used for devices like printers and IP phones that don’t support 802.1X.
+🔹MAB is less secure than other methods because it can be bypassed by MAC address spoofing.
+🔹When enabled, the switch learns the MAC address from the first frame, then checks it with the authentication server (e.g., ISE).
+🔹Authentication can be based on Calling Station ID or Username & Password.
+🔹MAB is typically used for single endpoint devices and can integrate dynamic settings like ACLs or VLANs.
+🔹It can be used alone or alongside other authentication methods like 802.1X.
+
+

@@ -1,0 +1,36 @@
+🔴2.3.a LISP
+#############
+
+🔴LISP(Locator ID seperation Protocol): 
+---------------------------------------
+🔹is mapping and encapsulation protocol.
+🔹Developed to address the routing scability(capacity) issues on the internet.
+🔹Problematics:
+	-> we need more powerful routers enagh RAM and TCAM to store all prefixes in the internet routing tables.
+	-> more CPUs to process changes in the routing tables
+
+🔹With traditional IP routing, an IP address have two function:
+	1. Identity: To identify the device.
+	2. Location: the location of the device in he network, we use this for routing.
+
+🔹LISP separates these two functions of an IP address into two seperate functions:
+	1. (EID)Endpoint identifier: Assigned to hosts like computers, laptop, printers ...
+	2. (RLOC)Routing Locators: Assigned to routers. (we use the RLOC address to reach EIDs)
+
+
+🔹Cisco creat LISP:
+	-> but its an open standard(RFC 6830).
+🔹Designed for the internet but also you can see it in datacenters, WAN, Campus.
+
+🔴LISP Overview: 
+----------------
+🔹LISP is a map and encapsulation protocol.
+🔹three essentiam environments in a LISP environment:
+	-> LISP sites: EIS namespace(where EIDs are).
+	-> non-LISP sites: This is the RLOC namespace where we find RLOCs(ex: Internet).
+	-> LISP mapping service:is the infrastructure that takes care of EID-to-RLOC mappings.
+
+🔴LISP Control Plane: 
+---------------------
+🔹similar to DNS(DNS resolves a hostname to an IP address)
+🔹LISP resolves an EID to and RLOC.

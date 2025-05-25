@@ -1,0 +1,13 @@
+🔴Eigrp Path Selection Optimization
+###################################
+
+
+🔴EIGRP Metric : 
+----------------
+🔹To change the BW of an interface :
+	CLI(config-if)#bandwidth 1000
+
+
+
+
+	

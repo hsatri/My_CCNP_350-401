@@ -1,0 +1,38 @@
+🔴3.4.b Configure NAT/PAT 
+#########################
+
+
+🔴NAT(Network Address Translation) : 
+------------------------------------
+🔹Translates Private IP @ into Public IP@.
+🔹in Local Network we need tohave public @ IP to connect with internet.
+🔹Nat is going to take private IP and translate to public IP address.
+
+🔴NAT solve two problems : 
+---------------------------
+🔹To handle a shortage of IPV4 addresses.
+🔹Hide network addressing schemes.
+
+🔴Types of NAT : 
+----------------
+🔹Static NAT.
+	-> allow one-to-one mapping between local and global address.
+	-> is Biritrectional .
+	-> allows connections from an outside host to an inside host.
+	-> 
+🔹Dynamic NAT.
+	-> One-to-many.
+	-> is used when we have a "pool" of public IP @ .
+🔹PAT.
+	-> map multiple private IP address to a single public IP.
+	-> using port address translation.
+	-> there port mapping are kept in a table. 
+
+
+🔴Inside/outside address:
+	🔹inside local
+	🔹inside global
+	🔹outside global
+	🔹inside global
+	
+	SRV1----MICROSOFT------------R1-|-PC01
