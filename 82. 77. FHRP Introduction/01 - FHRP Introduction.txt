@@ -1,0 +1,34 @@
+🔴3.4.c Configure first hop redundancy protocols, such as HSRP, VRRP 
+#####################################################################
+
+🔴Redundancy : -> 
+---------------
+🔹(Redundancy, failover, HA, Clustring, RAID, Fault-tolerance)
+🔹is basically extra hardware/software that can be used as backup.
+🔹is method for ensuring network availabilty in case of network device or path-failure/unavailability.
+🔹HA(High availabilty)
+	->is a feature provices (Redundancy, Fault-tolerance) automatically.
+	->is a number of connected devices processing and providing a services. 
+🔹to ensure this service is always avalailbe even in the event of a failure or down.
+🔹allow company to connect their network to more than one ISP.
+	-> eliminate single point of failure and would re-assure availability and reliability.
+🔹RAID: is a fault tolerance solution for hard drives .
+
+🔴FHRP : -> First Hop Redundancy Protocols 
+-------------------------------------------
+🔹provides Redundancy for the function of the default router in any subnet.
+🔹support a failure and allow the network to keep connecting .
+🔹it allow default gateway Redundancy, that is having more than one default gateway enabvled, if one GW fail other GW start running.
+🔹is a Virtual default GW to the organizations network to provide a near 100% Network uptime.
+🔹Prevent network failure at a default GW.
+🔹configuring same Virtual ip@/MAC@ all routers.
+
+
+🔴FHRP Protocols: 
+-----------------
+1- HSRP
+2- VRRP
+3- GLBP
+
+🔴FHRP Working: 
+---------------

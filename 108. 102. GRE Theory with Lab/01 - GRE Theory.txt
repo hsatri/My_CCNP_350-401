@@ -1,0 +1,117 @@
+🔴2.2.b GRE and IPsec tunneling
+################################
+
+🔴Remarks : 
+------------
+🔹IPSEC DOESNT SUPPORT MULTICAST ADDRESS -> we cant configure dynamic protocls
+
+🔴GRE(Generic Routing Encapsulation) : 
+--------------------------------------
+🔹Tunneling protocol by cisco
+🔹is the mechanism that encapsulate oneprotocol in another protocol.
+🔹Tunneling(encapsulation):
+	-> is a concept where we put packets into packets so that they can be transported over certain networks. 
+	-> hide the packet and transported over certain networks.
+🔹Tunnel IP packets between two end points.
+🔹support IPV4 broadcast & Multicast Traffic.
+🔹no Encryption.
+
+
+🔴IPsec(Internet Protocol Security) : 
+--------------------------------------
+🔹Is a framework that helps us to protect IP traffic on the network layer.
+🔹Open Standard
+🔹enable secure and encrypted communication.
+🔹Encrypting and Authenticating IP packets.
+
+🔴IPsec Features: 
+-----------------
+🔹Confidentiality.
+🔹Integrity.
+🔹Authentication.
+🔹Anti-replay.
+
+🔴Confidentiality: 
+-------------------
+🔹To ensure no one read our data.
+
+🔴Integrity: 
+------------
+🔹make sure nobody changes the data .
+🔹calculating a hash value, [sende/receiver -> check if changes have been made to the data].
+
+🔴Authentication: 
+-----------------
+🔹sende/receiver --> authenticate each other.
+
+🔴Anti-replay: 
+--------------
+🔹Even if a packet is encrypted and authenticated, an attacker could try to capture these packets and send them again.
+🔹By using sequence numbers, ipsec will not transmit any duplicate packets.
+
+🔴IPsec using: 
+--------------
+🔹Encryption : DES, 3DES, AES.
+🔹Authentication: MD5, SHA.
+🔹Used on (ROUTERS, FIREWALLS, HOSTS, SERVERS).
+🔹IKE(Internet Key Exchange): Etablish an IPsec tunnel.
+
+🔴There are two phases to Build an IPsec tunnel: 
+------------------------------------------------
+🔹IKE Phase 1:
+	-> Negotiate about (encryption, authentication, hashing, others...).
+	-> ISAKMP(Internet Security Association and Key Management Protocol) session is established.
+	-> SA(Security Association): The collection of parameters that two devices will use.
+	-> used for management traffic.
+
+🔹IKE Phase 2:	transfer DATA
+	-> Once Phase2 is completed -> we have an IKE phase 2 tunnel.
+
+
+🔴ESP(Encapsulation Security Payload): 
+--------------------------------------
+🔹Authentication.
+🔹Integrity.
+🔹Encryption.
+🔹Anti-Replay
+🔹DES, 3DES, AES --> Data Encryption
+🔹Provides all IPsec features.
+🔹IP Protocol Nmbr : 50.
+🔹Work with NAT (NAT-T).
+🔹TWO Modes:
+	+ Transport Mode:
+		-> Uses the original IP header and insert ESP header
+	+ Tunnel Mode:
+		-> Uses a new IP header -> which is useful for site-to-site VPNs.
+		-> Same to transport mode but add new header, original header is also encrypted.
+
+🔴AH(Authentication Header): 
+----------------------------
+🔹Authentication.
+🔹Integrity.
+🔹Anti-Replay
+🔹No Encryption.
+🔹IP Protocol Nmbr : 51.
+🔹doesnt Work with NAT.
+🔹TWO Modes:
+	+ Transport Mode:
+		-> adds AH header after the IP header.
+	+ Tunnel Mode:
+		-> Uses a new IP header on top of the original IP packet.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

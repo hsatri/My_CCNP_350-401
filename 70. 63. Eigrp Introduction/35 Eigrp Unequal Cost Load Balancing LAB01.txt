@@ -1,0 +1,88 @@
+🔴35 Eigrp Unequal Cost Load Balancing LAB01
+############################################
+
+
+🔴Basic Config : 
+----------------
+! R1 Configuration
+en
+conf t
+hostname R1
+interface e0/0
+ip add 192.168.10.1 255.255.255.252
+no shut
+interface e0/1
+ip add 192.168.30.1 255.255.255.252
+no shut
+int e0/2
+no shut
+ip add 192.168.20.1 255.255.255.252
+
+
+! R5 Configuration
+en
+conf t
+hostname R5
+interface e0/0
+ip add 192.168.40.1 255.255.255.252
+no shut
+interface e0/1
+ip add 192.168.50.1 255.255.255.252
+no shut
+int e0/2
+no shut
+ip add 192.168.60.1 255.255.255.252
+int lo 0
+ip add 5.5.5.5 255.255.255.255
+
+! R2 Configuration
+en
+conf t
+hostname R2
+interface e0/0
+ip add 192.168.10.2 255.255.255.252
+no shut
+interface e0/1
+ip add 192.168.50.2 255.255.255.252
+no shut
+
+! R3 Configuration
+en
+conf t
+hostname R3
+interface e0/0
+ip add 192.168.30.2 255.255.255.252
+no shut
+interface e0/1
+ip add 192.168.40.2 255.255.255.252
+no shut
+
+
+! R4 Configuration
+en
+conf t
+hostname R4
+interface e0/0
+ip add 192.168.20.2 255.255.255.252
+no shut
+interface e0/1
+ip add 192.168.60.2 255.255.255.252
+no shut
+
+🔴Eigrp Config : 
+----------------
+! Routing EIGRP Configuration
+en
+conf t
+router eigrp 1
+network 0.0.0.0
+no auto-summary
+
+🔴Verification : 
+----------------
+
++ show ip eigrp traffic
++ show ip eigrp topology
++ To check the variacnce 
+	show ip protocols
+

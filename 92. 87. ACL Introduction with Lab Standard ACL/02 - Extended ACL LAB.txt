@@ -1,0 +1,93 @@
+🔴Show commands: 
+--------------------
+🔹show access-list 
+
+
+🔴Part 1 Simple configuration for each network : 
+-------------------------------------------------
+! R1 configuration 
+
+en
+conf t
+hostname R1
+int g0/0
+ip add 1.1.1.1 255.255.255.252
+no shut
+
+int g0/1
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+
+ip dhcp pool LAN01
+network 192.168.1.0 255.255.255.0
+default-router 192.168.1.1
+exit
+
+router ospf 1
+int range g0/0-1
+ip ospf 1 area 0
+
+
+-----------------------------------
+
+! R2 configuration 
+
+en
+conf t
+hostname R2
+int g0/0
+ip add 1.1.1.2 255.255.255.252
+no shut
+
+int g0/1
+ip add 172.16.2.1 255.255.255.0
+no shut
+exit
+
+
+router ospf 1
+int range g0/0-1
+ip ospf 1 area 0
+
+
+🔴Part 2: Block PC0 to access webserver(SRV01) and PC01 to access HR server: 
+--------------------------------------------------------------------
+! R1 configuration 
+en
+conf t
+
+access-list 100 deny tcp host 192.168.1.2 host 172.16.2.2 eq 80 
+access-list 100 deny tcp host 192.168.1.2 host 172.16.2.2 eq 443
+access-list 100 deny tcp host 192.168.1.3 host 172.16.2.3 eq 80 
+access-list 100 deny tcp host 192.168.1.3 host 172.16.2.3 eq 443
+access-list 100 permit ip any any
+
+int g0/1
+ip access-group 100 IN
+
+
+!Verfication PC0:
+================
+C:\>telnet 172.16.2.2 80
+Trying 172.16.2.2 ...
+% Connection timed out; remote host not responding
+C:\>telnet 172.16.2.2 443
+Trying 172.16.2.2 ...
+% Connection timed out; remote host not responding
+C:\>telnet 172.16.2.3 80
+Trying 172.16.2.3 ...Open
+
+
+!Verfication PC1:
+================
+C:\>telnet 172.16.2.3 80
+Trying 172.16.2.3 ...
+% Connection timed out; remote host not responding
+C:\>telnet 172.16.2.3 443
+Trying 172.16.2.3 ...
+% Connection timed out; remote host not responding
+C:\>telnet 172.16.2.2 80
+Trying 172.16.2.2 ...Open
+
+

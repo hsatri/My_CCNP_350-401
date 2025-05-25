@@ -1,0 +1,29 @@
+🔴OSPF Metric:
+--------------
+🔹OSPF used COST as a metric -> based on BW of an interface.
+🔹Formula : COST = Referance BW / Interface BW
+		Referance BW -> 10Mbit = 10^8
+🔹The Lower cost is the best path.
+🔹if two âths is equal cost -> ospf will use both paths and do a load balance .
+	ex : f0/0 and f0/1 --> router will send 50Mbps via f0/0 and 50 via f0/1 to a DST.
+
+
+🔴OSPF Cost Table:
+------------------
+
+| Link Bandwidth (bps)     | OSPF Cost  |
+|--------------------------|------------|
+| 1 Mbps                   | 100,000    |
+| 10 Mbps                  | 10,000     |
+| 100 Mbps                 | 1,000      |
+| 1 Gbps (1,000 Mbps)      | 100        |
+| 10 Gbps (10,000 Mbps)    | 10         |
+| 100 Gbps (100,000 Mbps)  | 1          |
+
+🔴Formula for OSPF Cost:
+------------------------
+OSPF Cost = 10^8 / Link Bandwidth (bps)
+
+
+⚙️Show commands :
+	#show interface f0/0

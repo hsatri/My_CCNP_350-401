@@ -1,0 +1,126 @@
+🔴1.5 Interpret wired and wireless QoS configurations
+	1.5.a QoS components
+	1.5.b QoS policy
+#######################################################
+
+
+🔴QoS(Quality of Service): 
+--------------------------
+🔹is feature which prioritizes traffic --> more important traffic can pass first.
+🔹allow us to [queue | limit | filter | reservations for our network traffic].
+🔹without QoS, Router/Switches dont care about the tpe of the traffic they only check the rout,g table to forward it or Mac add src/dst, 
+🔹Using Tools to change how the R/S deals with the different packets.
+🔹Referes to any technologythat manages data traffic to refuce packet loss, letency and jitter on the network.
+🔹Controls and manages network resources by setting priorities for specific types of data on the netwrok.
+
+🔴Converged Networks: 
+----------------------
+🔹On old networks: [DATA, Voice, Video] had their own separete network infrastructure and did not impact each other.
+🔹On modern networks: [DATA, Voice, Video] run over the same shared infrastructure.
+🔹enable cost saving | advabced features for voice and video.
+🔹[DATA, Voice, Video] -> fighting for all same shared BW.
+🔹FIFO (First In Firt Out) : enabled by default.
+🔹Congestion can be experienced wherever it is possible for packets to come in quicker than they can be sent out.
+	➤ Congestion auses delay to packets as they wait in the queue.
+🔹Voice and Video calls and other application will be unaccepteable quiality if they do not meet their delay, jitter and loss requirements.
+
+📌How to Mitigate Congestion and to solve congestion problem?
+-------------------------------------------------------------
+	➤ Add more BW -> cost money
+	➤ Use QoS Techniques to give better service to the traffic which needs it.
+
+🔴Effects of QoS Queuing: 
+-------------------------
+🔹Reduce latency, jitter, loss for particular traffic.
+🔹if we are giving on type of the trafic better service on the same link , the other traffic type must get wrose service.
+🔹the point is to give each type of traffic the service it requires.
+🔹to mitigate temporary period of congestion, if a link is permanently congested the BW should be increased.
+
+
+🔴QoS Terminologie: 
+--------------------
+🔹BW:
+	➤ Refers to the speed of a link or interface 
+	➤ capacity of the link.
+	➤ is measure in 'bit/s'
+
+🔹Congestion:
+	➤ Causes the delay or latency
+	➤ occur when interface experiences more traffic that it can handle.
+
+🔹Delay:
+	➤ Delay/latency refers to time it takes for packet to travel from SRC to DST.
+	➤ there are 2 types:	
+		- Fixed delay
+		- Variable 
+
+🔹Jitter:
+	➤ Variation in delay.
+	➤ is defined as a variationin in the delay of received packets
+	➤ is the irregular time delay in the sending of the data packet over network.
+
+🔹latency(Delay):
+	➤ is the time required by a data packet to reach the DST from the SRC.
+
+🔹Packet Loss:
+	➤ we have loss of packet when we have congestion and dont do QOS mechanisms (Drops).
+
+🔹Voice:
+	➤ Voice is very sensitive to delay and dropped packets. --> 
+	➤ not possible to retransmit voice packet loss.
+	➤ we need to take care for voice packets must receive a higher priority 
+
+🔹Videos:
+	➤ its also important without QoS significan amount of extra BW capacity videoquality degrades.
+
+🔹DATA:
+	➤ data application that have no tolerance for data loss, (email, web, ...) its use TCP toensure that if the data packets are lost in the transit they will be resent.
+
+
+🔴Classification and Marking: 
+-----------------------------
+🔹R/S give a particular level of service to a type f traffic --> (recognize that traffic first)
+🔹common way ti recognize the traffic are by :
+	➤ COS(Class Of Service): for L2 marking.
+	➤ DSCP(Differentiated Service Code Point): Marking L3 and ACL or NBAR(Network Based Application Recognition)
+ 
+
+🔴L2 Marking - COS: 
+--------------------
+🔹L2 [802.1q frame header]
+	- There is 3bits[0 to 7]
+	- 0 : Best Effort traffic.
+	- 6|7 : reserved use like Routing protocol and network control traffic.
+🔹IP Phones call : COS3
+🔹Voice payload(spoking voice): COS5
+
+
+🔴L3 Marking - DSCP(Differentiated Service Code Point): 
+-------------------------------------------------------
+🔹L3 -- IP header
+🔹6 bits 
+	-> 64possible values.
+	-> default value is 0.
+	-> 0 : Best effort traffic -> 
+	-> Mark DSCP = 0 mean that traffic not gets any special services.
+🔹IP Phones:	
+	-> mark 24
+	-> DSCP 24 is also known as CS3.
+	-> Voice payload as 45[45 = EF]
+🔹other standard marking:
+	-> 26(AF31): mission critical data.
+	-> 34(AF41): SD Video.
+
+🔹Verfy quickly --> gather the infor from a single byte in the IP header.
+
+
+
+
+
+
+
+
+
+
+
+

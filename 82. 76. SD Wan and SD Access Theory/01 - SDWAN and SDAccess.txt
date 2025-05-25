@@ -1,0 +1,175 @@
+🔴
+1.3 Explain the working principles of the Cisco SD-WAN solution
+1.3.a SD-WAN control and data planes elements
+1.3.b Benefits and limitations of SD-WAN solutions
+1.4 Explain the working principles of the Cisco SD-Access solution
+1.4.a SD-Access control and data planes elements
+1.4.b Traditional campus interoperating with SD-Access
+########################################################################################
+
+
+🔴 What is network capacity planning: 
+-------------------------------------
+🔹ensure that the network as the resources it need to prevent an impact on busniness-critical applications.
+🔹overlay network(Virtual network) -> build over an underlay network(physical network) such as VXLAN.
+🔹 1. Traditional Networks vs. Fabric Networks
+	+ Traditional physical networks have limitations.
+	+Fabric networks solve these by enabling:	
+		- Host mobility --> (a host can move around the network devoice without losing connection).
+		- Automation
+		- Virtualization.
+		- Segmentation.
+		- They are more secure, flexible, scalable, and easier to manage.
+
+🔹 2. Cisco SD-Access & SD-WAN (Modern Fabric Solutions)
+	+ SD-Access: Built for enterprise campus and branch networks.
+	+ SD-WAN: Built for WAN and data center networks.
+
+🔹 3. Cisco DNA
+	+ Cisco's intent-based networking system.
+	+ Uses SD-Access for:
+		- Policy-based segmentation
+		- Wired/wireless host mobility
+		- Full automation and security
+
+🔹 4. Network Design Purpose
+	+ SD-Access: Not suitable for data centers, service providers, or WANs.
+	+ SD-WAN: Fills this gap with a cloud-based WAN solution for:
+		- Enterprises
+		- Data centers
+
+🔹 5. Changing Traffic Patterns
+	+ Cloud services (SaaS/IaaS like AWS, Office 365, Azure) shifted traffic toward the cloud and Internet.
+	+ This shift demands new WAN features:
+		- Better security
+		- Cloud connectivity
+		- Performance optimization
+		- Modern management and operations
+
+⚙️ Router and Switch Plan (Traditional Network Plan) :
+-----------------------------------------------------
+🔹In traditional networking, every network device (like a router or switch) has :
+🧠 1. Control Plane
+➡️ This is the brain of the device.
+	+ Makes decisions about:
+		- Where to send traffic
+		- Building the routing table (using routing protocols like OSPF, BGP, etc.)
+	+ Each router or switch decides things independently
+	+ Example: When to forward a packet, which route is best, etc.
+
+🚛 2. Data Plane (Forwarding Plane)
+➡️ This is the muscle of the device.
+	+ Forwards the actual data/packets based on the control plane’s decisions.
+	+ Reads the routing or MAC table and sends packets accordingly.
+	+ Works fast but doesn’t "think" — just executes.
+
+📣 3. Management Plane
+	+ Used for configuring the device (like SSH, SNMP, CLI).
+	+ Not involved in routing/forwarding traffic.
+
+🔴 What is SDN?
+---------------
+🔹Software Defined Networking separates the Control Plane from the Device.
+➡️ Instead of each router/switch making its own decisions,
+➡️ A central software controller makes all the decisions.
+	+ Routers/switches just forward packets (they become simpler, called data plane devices).
+	+ The controller is smart and centralized (control plane logic lives there).
+
+
+🔴 What is SD-WAN?
+------------------
+🔹SD-WAN (Software-Defined Wide Area Network) applies SDN principles to the WAN.
+	➡️ It connects multiple networks (branches, HQs, data centers, cloud) using the Internet and central software control instead of manual device configuration.
+
+🔴 Key Concepts:
+----------------
+1. Software-Based Control:
+   - Centralized controller manages the WAN.
+   - No need to configure each device manually.
+
+2. SD-WAN Architecture Layers:
+   - Application Layer: Understands and prioritizes apps.
+   - Controller Layer: Centralized decision-making.
+   - Infrastructure Layer: Routers/switches forwarding traffic.
+
+Major Benefits:
+---------------
+- Lower cost (uses Internet links instead of expensive MPLS)
+- Transport-independent (works over broadband, LTE, MPLS, etc.)
+- Better app performance (application-aware routing)
+- End-to-end encryption for security
+- Zero-touch deployment (auto-configures branch devices)
+- Automated monitoring and failover
+- Integration with cloud services (AWS, Azure, etc.)
+- Flexible and easy to scale
+
+Traditional WAN vs SD-WAN:
+--------------------------
+| Traditional WAN            | SD-WAN                            |
+|----------------------------|-----------------------------------|
+| Manual setup               | Automated setup                   |
+| Expensive MPLS lines       | Uses broadband or LTE             |
+| Difficult to scale/manage  | Centralized, software-controlled  |
+| Not cloud-friendly         | Built for cloud integration       |
+| Limited visibility         | Full app-level visibility         |
+
+
+🔴 1.4 Explain the working principles of the Cisco SD-Access solution :
+-----------------------------------------------------------------------
+
+What is Cisco SD-Access?
+-------------------------
+Cisco SD-Access (Software-Defined Access) is an enterprise networking solution that:
+- Simplifies network design and operation
+- Automates policy enforcement
+- Provides secure segmentation and user mobility
+
+It's part of Cisco DNA (Digital Network Architecture) and uses SDN principles.
+
+Key Components:
+---------------
+1. **DNA Center** (Controller):
+   - Central management and automation platform
+   - Pushes configuration to network devices
+   - Provides assurance, monitoring, and analytics
+
+2. **Fabric** (Underlay + Overlay):
+   - Underlay: Physical network (routers/switches)
+   - Overlay: Virtual network built using VXLAN for segmentation
+
+3. **Control Plane (LISP)**:
+   - Locator/ID Separation Protocol (LISP) maps users/devices to locations
+   - Handles host mobility – users keep policies even when they move
+
+4. **Policy Plane (ISE)**:
+   - Cisco Identity Services Engine (ISE) applies policies based on identity, role, and device type
+
+5. **Data Plane (VXLAN)**:
+   - Virtual Extensible LAN enables Layer 2 and Layer 3 tunneling across the fabric
+   - Enables segmentation (Sgt tagging) and secure communication
+
+Working Principles:
+-------------------
+- Devices (wired or wireless) connect to edge nodes (fabric switches)
+- Fabric edge node registers the device in the control plane using LISP
+- DNA Center and ISE apply security policies based on identity
+- VXLAN tunnels carry the traffic across the network
+- End-to-end segmentation is maintained for security
+- Users can move within the network while keeping their access and policies
+
+Key Benefits:
+-------------
+✓ Simplified network automation and configuration  
+✓ Identity-based policy enforcement  
+✓ Secure segmentation without VLAN sprawl  
+✓ User/device mobility with consistent access  
+✓ Centralized visibility, monitoring, and assurance  
+
+Summary:
+--------
+Cisco SD-Access = Simplified, Secure, Automated Campus Networking
+
+- Uses SDN controller (DNA Center)
+- Supports host mobility and segmentation
+- Uses LISP, VXLAN, and ISE for dynamic, policy-based networking
+

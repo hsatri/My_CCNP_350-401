@@ -1,0 +1,104 @@
+🔴27 ERSPAN LAB
+################
+
+🔴Basic Configuration:
+----------------------
+! R1
+en
+conf t
+hostname R1
+
+int e0/0
+no shut
+ip add 192.168.1.1 255.255.255.0
+int e0/1
+no shut 
+ip add 192.168.12.1 255.255.255.0
+exit
+ip route 0.0.0.0 0.0.0.0 e0/1
+
+! R2
+en
+conf t
+hostname R1
+
+int e0/0
+no shut
+ip add 172.16.18.1 255.255.255.0
+int e0/1
+no shut 
+ip add 192.168.2.1 255.255.255.0
+exit
+int e0/2
+no shut 
+ip add 192.168.12.2 255.255.255.0
+exit
+ip route 0.0.0.0 0.0.0.0 e0/2
+
+
+====================================
+🔴ERSPAN CONFIGURATION ON THE SWITCH: 
+====================================
+! R1 ERSPAN CONFIGURATION
+en
+conf t
+monitor session 1 type erspan-source
+source interface e0/0 both
+no shut
+destination
+erspan-id 10
+ip address 172.16.18.2
+origin ip add 192.168.12.1
+
+
+!R2 ERSPAN CONFIGURATION
+en
+conf t
+monitor session 1 type erspan-destinaion
+no shut
+destination interface e0/0
+source
+erspan-id 10
+ip address 172.16.18.2
+
+🔴Verification: 
+---------------
+SW2#show monitor session 1
+Session 1
+---------
+Type                     : Remote Source Session
+Source Ports             :
+    Both                 : Et0/0
+Dest RSPAN VLAN        : 200
+
+
+SW1#show int ether0/2
+Ethernet0/2 is up, line protocol is down (monitoring)
+  Hardware is Ethernet, address is aabb.cc00.5020 (bia aabb.cc00.5020)
+  MTU 1500 bytes, BW 10000 Kbit/sec, DLY 1000 usec,
+     reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, loopback not set
+  Keepalive set (10 sec)
+  Full-duplex, Auto-speed, media type is RJ45
+  input flow-control is off, output flow-control is unsupported
+  ARP type: ARPA, ARP Timeout 04:00:00
+  Last input never, output 00:00:10, output hang never
+  Last clearing of "show interface" counters never
+  Input queue: 0/2000/0/0 (size/max/drops/flushes); Total output drops: 0
+  Queueing strategy: fifo
+  Output queue: 0/0 (size/max)
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 no buffer
+     Received 0 broadcasts (0 multicasts)
+     0 runts, 0 giants, 0 throttles
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored
+     0 input packets with dribble condition detected
+     640 packets output, 50281 bytes, 0 underruns
+     0 output errors, 0 collisions, 0 interface resets
+     0 unknown protocol drops
+     0 babbles, 0 late collision, 0 deferred
+     0 lost carrier, 0 no carrier
+     0 output buffer failures, 0 output buffers swapped out
+
+

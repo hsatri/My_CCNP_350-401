@@ -1,0 +1,89 @@
+🔴Dynamic Routing Protocols:
+----------------------------
+🔹Dynamic Routing Protocols allow routers to automatically share and update route information.
+🔹Routers advertise the best paths to known networks and update their routing tables when network changes occur.
+🔹If a link goes down or a new subnet is added, routers dynamically recalculate and update their routes.
+🔹This eliminates the need for manual route configuration by administrators.
+
+🔴Types of Routing Protocols:
+-----------------------------
+🔹Interior Gateway Protocols (IGPs) – Used within an organization (e.g., OSPF, EIGRP).
+🔹Exterior Gateway Protocols (EGPs) – Used between organizations over the Internet.
+	-> The only EGP in use today is BGP (Border Gateway Protocol).
+
+
+🔴Dstance Vector routing protocols:[RIP1, RIP2]
+-----------------------------------
+🔹works with Bellman ford algorithm.
+🔹periodic updates.
+🔹class full
+🔹Full routing tables are exchanged
+🔹updates are through multicast.
+
+
+🔴Link State Routing Protocols:
+-------------------------------
+🔹Use Dijkstra's algorithm to compute the best path.
+🔹Continuously update link state information.
+🔹Classless routing protocol.
+🔹Exchanges only missing routes and updates via multicast.
+🔹Examples: OSPF, ISIS.
+
+🔴Interior Gateway Protocols (IGPs):
+------------------------------------
+🔹Advertise routes within an organization and determine the best path.
+🔹Organizations typically choose one IGP, but multiple IGPs can be redistributed.
+🔹A router selects the best path and updates the routing table accordingly.
+
+🔴Metric in Routing:
+--------------------
+🔹Each path is assigned a metric to determine preference.
+🔹The lowest metric value is preferred.
+🔹Distance Vector protocols share networks and their metrics with neighbors.
+🔹Link State protocols share complete link information within an area.
+🔹If the best path is lost, it is replaced by the next best route.
+🔹RIP: uses hop count as its metric.
+🔹Max hop count is 15 - paths which are more than 15 hops are marked as unreachable.
+🔹OSPF : use cost -> calculated by default from the BW of the interface.
+🔹EIGRP: used the BW and Delay of links to callucate the metric.
++------------+-----------------------+
+| Protocols  | Metric                |
++------------+-----------------------+
+| Static     | Administrator decides |
+| OSPF       | Cost                  |
+| RIP        | Hop Counts            |
+| EIGRP      | Bandwidth and Delay   |
+| BGP        | Path Counts           |
++------------+-----------------------+
+
+🔴ROUTING INFORMATION PROTOCOL V1(RIP V1): LAB: [01 RIP V1]
+------------------------------------------
+	🔹OPEN Standard.	
+	🔹Class full
+	🔹update are Broadcast 255.255.255.255.
+	🔹Metric is hop count(max 15).
+	🔹used for small network
+	🔹exchange entire routing table for every 30sec
+	🔹Update timer = 30sec
+	🔹invalid times = 180 sec
+	🔹 flush times = 240 sec.
+
+	⚙️Configuration :
+	CLI(config)#router rip
+	CLI(config)#netwrk (netwrk-classfull)
+
+🔴ROUTING INFORMATION PROTOCOL V2(RIP V2): LAB: *
+------------------------------------------
+	🔹Class less(Support VLSM).	
+	🔹suppport authentication.
+	🔹Uses Multi cast @ 224.0.0.9.
+
+
+	⚙️Configuration :
+	CLI(config)#router rip
+	CLI(config-router)#version 2
+	CLI(config-router)#no auto-summary
+	CLI(config-router)#netwrk (network)
+
+
+	

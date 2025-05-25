@@ -1,0 +1,131 @@
+🗂️STP:
+======
+	+ avoid looping.
+	+ uses STA(spanning-tree algorithm) -> to prevent L2 loops
+	+ Open
+
+
+🔴Election : 
+------------
+	+ 30 sec :
+		-> 15 sec : listening
+		-> 15 sec : learning
+	+ king switch / root bridge
+		1. Priority (default = 32768 + (vlan ID))
+		2. the lowest MAC Address
+		* all port in FWD state
+		* Designated role for his ports
+		* The ports that linked with the root bridge interfaces are called the root port
+
+🔴Without STP:
+--------------
+	+ Broadcast Storm
+	+ MAC Database Instability
+	+ Multiple Frame Transmission.
+
+🔴Switch Priority:
+------------------
+	+ By default all cisco SW had a (Bridge/Switch)priority value = 32768.
+	+ Bridge priority decides which switc hcan become RB.
+	+ Switch with the lowest priority become the root SW. 
+
+🔴How STP is working:
+---------------------
+	+ STP SELECTING Root Bridge:	
+		1. Lowest priority: 
+			- default : 32768 + (vlan_id)
+		2. Lowest MAC @:
+	+ All SWs exchange information that is called BPDU(Bridge Protocol Data Units)  --> Switches send it every  [2sec].
+	+ on all switches in NEWORK we have :
+		1 = is elected as Root Bridge.
+		other = Non Root bridge. --> recieve updates from the root bridge and update their STP DB.
+
+🔴BPDU(Bridge Protocol Data Unit):
+----------------------------------
+	+ Types:
+		1. Configuration BPDU (Type 0x00)	
+			-> Used for root bridge election and STP topology maintenance.
+		2. Topology Change Notification (TCN) BPDU (Type 0x80)
+			-> Used to inform the root bridge of a topology change.
+		!3. TCA(Topology change Notification Acknowledgment).
+	+ BPDU frames contain infos (switch ID/ Mac address / switch port priority/switchport cost...)
+	
+🔴STP Timers :
+--------------
+	+ Hello Time – Default 2s (BPDU sent interval by Root Bridge).
+	+ Max Age – Default 20s (BPDU expiration time if no update is received).
+	+ Forward Delay – Default 15s (Time spent in Listening and Learning states).
+	⏳ Total Convergence Time (Default) = 50s (20s Max Age + 15s Listening + 15s Learning).
+
+	🔹 RSTP (802.1w) reduces these timers for faster convergence.
+
+🔴Port Priority:
+----------------
+	+ all switch port has by default 128.x
+		-> .x is the port Number. 
+
+🔴Interfaces COST:
+------------------
+	+ 10 Mbps = 100
+	+ 100 Mbps = 19
+	+ 1 GBPS = 4
+	+ 10 Gbps = 2
+
+🔴Types of the port rols:
+-------------------------
+	+ Root:
+	+ Desg:
+	+ Altr:
+	+ Blk(blocking port):--> also called non forwarding ports.
+
+🔴STP Port states:
+------------------
+	+ Listening 15sec
+		-> After(blockeing state/root port/disgnited ) port will move to listening state.
+		-> port discards frames received from attached network segment.
+		-> port discard frames switched from another port for forwarding.
+		-> after 15sec the port moved to the learning state.
+	+ Learning 15 sec
+		-> only(root port/designated ports) enter into learning state from listening.
+		-> during learning, the port is listening for and processing BPDUs. -> the port begins to process the user frames.
+		-> the port start updating the MAC address table.
+		->
+	+ Blocking 20 Sec
+		->
+		! when we have 2 links we are checking the hights prerite number [default 128.x  - .x is the port Number. ]
+	+ Forwarding No Limits.
+		->
+	+ Disable No Limits.
+
+🔴show commands for STP:
+------------------------
+	+ show spanning-tree
+	+ show spanning-tree vlan 1
+	+ show mac address-table
+	+ show spanning-tree summary
+
+🔴Config commands for STP:
+--------------------------
+	+ spanning-tree vlan 10 priority 4096
+	+ SW01(config)#spanning-tree vlan 1 Hello-time <1-10>
+	+ SW01(config)#spanning-tree vlan 1 forward-time <4-30>
+	+ SW01(config)#spanning-tree vlan 1 max-age <6-40>
+
+
+🔴 PVST+:
+---------
+	+ Per VLAN Spanning Tree Plus.
+	+ 
+
+🔴 RPVST+ (Rapid Per-VLAN ST Plus):
+-----------------------------------
+	+ Enhanced version of the PVST+.
+	+ allow for faster 
+	+ to enable it :
+		CLI(config)#spanning-tree mode rapid-pvst
+
+
+
+
+
+
