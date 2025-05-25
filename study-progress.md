@@ -6,8 +6,8 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 
 ## 1.0 Architecture (15%)
 
-- [ ] 1.1 Explain enterprise network design principles (2-tier, 3-tier, fabric, cloud)
-- [ ] 1.1.b High availability: redundancy, FHRP, SSO
+- [x] 1.1 Explain enterprise network design principles (2-tier, 3-tier, fabric, cloud)
+- [x] 1.1.b High availability: redundancy, FHRP, SSO
 - [ ] 1.2 Wireless design principles (deployment models, location services, density)
 - [ ] 1.3 Cisco SD-WAN principles (control/data plane, benefits/limits)
 - [ ] 1.4 Cisco SD-Access principles (integration with traditional campus)
@@ -18,9 +18,9 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 
 ## 2.0 Virtualization (10%)
 
-- [ ] 2.1 Device virtualization (Hypervisors, VMs, vSwitching)
-- [ ] 2.2 Configure/verify data path virtualization (VRF, GRE, IPsec)
-- [ ] 2.3 Network virtualization (LISP, VXLAN)
+- [x] 2.1 Device virtualization (Hypervisors, VMs, vSwitching)
+- [x] 2.2 Configure/verify data path virtualization (VRF, GRE, IPsec)
+- [x] 2.3 Network virtualization (LISP, VXLAN)
 
 ---
 
@@ -34,8 +34,8 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 
 ### Layer 3
 
-- [ ] 3.2.a Compare EIGRP vs OSPF
-- [ ] 3.2.b Configure simple OSPFv2/v3 (multiple areas, summarization, passive-interface)
+- [x] 3.2.a Compare EIGRP vs OSPF
+- [x] 3.2.b Configure simple OSPFv2/v3 (multiple areas, summarization, passive-interface)
 - [ ] 3.2.c Configure eBGP between directly connected neighbors
 - [ ] 3.2.d Describe policy-based routing
 
