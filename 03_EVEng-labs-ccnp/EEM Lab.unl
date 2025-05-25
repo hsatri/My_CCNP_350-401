@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<lab name="EEM Lab" id="2512cef7-ac08-4f6d-8176-56a84c0743bb" version="1" scripttimeout="300" lock="0">
+  <topology>
+    <nodes>
+      <node id="1" name="R1" type="dynamips" template="c7200" image="c7200-js-mz.122-28.SB2.image" idlepc="0x62f21000" nvram="128" ram="512" console="" delay="0" icon="Router.png" config="0" left="114" top="120">
+        <slot id="1" module="PA-FE-TX"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="1"/>
+      </node>
+      <node id="2" name="R2" type="dynamips" template="c7200" image="c7200-js-mz.122-28.SB2.image" idlepc="0x62f21000" nvram="128" ram="512" console="" delay="0" icon="Router.png" config="0" left="333" top="123">
+        <slot id="1" module="PA-FE-TX"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="1"/>
+      </node>
+    </nodes>
+    <networks>
+      <network id="1" type="bridge" name="Net-R1iface_0" left="174" top="160" visibility="0"/>
+    </networks>
+  </topology>
+</lab>
