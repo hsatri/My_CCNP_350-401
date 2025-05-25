@@ -1,6 +1,7 @@
 # My_CCNP_300-401
 
-![Uploading CCNP300401.png…]()
+
+![CCNP300401](https://github.com/user-attachments/assets/06d63d13-c011-4c56-b4d9-1cef854bb0cf)
 
 # My CCNP Journey
 
