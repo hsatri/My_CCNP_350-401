@@ -41,7 +41,7 @@
 
 🔴 Modes : 
 -----------
-🔹LACP :
+🔹LACP (Link Aggregation Control Protocol) :
 	🔹Modes:
 		➤ Active  : Sends LACP packets to initiate negotiation.
 		➤ Passive : Waits for LACP packets to respond.
@@ -54,7 +54,7 @@
 | Passive    | Passive      | No              |
 
 
-🔹PAgP :
+🔹PAgP (port Aggregation Protocol):
 	🔹Modes:
 		➤ Desirable: Actively sends PAgP packets to negotiate.
 		➤ Auto     : Listens/responds but doesn’t initiate.
@@ -67,9 +67,52 @@
 | Auto       | Auto         | No              |
 
 
+🔹EtherChannel static(Manual):
+	➤ switchportcan be configured to bypass LACP or PAgP Protocols.
+	➤ simply changingthe mode to 'ON' both sides of the switches.
+	➤ to configure etherchannel manually.
+
 🔴 To Check Etherchannel : 
 --------------------------
 	#sh spanning-tree vlan 1
 	#sh etherchannel summary
 	#sh etherchannel detail
 	#sh etherchannel port-channel
+
+
+🔴Etherchannel Troubleshoot: 
+----------------------------
+🔹Most of the issues with Etherchannels are the cause of misconfiguration.
+🔹configuration of all physical interfaces has to match.
+🔹due to logical all the member interfaces must have the same characteristics.
+
+📌 Port Type:
+	➤ Every port in interface must be consistently configured to be L2/L3.
+	➤ 
+
+📌 Prt Mode:
+	➤ All L2 port channels must be :
+		- configured as either access port or trunk ports.
+		- same configuration ports cannot be mixed.
+
+📌Native VLAN:
+	➤ Member interfaces on L2 Port channels must be configured same native VLAN.
+	➤ Conf of native VLAN: switchport trunk native vlan (vlan-id)
+
+📌Allowed VLAN:
+	➤ Member interfaces on L2 ; trunk poert channel must be configured same VLANs.
+	➤ Same allow VLAN can be configured using command "switchport trunk allowed 'vlan-id'"
+	
+📌speed :
+	➤ All member interfaces or ports in port channel must be the same speed.
+	➤ CLI#show int status
+
+
+📌Duplex ; 
+	➤ the duplex must be the same for all member interface or ports in port channel link.
+	➤ 
+		CLI#int fe0/0
+		CLI#duplex [auto | full | half]
+📌MTU:
+	➤ All L3 member interfaces or ports must have the same MTU configured
+	➤ CLI#show int fa0/0
