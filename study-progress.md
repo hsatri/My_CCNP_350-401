@@ -51,7 +51,7 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 ### IP Services
 
 - [ ] 3.4.a NTP and PTP
-- [ ] 3.4.b NAT / PAT
+- [x] 3.4.b NAT / PAT
 - [ ] 3.4.c HSRP, VRRP
 - [ ] 3.4.d Multicast: RPF, PIM, IGMPv2/v3
 
