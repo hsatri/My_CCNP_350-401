@@ -4,13 +4,20 @@ on:
   push:
     paths:
       - 'study-progress.md'
+  schedule:
+    - cron: '0 12 * * *'  # Optional: run daily at noon
 
 jobs:
   update-progress:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # ✅ Important: give permission to push
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: true  # ✅ Keep GitHub token access
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -18,14 +25,12 @@ jobs:
           python-version: '3.x'
 
       - name: Run progress update script
-        working-directory: ${{ github.workspace }}
         run: python .github/scripts/update_progress.py
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add study-progress.md
-          git commit -m "Auto update progress bar"
+          git add README.md
+          git diff --cached --quiet || git commit -m "Auto update progress bar"
           git push
-  
