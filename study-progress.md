@@ -44,7 +44,7 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 - [x] 3.2.a Compare EIGRP vs OSPF
 - [x] 3.2.b Configure simple OSPFv2/v3 (multiple areas, summarization, passive-interface)
 - [x] 3.2.c Configure eBGP between directly connected neighbors
-- [ ] 3.2.d Describe policy-based routing
+- [x] 3.2.d Describe policy-based routing
 
 ### Wireless
 
