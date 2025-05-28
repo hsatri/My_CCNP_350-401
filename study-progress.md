@@ -35,8 +35,8 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 
 ### Layer 2
 
-- [ ] 3.1.a Troubleshoot 802.1Q trunking
-- [ ] 3.1.b Troubleshoot EtherChannels
+- [x] 3.1.a Troubleshoot 802.1Q trunking
+- [x] 3.1.b Troubleshoot EtherChannels
 - [ ] 3.1.c Configure/verify STP (RSTP, MST), root guard, BPDU guard
 
 ### Layer 3
