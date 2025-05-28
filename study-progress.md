@@ -1,7 +1,7 @@
 ### CCNP ENCOR 350-401 Progress Tracker
 
 ```text
-Progress: [#####-------------------------] 17%
+Progress: [##########--------------------] 35%
 ```
 
 # CCNP ENCOR 350-401 Study TODO List
@@ -37,14 +37,14 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 
 - [x] 3.1.a Troubleshoot 802.1Q trunking
 - [x] 3.1.b Troubleshoot EtherChannels
-- [x] 3.1.c Configure/verify STP (RSTP, MST), root guard, BPDU guard
+- [] 3.1.c Configure/verify STP (RSTP, MST), root guard, BPDU guard
 
 ### Layer 3
 
 - [x] 3.2.a Compare EIGRP vs OSPF
 - [x] 3.2.b Configure simple OSPFv2/v3 (multiple areas, summarization, passive-interface)
-- [x] 3.2.c Configure eBGP between directly connected neighbors
-- [x] 3.2.d Describe policy-based routing
+- [] 3.2.c Configure eBGP between directly connected neighbors
+- [] 3.2.d Describe policy-based routing
 
 ### Wireless
 
@@ -59,8 +59,8 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 
 - [ ] 3.4.a NTP and PTP
 - [x] 3.4.b NAT / PAT
-- [ ] 3.4.c HSRP, VRRP
-- [ ] 3.4.d Multicast: RPF, PIM, IGMPv2/v3
+- [x] 3.4.c HSRP, VRRP
+- [x] 3.4.d Multicast: RPF, PIM, IGMPv2/v3
 
 ---
 
@@ -68,7 +68,7 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 
 - [ ] 4.1 Troubleshoot with debugs, traceroute, ping, SNMP, syslog
 - [ ] 4.2 Configure/verify Flexible NetFlow
-- [ ] 4.3 Configure SPAN / RSPAN / ERSPAN
+- [x] 4.3 Configure SPAN / RSPAN / ERSPAN
 - [ ] 4.4 Configure/verify IP SLA
 - [ ] 4.5 Cisco DNA Center workflows (config, monitoring, mgmt)
 - [ ] 4.6 NETCONF / RESTCONF
@@ -78,7 +78,7 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 ## 5.0 Security (20%)
 
 - [ ] 5.1 Device access control (lines, local user auth, AAA)
-- [ ] 5.2 Infrastructure security: ACLs, CoPP
+- [x] 5.2 Infrastructure security: ACLs, CoPP
 - [ ] 5.3 REST API security
 - [ ] 5.4 Wireless security: 802.1X, WebAuth, PSK, EAPOL
 - [ ] 5.5 Network security design: threat defense, firewalls, TrustSec, MACsec, NAC
