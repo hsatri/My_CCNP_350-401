@@ -1,7 +1,7 @@
 ### CCNP ENCOR 350-401 Progress Tracker
 
 ```text
-Progress: [------------------------------] 0%
+Progress: [#####-------------------------] 17%
 ```
 
 # CCNP ENCOR 350-401 Study TODO List
