@@ -1,7 +1,7 @@
 ### CCNP ENCOR 350-401 Progress Tracker
 
 ```text
-Progress: [#########---------------------] 33%
+Progress: [#############-----------------] 44%
 ```
 
 # CCNP ENCOR 350-401 Study TODO List
@@ -51,13 +51,13 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 - [x] 3.3.a Layer 1: RF power, RSSI, SNR, interference, etc.
 - [x] 3.3.b AP modes and antennas
 - [x] 3.3.c AP discovery and WLC selection
-- [ ] 3.3.d Layer 2 & 3 roaming principles
+- [x] 3.3.d Layer 2 & 3 roaming principles
 - [ ] 3.3.e Troubleshoot WLAN config and client connectivity (GUI only)
 - [ ] 3.3.f Wireless segmentation (groups, profiles, tags)
 
 ### IP Services
 
-- [ ] 3.4.a NTP and PTP
+- [x] 3.4.a NTP and PTP
 - [x] 3.4.b NAT / PAT
 - [x] 3.4.c HSRP, VRRP
 - [x] 3.4.d Multicast: RPF, PIM, IGMPv2/v3
@@ -69,7 +69,7 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 - [ ] 4.1 Troubleshoot with debugs, traceroute, ping, SNMP, syslog
 - [ ] 4.2 Configure/verify Flexible NetFlow
 - [x] 4.3 Configure SPAN / RSPAN / ERSPAN
-- [ ] 4.4 Configure/verify IP SLA
+- [x] 4.4 Configure/verify IP SLA
 - [ ] 4.5 Cisco DNA Center workflows (config, monitoring, mgmt)
 - [ ] 4.6 NETCONF / RESTCONF
 
