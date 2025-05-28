@@ -48,9 +48,9 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 
 ### Wireless
 
-- [ ] 3.3.a Layer 1: RF power, RSSI, SNR, interference, etc.
-- [ ] 3.3.b AP modes and antennas
-- [ ] 3.3.c AP discovery and WLC selection
+- [x] 3.3.a Layer 1: RF power, RSSI, SNR, interference, etc.
+- [x] 3.3.b AP modes and antennas
+- [x] 3.3.c AP discovery and WLC selection
 - [ ] 3.3.d Layer 2 & 3 roaming principles
 - [ ] 3.3.e Troubleshoot WLAN config and client connectivity (GUI only)
 - [ ] 3.3.f Wireless segmentation (groups, profiles, tags)
