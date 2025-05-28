@@ -1,0 +1,30 @@
+name: Auto Update Study Progress
+
+on:
+  push:
+    paths:
+      - 'study-progress.md'
+
+jobs:
+  update-progress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run progress update script
+        run: |
+          python .github/scripts/update_progress.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add studyp-rogress.md
+          git commit -m :Auto update progress bar"
+          git push

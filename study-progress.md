@@ -1,4 +1,11 @@
+### CCNP ENCOR 350-401 Progress Tracker
+
+```text
+Progress: [------------------------------] 0%
+```
+
 # CCNP ENCOR 350-401 Study TODO List
+
 
 This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** exam blueprint. Check items off as you study or complete labs.
 
