@@ -1,7 +1,7 @@
 ### CCNP ENCOR 350-401 Progress Tracker
 
 ```text
-Progress: [#############-----------------] 44%
+Progress: [###########-------------------] 37%
 ```
 
 # CCNP ENCOR 350-401 Study TODO List
@@ -16,7 +16,7 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 - [x] 1.1 Explain enterprise network design principles (2-tier, 3-tier, fabric, cloud)
 - [x] 1.1.b High availability: redundancy, FHRP, SSO
 - [ ] 1.2 Wireless design principles (deployment models, location services, density)
-- [ ] 1.3 Cisco SD-WAN principles (control/data plane, benefits/limits)
+- [x] 1.3 Cisco SD-WAN principles (control/data plane, benefits/limits)
 - [ ] 1.4 Cisco SD-Access principles (integration with traditional campus)
 - [x] 1.5 QoS: components and policies
 - [ ] 1.6 Hardware/software switching: CEF, CAM, TCAM, FIB, RIB, adjacency
@@ -37,27 +37,27 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 
 - [x] 3.1.a Troubleshoot 802.1Q trunking
 - [x] 3.1.b Troubleshoot EtherChannels
-- [ ] 3.1.c Configure/verify STP (RSTP, MST), root guard, BPDU guard
+- [x] 3.1.c Configure/verify STP (RSTP, MST), root guard, BPDU guard
 
 ### Layer 3
 
 - [x] 3.2.a Compare EIGRP vs OSPF
-- [x] 3.2.b Configure simple OSPFv2/v3 (multiple areas, summarization, passive-interface)
-- [x] 3.2.c Configure eBGP between directly connected neighbors
-- [x] 3.2.d Describe policy-based routing
+- [ ] 3.2.b Configure simple OSPFv2/v3 (multiple areas, summarization, passive-interface)
+- [ ] 3.2.c Configure eBGP between directly connected neighbors
+- [ ] 3.2.d Describe policy-based routing
 
 ### Wireless
 
-- [x] 3.3.a Layer 1: RF power, RSSI, SNR, interference, etc.
-- [x] 3.3.b AP modes and antennas
-- [x] 3.3.c AP discovery and WLC selection
-- [x] 3.3.d Layer 2 & 3 roaming principles
+- [ ] 3.3.a Layer 1: RF power, RSSI, SNR, interference, etc.
+- [ ] 3.3.b AP modes and antennas
+- [ ] 3.3.c AP discovery and WLC selection
+- [ ] 3.3.d Layer 2 & 3 roaming principles
 - [ ] 3.3.e Troubleshoot WLAN config and client connectivity (GUI only)
 - [ ] 3.3.f Wireless segmentation (groups, profiles, tags)
 
 ### IP Services
 
-- [x] 3.4.a NTP and PTP
+- [ ] 3.4.a NTP and PTP
 - [x] 3.4.b NAT / PAT
 - [x] 3.4.c HSRP, VRRP
 - [x] 3.4.d Multicast: RPF, PIM, IGMPv2/v3
