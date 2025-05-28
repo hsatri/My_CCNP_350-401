@@ -18,7 +18,7 @@ This document tracks all official topics from the **Cisco ENCOR 350-401 v1.1** e
 - [ ] 1.2 Wireless design principles (deployment models, location services, density)
 - [ ] 1.3 Cisco SD-WAN principles (control/data plane, benefits/limits)
 - [ ] 1.4 Cisco SD-Access principles (integration with traditional campus)
-- [ ] 1.5 QoS: components and policies
+- [x] 1.5 QoS: components and policies
 - [ ] 1.6 Hardware/software switching: CEF, CAM, TCAM, FIB, RIB, adjacency
 
 ---
