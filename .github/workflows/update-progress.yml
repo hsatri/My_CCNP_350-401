@@ -18,8 +18,8 @@ jobs:
           python-version: '3.x'
 
       - name: Run progress update script
-        run: |
-          python .github/scripts/update_progress.py
+        working-directory: ${{ github.workspace }}
+        run: python .github/scripts/update_progress.py
 
       - name: Commit and push changes
         run: |
