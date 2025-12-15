@@ -1,0 +1,36 @@
+🔴6.6 Construct an EEM applet to automate configuration, troubleshooting, or data collection :
+###############################################################################################
+
+
+🔴EEM(Embedded Event Manager) :
+-------------------------------
+🔹is a technology on CISCO routers that lets you run scripts.
+🔹run commands when a certain event happens.
+🔹Is powerful and flexible tool to automate tasks and customize the behavior of CISCO IOS.
+🔹is a software component of CISCO IOS.
+🔹Provides real-time network event detection and onboard automation cisco ios.
+🔹Allows to automate tasks
+🔹Makes life easier for network operators by tracking/classifying events in the network.
+🔹Uses event detectors and actions to provide notification of events.
+🔹Support more than 20 event detectors that are highly integrate.
+
+
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+	➤ 
+	➤ 
+	➤ 
+	➤ 

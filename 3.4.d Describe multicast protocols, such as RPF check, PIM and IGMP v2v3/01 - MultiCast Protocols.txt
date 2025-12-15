@@ -1,0 +1,156 @@
+🔴3.4.d Describe multicast protocols, such as RPF check, PIM and IGMP v2/v3
+############################################################################
+
+
+🔴3 Types of traffic : 
+----------------------
+🔹UNICAST:
+	-> from one SRC to one DST.
+	-> 
+🔹BROADCAST:
+	-> from one SRC to Everyone(same network broadcast).
+🔹MULTICAST:
+	-> From one SRC to a group of receivers.
+	-> Optimizes network BW utilization.
+	-> Optimizes network conserves system resources.
+	-> main advanced is scalability compared to unicast traffic.
+
+🔴Multicast IP ADDRESS:
+-----------------------
+	-> represent a group.
+	-> class D range.
+	-> 224.0.0.0 -- 239.255.255.255
+	-> we can use for our needs from 239.0.0.0 --> 239.255.255.255
+	-> reserved by IANA: 224.0.0.0 --> 224.0.0.255. 
+
+
+🔴Multicast Components:
+-----------------------
+🔹Multicast IP Addressing
+	➤ Class D address range (224.0.0.0 – 239.255.255.255)
+
+🔹Multicast Applications
+	➤ Apps like VLC that send/receive multicast
+
+🔹IGMP/MLD Protocols
+	➤ Hosts signaling interest in multicast groups
+
+🔹PIM Routing Protocol
+	➤ Routers building multicast forwarding paths
+
+🔹Multicast Distribution Logic
+	➤ Using RPF, forwarding only to interested receivers
+
+🔹Reserved Multicast Addresses
+	➤ Special-purpose multicast groups (like 224.0.0.1)
+
+🔴IGMP(Internet Group Management Protocol) snooping: 
+-----------------------------------------------------
+	-> used in L2.
+	-> track wich hosts on their LANs are intersted in receiving multicast traffic.
+
+🔴IGMP(Internet Group Management Protocol)
+------------------------------------------
+	➤ Used by receivers (hosts) to join or leave multicast groups.
+	➤ to tell the router which multicast traffic they want to receive.
+	➤ helps the router to figure out on what interces should forward multicast traffic
+	🧩 Key Concepts
+		➤ Join Process:
+			- A host sends an IGMP Join to the multicast group IP (e.g., 239.255.1.1).
+			- The NIC is programmed to receive the corresponding multicast MAC (e.g., 01:00:5E:7F:01:01).
+
+		➤ Router Requirement:
+			-Routers facing receivers must also support IGMP.
+
+	🧩 IGMP versions:	
+		➤ V1:
+			- Host send membership report to join.
+			- Router sends membership query to 224.0.0.1.
+		➤ V2:
+			- Adds leave Group message.
+			- faster detection of receiver changes.
+
+
+🔴Multicast Routing Protocols:
+------------------------------
+	➤ are required so routers can locate, request, and forward multicast streams to the correct receivers.
+	➤ routers build multicast distribution trees to efficiently forward traffic.
+
+
+🔴PIM(Protocol Independent Multicast):
+--------------------------------------
+	-> is a multicast routing protocol on cisco IOS.
+	-> allows routers to lear about multicast groups .
+	-> forward multicast packets to the correct DST.
+	-> 224.0.0.13
+
+🔴PIM MODES:
+------------
+PIM Dense Mode (PIM-DM)
+
+Flood and prune approach: initially floods multicast traffic everywhere, then prunes unused paths.
+
+Best for small networks where most subnets want the traffic.
+
+(Other modes like PIM Sparse Mode and PIM Sparse-Dense Mode exist but aren't in the given text)
+
+✅ PIM Sparse Mode (PIM-SM) Summary
+📌 What It Is
+PIM Sparse Mode is a multicast routing mode used when only a few subnets want to receive the multicast traffic.
+
+Unlike Dense Mode, traffic is only sent where it's requested — pull model, not push.
+
+
+
+🔴RPF Check:
+############
+📌MRPF(Multicast Reverse Path Forwarding):
+------------------------------------------
+	➤ by default RPF enabled on cisco routers and switches.
+	➤ Technique used in multicast routing to prevent loops from occurring.
+	➤ its important because it helps to prevent loops from occurring in multicast networks.
+	➤ its works by checking the SRC IP address of a multicast packet against the unicast routing.
+	➤ if the SRC ip address is found in the ROUTINF TABLE match, the router will check the next hop and outgoing interface that  is used to reach the SRC.
+	➤ RPF discard the packet that the SRC ip address not match to forward for the SRC of the multiucast address.
+
+
+🔹cases where should disable RPF:
+----------------------------------
+	➤ example : if you are using a router as a DHCP server.
+
+🔹To disable RPF on all interfaces:
+-----------------------------------
+	CLI#conf t
+	CLI(config)#ip pim rpfilter disable
+	CLI(config)#ip pim restart
+	CLI(config)#end
+
+🔹To disable RPF on spicific interface:
+-----------------------------------------
+	CLI#conf t
+	CLI(config)#ip pim rpfilter disable interface (int name)
+	CLI(config)#ip pim restart
+	CLI(config)#end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

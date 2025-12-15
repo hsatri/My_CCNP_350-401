@@ -1,0 +1,126 @@
+##########################
+##########################
+52_BGP_AS_Path_Prepending_LAB
+##########################
+##########################
+🔴Basic configurtion:
+----------------------
+! R1 Config
+enable
+configure terminal
+hostname R1
+int e0/0
+ip add 192.168.102.1 255.255.255.0
+no shut
+int e0/1
+ip add 192.168.103.1 255.255.255.0
+no shut
+exit
+
+--------------------------------------------
+
+! R2 Config
+enable
+configure terminal
+hostname R2
+int e0/0
+ip add 192.168.102.2 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 1.1.1.1 255.255.255.0
+exit
+
+--------------------------------------------
+
+! R3 Config
+enable
+configure terminal
+hostname R3
+int e0/0
+ip add 192.168.103.2 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 1.1.1.1 255.255.255.0
+exit
+
+
+🔴BGP configurtion:
+###################
+! R1 BGP config
+router bgp 1
+neighbor 192.168.102.2 remote-as 2
+neighbor 192.168.103.2 remote-as 2
+
+-----------------------------------------
+
+! R2 BGP config
+router bgp 2
+neighbor 192.168.102.1 remote-as 1
+network 1.1.1.0 mask 255.255.255.0
+
+
+-----------------------------------------
+
+! R3 BGP config
+router bgp 2
+neighbor 192.168.103.1 remote-as 1
+network 1.1.1.0 mask 255.255.255.0
+
+
+🔴Verfication_01:
+#################
+
+R1#show ip bgp
+BGP table version is 2, local router ID is 192.168.103.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *   1.1.1.0/24       192.168.103.2            0             0 2 i
+ *>                   192.168.102.2            0             0 2 i
+
+-----------------------------------------
+==> the route to 1.1.1.1 chosed the path via 192.168.102.2 because its the lowest neighbor ip.
+
+---------------------------------------------------------------------------------------------------------------------------
+lets configure it so in the end can chose the path via R3 instead of R2 :
+
+! R2 configuration :
+en
+conf t
+access-list 1 permit 1.1.1.0 0.0.0.255
+route-map Lab52 permit 10 
+match ip address 1
+set as-path prepend 111111111 ! like we say if you wanna reach the 1.1.1.0 you need t pass 9 router
+exit
+route-map Lab52 permit 20
+! others by default will take the value = 1
+exit
+
+router bgp 2
+neighbor 192.168.102.1 route-map Lab52 out
+do clear ip bgp * soft
+
+
+🔴Verfication_02:
+#################
+R1#show ip bgp
+BGP table version is 3, local router ID is 192.168.103.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *>  1.1.1.0/24       192.168.103.2            0             0 2 i
+ *                    192.168.102.2            0             0 2 111111111 i
+
+
+-----------------
+==> now the best route to 1.1.1.0 via R3

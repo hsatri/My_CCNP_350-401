@@ -1,0 +1,57 @@
+
+
+
+
+
+show command for verification :
+show spanning-tree
+show spanning-tree mst
+show spanning-tree mst configuration
+show spanning-tree vlan 10
+show spanning-tree vlan 60
+
+
+
+SW1 MST configuration
+en
+conf t
+hostname SW1
+int range e0/0-1
+switchport trunk encapsulation dot1q
+swithport mode trunk
+exit
+
+vlan 10,20,30,40,50,60,70,80
+
+spanning-tree mode mst
+spanning-tree mst configuration
+ name MST_LAB
+ revision 1
+ instance 1 vlan 10,20,30,40
+ instance 2 vlan 50,60,70,80
+ exit
+spanning-tree mst 1 root primary   !==> or spanning-tree mst 1 priority 0
+spanning-tree mst 2 root secondary
+
+
+SW2 MST configuration
+en
+conf t
+hostname SW2
+int range e0/0-1
+switchport trunk encapsulation dot1q
+swithport mode trunk
+exit
+
+vlan 10,20,30,40,50,60,70,80
+
+spanning-tree mode mst
+spanning-tree mst configuration
+ name MST_LAB
+ revision 1
+ instance 1 vlan 10,20,30,40
+ instance 2 vlan 50,60,70,80
+ exit
+spanning-tree mst 1 root secondary  
+spanning-tree mst 2 root primary
+

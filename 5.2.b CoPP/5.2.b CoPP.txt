@@ -1,0 +1,61 @@
+🔴5.2.b CoPP
+##############
+
+🔴CoPP(Control Plane Policing):
+-------------------------------
+🔹Allows you rate-limit traffic that goes to the route processor.
+
+
+🔹Control Plane :
+	➜ is from device to device
+	➜ exchnagig routing information 
+	➜ Learning MAC address
+	➜ Running STP 
+	➜ Building ARP tables
+	➜ Running protocols like (OSPF, BGP, ....)
+
+🔴Best Practices for protecting the Managemen Plane:
+-----------------------------------------------------
+🔹Enforce password policy on devices.
+🔹Maximum number of login attempys, minimum password length.
+🔹Custom privilege level assignments to restrict users.
+🔹Use AAA services ,
+🔹Keep accurate time using secure NTP(Network time ptotocol)
+🔹Use encrypted aand autenticated versions of SNMP
+🔹Encrypted manageùent protocol such as SSH, HTTPs, SNMPv3
+🔹Enable logging and monitoring on all network devices.
+🔹Disable any unnecessary services on network devices.
+
+
+🔴Best Practices for protecting the Control Plane : very important to know
+-----------------------------------------------------
+🔹Create and enable Control Plane Policing (CoPP) on devices.
+🔹Identify type & rate of traffic reaches the control plane of Cisco IOS device.
+🔹 Allow users to manage the flow of traffic handled by the route processor.
+🔹 Prevent unnecessary traffic from overwhelming the route processor.
+🔹Create and enable CPPr (Control Plane Protection) on network devices.
+🔹Create and enable Port-filtering feature on network devices.
+🔹Limits the number of packets for a specific protocol.
+🔹Securing Routing Protocols use password authentication method.
+
+Name		| Use for
+--------------------------------------------------------------------
+Create ACL	| Identify the traffic create Access control list
+--------------------------------------------------------------------
+Class Map	| Identify the traffc use already created ACL
+--------------------------------------------------------------------
+Policy Map	| Policy Map take action on class Map
+--------------------------------------------------------------------
+Control Plan	| Apply the Policy Map using Service Policy
+--------------------------------------------------------------------
+
+
+🔴
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<lab name="29 OSPF Path Selection" id="39f7529b-c5d4-46dc-b90e-19a8bbe41a69" version="1" scripttimeout="300" lock="0" author="HATIM SATRI">
+  <description>https://mitdev.udemy.com/course/ccnpencor/learn/lecture/30256262#overview</description>
+  <topology>
+    <nodes>
+      <node id="1" name="R1" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="474" top="288">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="1"/>
+        <interface id="1" name="fa0/1" type="ethernet" network_id="2"/>
+        <interface id="16" name="fa1/0" type="ethernet" network_id="3"/>
+        <interface id="32" name="fa2/0" type="ethernet" network_id="4"/>
+        <interface id="33" name="fa2/1" type="ethernet" network_id="8"/>
+        <interface id="34" name="fa2/2" type="ethernet" network_id="9"/>
+      </node>
+      <node id="2" name="R2" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="282" top="96">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="1"/>
+      </node>
+      <node id="3" name="R3" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="282" top="219">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="2"/>
+        <interface id="1" name="fa0/1" type="ethernet" network_id="5"/>
+      </node>
+      <node id="4" name="R4" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="129" top="222">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="5"/>
+      </node>
+      <node id="5" name="R5" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="285" top="327">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="3"/>
+        <interface id="1" name="fa0/1" type="ethernet" network_id="6"/>
+      </node>
+      <node id="6" name="R6" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="141" top="336">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="6"/>
+      </node>
+      <node id="7" name="R7" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="291" top="438">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="4"/>
+        <interface id="1" name="fa0/1" type="ethernet" network_id="7"/>
+      </node>
+      <node id="8" name="R8" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="138" top="450">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="7"/>
+      </node>
+      <node id="9" name="R9" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="750" top="174">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="8"/>
+      </node>
+      <node id="10" name="R10" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="747" top="348">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="9"/>
+      </node>
+      <node id="11" name="R11" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="936" top="210">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+      </node>
+      <node id="12" name="R12" type="dynamips" template="c3725" image="c3725-adventerprisek9-mz.124-15.T14.image" idlepc="0x60c08728" nvram="128" ram="256" console="" delay="0" icon="Router.png" config="0" left="903" top="312">
+        <slot id="1" module="NM-1FE-TX"/>
+        <slot id="2" module="NM-16ESW"/>
+      </node>
+    </nodes>
+    <networks>
+      <network id="1" type="bridge" name="Net-R1iface_0" left="534" top="328" visibility="0"/>
+      <network id="2" type="bridge" name="Net-R1iface_1" left="534" top="328" visibility="0"/>
+      <network id="3" type="bridge" name="Net-R1iface_16" left="534" top="328" visibility="0"/>
+      <network id="4" type="bridge" name="Net-R1iface_32" left="534" top="328" visibility="0"/>
+      <network id="5" type="bridge" name="Net-R3iface_1" left="342" top="259" visibility="0"/>
+      <network id="6" type="bridge" name="Net-R5iface_1" left="345" top="367" visibility="0"/>
+      <network id="7" type="bridge" name="Net-R7iface_1" left="351" top="478" visibility="0"/>
+      <network id="8" type="bridge" name="Net-R9iface_0" left="810" top="214" visibility="0"/>
+      <network id="9" type="bridge" name="Net-R10iface_0" left="807" top="388" visibility="0"/>
+    </networks>
+  </topology>
+</lab>

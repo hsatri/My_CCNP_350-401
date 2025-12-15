@@ -1,0 +1,418 @@
+🔴3.2.c Configure and verify eBGP between directly connected neighbors (best path selection algorithm and neighbor relationships)
+##################################################################################################################################
+
+📌🧩
+🔴BGP(Border Gateway Protocol):
+--------------------------------
+🔹Uses TCP/179
+🔹Is open standard routing protocol
+🔹Use to advertise internal server on internet.
+🔹Is only can manipulate incoming and outgoing traffic.
+🔹Is dynamic routing protocol
+🔹Is EGP(Exterior Gateway Protocol).
+🔹Is called protocol of the internet
+🔹Is loop free protocol
+🔹Is called an {application layer protocol, policy-based routing protocol}.
+🔹Is an AS-by-AS dynamic routing protocol.
+🔹Is open standard routing protocol
+🔹Mainly used for scalablity and reliability.
+🔹Uses the concepts of (AS)Autonomous Systems.
+🔹Routers running BGP --> BGP speakers.
+🔹BGP neighbors --> BGP peers.
+🔹Support : 
+	➤ FLSM, 
+	➤ VLSM, 
+	➤ CIDR.
+	➤ auto and manual summarization.
+🔹Updates are send as unicast to manually defined neighbors.
+🔹Has two flavers:
+	➤ External BGP : if peers are in the differnet AS called External BGP (EBGP).
+	➤ Internal BGP : if peers are in the same AS called internal BGP (iBGP)
+🔹Administration Distance :
+	➤ EBGP = 20
+	➤ IBGP = 200
+🔹IBGP the neighbors no need to be connected directly .
+🔹EBGP the nghbors need to be connected directly.
+🔹Has no auto discovery mechanism peers to be set manually.
+🔹Used to exchange internet routes.
+
+
+🔴AS(Autonomous System):
+-------------------------
+🔹Is a collection of networks under a single administrative domain.
+🔹In the world of BGP, each routing domain is know as an autonomous sytem or AS.
+🔹What is an ASN or AS : (AS Number)
+	➤ is a special number assigned by IANA used primarily with BGP 
+	➤ uniquely identifies a network under a single technical administration that has a unique routing policy.
+	➤ have to be unique on the internet.
+🔹Within AS use IGP(OSPF, RIP, ISIS, EIGRP)
+🔹Between different AS use External Gateway Protocol.
+🔹AS are 16-Bit or 2 octed.
+🔹65535 numbers of AS to chose from,
+🔹extenion has been created that support 32-bit or 4 octed AS numbers.
+	➤ 2^32 
+
+🔴BGP Flavors = أنواع: --> There os two flavors of BGP 
+####################
+
+🔴1. IBGP(Interior Border Gateway Protocol):
+---------------------------------------------
+---------------------------
+       [ R1 ] ---- [ R2 ]
+        AS = 1      AS = 1
+---------------------------
+🔹By default TTL value = 255.
+🔹Administrative Distance = 200
+🔹peers do not need to be directly connected.
+
+🔴2. EBGP(Exterior Border Gateway Protocol):
+---------------------------------------------
+---------------------------
+       [ R1 ] ---- [ R2 ]
+        AS = 1      AS = 2
+---------------------------
+🔹By default TTL value = 1. --> means neighbors directly connected
+🔹Administrative Distance = 20
+🔹peers need to be directly connected.
+🔹Different AS configured on the different Routers.
+
+🔴BGP Neighbor States:
+#######################
+🔹Like (OSPF, EIGRP) , BGP establishes a neighbor adjacency with other BGP routers.
+🔹To create a neighbor relationship --> BGP router first tries to establish TCP connections.
+🔹When the connection is established --> cisco router will send a BGP open msgs.
+🔹BGP open msgs is similar to hello msgs like OSPF/EIGRP routing protocol.
+🔹Then the parameters are matched --> routers become BGP peers
+🔹BGP does not use broadcast or multicast to "Discover" other BGP neighbors.
+🔹neighbors have to be configured manually or statically.
+🔹Uses TCP/179 port for the connection to peer.
+
+
++---------+
+|  1.Idle |
++---------+
+    | Start
+    v
++-----------+
+|  2.Connect|
++-----------+
+   |TCP OK        |TCP Fail
+   v              v
++-----------+   +-----------+
+| 4.OpenSent|   |  3.Active |
++-----------+   +-----------+
+   |OPEN OK        |TCP OK / Retry
+   v               v
++--------------+   |
+| 5.OpenConfirm|<--+
++--------------+
+     |KEEPALIVE
+     v
++--------------+
+| 6.Established|
++--------------+
+     ^   |
+     |   | Error / Timer Expired
+     +---+
+
+1️⃣Idle :
+	➤ Initial state
+	➤ BGP process is waiting to start connection
+	➤ Sends TCP open request.
+2️⃣Connect :
+	➤ TCP session initiated
+	➤ Waiting for TCP connection result
+	➤ If successful --> 4.OpenSent
+	➤ If failed --> back to 3.ACtive or 1.Idle
+3️⃣Active :
+	➤ Actively trying to connect again
+	➤ if TCP success --> 4.OpenSent
+	➤ If failure --> back to 1.Idle
+4️⃣OpenSent :
+	➤ TCP connection established.
+	➤ BGP OPEN message sent 
+	➤ Waiting for OPEN from neighbor.
+	➤ if received --> 5.OpenConfirm
+5️⃣OpenConfirm :
+	➤ OPEN received and parameters checked.
+	➤ Waiting for KEEPALIVE from neighbor.
+	➤ if received --> Established
+
+6️⃣6.Established :
+	➤ Full BGP session established.
+	➤ Peers exchange (UPDATE, KEEPALIVE, NOTIFICATION)
+	➤ Routing information is shared.
+
+🔴BGP Messages Types:
+---------------------
+1️⃣OPEN :
+	➤ Is sent after BGP neighbor is configured.
+	➤ Exchanges BGP values and capabilities.
+	➤ Is sent to establish or form peering with that neighbor.
+	➤ Contains information such as version, AS Number, Router ID and the Hold-Time.
+
+2️⃣Update :
+	➤ Routing information between peers is transferred using Update message.
+	➤ Update essage include, new routes, withdrawn routes and the path attributes.
+
+3️⃣Keepalive :
+	➤ Is similar to hello messgs in other routing protocols.
+	➤ BGP uses keepalives, keeping the peering session active.
+	➤ Sent periodically to maintain neighbor relationship.
+	➤ The BGP peers exchange keepalive messages every 60 seconds.
+	➤ The BGP peers hold times is 180 seconds by defaults.
+
+4️⃣Notification :
+	➤ In the event of a problem which causes the router to end the BGP peering session.
+	➤ BGP neighbor send a notification message and the connection is closed.	
+	➤ Typically reserts the neighbor relationship.
+	➤ SUCH (bad peer AS, Bad BGP IDENTIFIER, unacceptable hold time). 
+
+	ex :
+		peer in wrong AS
+
+🔴BGP Active and Passive :
+--------------------------	
+🔹By default, neighbor with lowest BGP RID will establish connection.
+🔹Active :
+	➤ Having a higher random port > 1023.
+	➤ Called Client.
+🔹Passive :
+	➤ Having TCP port = 179
+	➤ Called Server.
+🔹This behavior can be modified.
+
+🔴BGP Timer :
+--------------
+🔹by default :
+	➤ keepalive timer = 60 s
+	➤ hold-down timer = keepalive * 3 = 180 s
+🔹Failing to recieve the 2 keepalives -> make the hold-down timer reach 180 seconds.
+🔹hold time must be 0 or greater than 2 seconds
+🔹if we didnnt set the hold time X3 of keepalive , --> the hold timle will devided by 3 and the the keepalive = holdtime/3 
+	exemple :
+	en
+	conf t
+	router bgp 1
+	timers bgp 60 70
+	
+		➤ the hold time = 70
+		➤ keepalive  = 70/3 = 23 
+	
+		
+🔹To verify the timers 
+	➤ show ip bgp neighbors
+🔹Configuration to modified the timers:
+	en
+	conf t
+	router bgp 1
+	timers bgp 60 70
+
+🔴BGP Next-Hope-Self :
+----------------------
+🔹Feature of BGP forwarding routes from EBGP to IBGP router next hop.
+🔹Somtimes this can cause reachablity issues --> The router will make sure that the next-hop attribute reflects its IP address.
+🔹BGP Next-Hop-Self solves reachablity problems.
+🔹Configuration :
+	! R1 configurtion
+	router bgp 1
+	neighbor 192.168.200.2 next-hop-self 
+	network 192.168.200.0 mask 255.255.255.0
+
+🔴BGP Multihop and Update-source :
+----------------------------------
+🔹EBGP routers use a TTL value of one for their BGP packets.
+🔹BGP neighbor away more than one hop TTL decrement to 0 & discarded.
+🔹the solution is to use Multihop command :	
+	- BGP Multihop == to increase the TTL
+	- multuhop cmd does not apply to internal BGP.
+	- if src EBGP from the loopback interfaces, then require multihop.
+	➤ multihup : neighbor (ip) ebgp-multihop (as)
+🔹if src EBGP from the loopback interfaces also require "updare-source loopback".
+🔹Using a loopback interface as update source, BGP session will not go down.
+🔹Update source can be configured per neighbor or per peer-group
+🔹Static route is required to ensure that the loopback is reachable from both ends. --> ill check this later
+🔹Multihop enables the peers to pass through the other routers to form peer relationships.	
+🔹update-source == when we want to do neighberhip from loopback . 
+🔹to check the TTL : show ip bgp neighbors
+🔹configuration : 
+	➤ update source : neighbor (ip) update-source loopback (nmbr)
+
+🔴BGP Peer Group :
+-------------------
+🔹On BGP routers its possible that some of the BGP neighbors share the exact same configuration.
+🔹Wasting time to type the same cmnds for each neighbor. --> more effort
+🔹BGP router will prepare updates for each neighbor separately --> CPU resource 
+🔹The soltion for all this negative things is --> Peer groups
+	➤can add neighbors to a peer group and then apply all our configurations to the peer group.
+	➤requires less CPU resources.
+
+🔴 BGP Attributes List Theory :
+-------------------------------
+🔹BGP is very flexible and extensible protocol.
+🔹Path selection is done through the best path algorithm.
+🔹Path uses various attributes assigned to each route.
+🔹are similar to metric in OSPF and EIGRP.
+🔹BGP select the best path based on a list of attributes.
+🔹has 0 to 14 attributes for CISCO.
+🔹has 1 to 14 for other venders.
+🔹does not use metrics but use set of attributes.
+🔹BGP has 4 main types of attributes:
+	➤ Well-known mandatory.
+	➤ Well-known discretionary
+	➤ optional transitive.
+	➤ optional non-transitive.
+📌 it important to remember this for the exam BGP Path Attributes:
+BGP Path Attributes
+└─ Well-known
+   ├─ Mandatory
+   │   ├─ ORIGIN – where the route began
+   │   │     i = IGP (most preferred)
+   │   │     e = EGP
+   │   │     ? = Incomplete
+   │   ├─ AS_PATH – list of AS hops (shorter preferred)
+   │   └─ NEXT_HOP – IP address to reach destination
+   └─ Discretionary
+       ├─ LOCAL_PREF – AS-wide outbound preference (higher wins)
+       └─ ATOMIC_AGGREGATE – route is aggregated
+
+└─ Optional
+   ├─ Transitive
+   │   ├─ COMMUNITY – tags for policy control
+   │   │     • no-export     – don’t advertise outside local AS
+   │   │     • no-advertise  – don’t advertise to any BGP peer
+   │   │     • local-AS      – advertise only inside confederation
+   │   │     • internet      – advertise to all (default)
+   │   ├─ AGGREGATOR          – records who did the aggregation
+   │   └─ EXTENDED_COMMUNITY  – extra policy info (VPNs, QoS)
+   └─ Non-Transitive
+       ├─ MED            – multi-exit discriminator, inbound hint (lower wins)
+       ├─ ORIGINATOR_ID  – ID of route’s origin router (iBGP loop prevention)
+       └─ CLUSTER_LIST   – list of route-reflector clusters traversed
+
+🔹Well-known mandatory :
+	➤ These attribute must appear in every update message.
+	➤ Must be recognized and supported by all BGP Speakers.
+	➤ If these attribute are missing  : a notification/error is generated + the session will be closed.
+	➤ attributes are : 
+		- AS Path 
+		- Next Hop Address	
+		- Origin
+
+🔹Well-known discretionary = معروف جيداً لكنه اختياري:
+	➤ Must be recognized and supported by all BGP speakers.
+	➤ May or may not appear in every BGP update message.
+	➤ Does not have to be included in every BGP update message.
+	➤ attributes are  : 
+		- Local Preference , 
+		- Atomic aggregate.
+
+🔹Optional Transitive :
+	➤ May not be supported by all BGP speakers.
+	➤ Will be passed on if not recognized .
+	➤ The attribute should be accepted and passed along to other peers.
+	➤ Attribute : 
+		- Aggregator, 
+		- Community.
+	➤ Transitive -> these attributes travel with the route from one AS to another, remaining attached to the BGP UPDATE as it moves through the Internet.
+
+🔹Optional Non-Transitive :	
+	➤ May not be supported by all BGP speakers.	
+	➤ Not required to pass on, 
+	➤ The attribute should be ignored and not passed on to other peers.
+	➤ Attributes : 
+		- MED 
+		- Originator ID
+		- Cluster List
+	➤ These attributes are restricted to the same AS.
+
+🔹
+BGP Path Attribute Type Codes
+-----------------------------
+Type |    Attribute
+Code |    Name
+-----------------------------
+  1  |  ORIGIN 			---> Well-known mandatory
+  2  |	AS_PATH			---> Well-known mandatory
+  3  |	NEXT_HOP		---> Well-known mandatory
+  4  |	MULTI_EXIT_DISC (MED)	---> Optional Non-Transitive
+  5  |	LOCAL_PREF		---> Well-known discretionary
+  6  |	ATOMIC_AGGREGATE	---> Well-known discretionary
+  7  |	AGGREGATOR		---> Optional Transitive
+  8  |	COMMUNITY		---> Optional Transitive
+  9  |	ORIGINATOR_ID		---> Optional Non-Transitive
+ 10  |	CLUSTER_LIST		---> Optional Non-Transitive
+
+🔴 BGP Best Path Selection :
+----------------------------
+🔹BGP routers usually multuple paths to the same DSTs
+🔹Like IGP(RIP, EIGRP, OSPF) its select the best path to each destination woth lowest metric.
+	➤ RIP : selects the path with lowest hop count.
+	➤ OSPF : selects the path with lowest hop cost.
+	➤ EIGRP : selects the path with the highest BW and lowest DELAY.		
+🔹BGP path selection :
+	➤ based on a list of attributes.(attributes are similar in OSPF and EIGRP)
+	➤ Sends update packet to a peer with attributes associated with prefix.
+	➤ path attributes to pick the best route to a DST.
+	➤ store multiple paths to a DSTs in BGP table.
+	➤ only install one best route in the routing table.
+	➤ path algorithm decides best path to :
+		- install in the IP routing table.
+		- use for traffic forwarding.
+	➤ Goes through the following steps to select the best path route.
+
+🔹table of Priorate and attribute and preference for choosing the best path
+------------------------------------------------------------------------------
+Priority | Attribute          | Preference / Decision
+---------|--------------------|-----------------------------------------------
+1        | Weight (Cisco)     | Higher value wins (local to router)
+2        | Local_Pref         | Higher value wins (AS-wide)           ! mean if next hop 0.0.0.0
+3        | Locally Originated | Routes sourced by this router preferred
+4        | AS_PATH            | Shorter path wins
+5        | Origin (i/e/?)     | i (IGP) < e (EGP) < ? (Incomplete)           # "?" (Incomplete) its mean the distribute
+6        | MED                | Lower value wins (compared only if same AS) # is the metric value in show ip bgp, checkthe lab 54
+------------------------------------------------------------------------------
+7        | eBGP vs iBGP       | eBGP-learned path preferred
+8        | IGP Metric to
+         | Next Hop           | Lower metric to next hop wins
+9        | Oldest Path        | (Optional) Oldest path if needed for stability
+10       | Router ID          | Lower BGP router ID wins
+11       | Neighbor IP        | Lowest neighbor IP wins (final tiebreak)
+
+🔴 Weight : ==> 50_BGP_Peer_Group_LAB
+-----------
+🔹is the first BGP attribute in the list.
+🔹Cisco-priority value.
+🔹is only local on the router.
+🔹is not exchanged between BGP routers.
+🔹is not advertised to other routers.
+🔹The path with the highest weight is preferred.
+🔹Weigh for a router originated on the local router is "32789".
+🔹Weight is "0" for all other routes. 
+🔹to check the weight : show ip bgp
+	➤ 
+🔹
+🔹
+🔹
+🔹
+	➤ 
+🔹
+	➤ 
+🔹
+	➤ 
+🔹
+	➤ 
+🔹
+	➤ 
+🔹
+	➤ 
+🔹
+	➤ 
+🔹
+	➤ 
+
+
+
+
+
+

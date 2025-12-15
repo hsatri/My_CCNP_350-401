@@ -1,0 +1,200 @@
+##########################
+##########################
+47_BGP_Next-Hop-Self_LAB 
+##########################
+##########################
+🔴Basic configurtion:
+----------------------
+! R1 Config
+enable
+configure terminal
+hostname R1
+int e0/0
+ip add 192.168.200.1 255.255.255.0
+no shut
+int lo 0
+ip add 1.1.1.1 255.255.255.0
+exit
+
+
+! R2 Config
+enable
+configure terminal
+hostname R2
+int e0/0
+ip add 192.168.200.2 255.255.255.0
+no shut
+int lo 0
+ip add 2.2.2.2 255.255.255.0
+exit
+
+
+🔴BGP configurtion:
+--------------------
+! R1 Configuration
+ip route 2.2.2.0 255.255.255.0 192.168.200.2
+router bgp 1
+neighbor 2.2.2.2 remote-as 2
+network 1.1.1.0 mask 255.255.255.0
+neighbor 2.2.2.2 update-source loopback 0
+neighbor 2.2.2.2 ebgp-multihop 2
+
+! R2 Configuration
+ip route 1.1.1.0 255.255.255.0 192.168.200.1
+router bgp 2
+neighbor 1.1.1.1 remote-as 1
+network 2.2.2.0 mask 255.255.255.0
+neighbor 1.1.1.1 update-source loopback 0
+neighbor 1.1.1.1 ebgp-multihop 2
+
+
+
+
+🔴Verfication_01:
+-----------------
+R2#show ip bgp neighbors
+BGP neighbor is 1.1.1.1,  remote AS 1, external link
+  BGP version 4, remote router ID 1.1.1.1
+  BGP state = Established, up for 00:00:47
+  Last read 00:00:47, last write 00:00:47, hold time is 180, keepalive interval is 60 seconds
+  Neighbor sessions:
+    1 active, is not multisession capable (disabled)
+  Neighbor capabilities:
+    Route refresh: advertised and received(new)
+    Four-octets ASN Capability: advertised and received
+    Address family IPv4 Unicast: advertised and received
+    Enhanced Refresh Capability: advertised and received
+    Multisession Capability:
+    Stateful switchover support enabled: NO for session 1
+  Message statistics:
+    InQ depth is 0
+    OutQ depth is 0
+
+                         Sent       Rcvd
+    Opens:                  1          1
+    Notifications:          0          0
+    Updates:                0          0
+    Keepalives:             1          1
+    Route Refresh:          0          0
+    Total:                  2          2
+  Do log neighbor state changes (via global configuration)
+  Default minimum time between advertisement runs is 30 seconds
+
+ For address family: IPv4 Unicast
+  Session: 1.1.1.1
+  BGP table version 1, neighbor version 1/0
+  Output queue size : 0
+  Index 1, Advertise bit 0
+  1 update-group member
+  Slow-peer detection is disabled
+  Slow-peer split-update-group dynamic is disabled
+                                 Sent       Rcvd
+  Prefix activity:               ----       ----
+    Prefixes Current:               0          0
+    Prefixes Total:                 0          0
+    Implicit Withdraw:              0          0
+    Explicit Withdraw:              0          0
+    Used as bestpath:             n/a          0
+    Used as multipath:            n/a          0
+
+                                   Outbound    Inbound
+  Local Policy Denied Prefixes:    --------    -------
+    Total:                                0          0
+  Number of NLRIs in the update sent: max 0, min 0
+  Last detected as dynamic slow peer: never
+  Dynamic slow peer recovered: never
+  Refresh Epoch: 1
+  Last Sent Refresh Start-of-rib: never
+  Last Sent Refresh End-of-rib: never
+  Last Received Refresh Start-of-rib: never
+  Last Received Refresh End-of-rib: never
+                                       Sent       Rcvd
+        Refresh activity:              ----       ----
+          Refresh Start-of-RIB          0          0
+          Refresh End-of-RIB            0          0
+
+  Address tracking is enabled, the RIB does have a route to 1.1.1.1
+  Connections established 1; dropped 0
+  Last reset never
+  External BGP neighbor may be up to 2 hops away.
+  External BGP neighbor NOT configured for connected checks (multi-hop no-disable-connected-check)
+  Interface associated: (none) (peering address NOT in same link)
+  Transport(tcp) path-mtu-discovery is enabled
+  Graceful-Restart is disabled
+  SSO is disabled
+Connection state is ESTAB, I/O status: 1, unread input bytes: 0
+Connection is ECN Disabled, Mininum incoming TTL 0, Outgoing TTL 2
+Local host: 2.2.2.2, Local port: 47838
+Foreign host: 1.1.1.1, Foreign port: 179
+Connection tableid (VRF): 0
+Maximum output segment queue size: 50
+
+Enqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)
+
+Event Timers (current time is 0x5E1C5):
+Timer          Starts    Wakeups            Next
+Retrans             3          0             0x0
+TimeWait            0          0             0x0
+AckHold             2          0             0x0
+SendWnd             0          0             0x0
+KeepAlive           0          0             0x0
+GiveUp              0          0             0x0
+PmtuAger            1          0         0xE4DE1
+DeadWait            0          0             0x0
+Linger              0          0             0x0
+ProcessQ            0          0             0x0
+
+iss: 3222758263  snduna: 3222758340  sndnxt: 3222758340
+irs: 1370893461  rcvnxt: 1370893538
+
+sndwnd:  16308  scale:      0  maxrcvwnd:  16384
+rcvwnd:  16308  scale:      0  delrcvwnd:     76
+
+SRTT: 330 ms, RTTO: 3159 ms, RTV: 2829 ms, KRTT: 0 ms
+minRTT: 6 ms, maxRTT: 1000 ms, ACK hold: 200 ms
+uptime: 48046 ms, Sent idletime: 48007 ms, Receive idletime: 47791 ms
+Status Flags: active open
+Option Flags: nagle, path mtu capable
+IP Precedence value : 6
+
+Datagrams (max data segment is 1460 bytes):
+Rcvd: 5 (out of order: 0), with data: 2, total data bytes: 76
+Sent: 5 (retransmit: 0, fastretransmit: 0, partialack: 0, Second Congestion: 0), with data: 2, total data bytes: 76
+
+ Packets received in fast path: 0, fast processed: 0, slow path: 0
+ fast lock acquisition failures: 0, slow path: 0
+TCP Semaphore      0xC5DEAAE4  FREE
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+R1#show ip bgp
+BGP table version is 3, local router ID is 1.1.1.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *>  1.1.1.0/24       0.0.0.0                  0         32768 i
+ r>  2.2.2.0/24       2.2.2.2                  0             0 2 i
+
+
+
+
+R2#show ip bgp
+BGP table version is 3, local router ID is 2.2.2.2
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ r>  1.1.1.0/24       1.1.1.1                  0             0 1 i
+ *>  2.2.2.0/24       0.0.0.0                  0         32768 i
+

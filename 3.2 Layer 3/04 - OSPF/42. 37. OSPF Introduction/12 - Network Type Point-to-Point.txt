@@ -1,0 +1,62 @@
+🔴 Point-to-Point Networks:
+---------------------------
+🔹used by twi directly connected routers.
+🔹serial link connected with 2 routers using PPP(point-to-point protocol)
+🔹does not select a DR or BDR.
+🔹224.0.0.5 -> Multicast address for Hello packets.
+🔹Timers :	
+	- Hello = 10 sec
+	- Dead  = 40 sec.
+🔹Neighbor Discovers dynamically.
+
+
+🔴 LAB: 12 - Network Type Point-to-Point.pkt:
+---------------------------------------------
+!R1 configuration 
+EN
+CONF T
+hostname R1
+int s0/3/0
+ip add 10.0.0.1 255.255.255.0
+no shut
+
+router ospf 1
+network 10.0.0.0 0.0.0.255 area 0
+
+!R2 configuration 
+en
+conf t
+hostname R1
+int s0/3/0
+ip add 10.0.0.2 255.255.255.0
+no shut
+
+router ospf 1
+network 10.0.0.0 0.0.0.255 area 0
+
+
+=============
+Verification
+=============
+R1#show ip ospf neighbor 
+
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+10.0.0.1          0   FULL/  -        00:00:30    10.0.0.1        Serial0/3/0
+R1#sh
+R1#show ip ospf int s0/3/0
+
+Serial0/3/0 is up, line protocol is up
+  Internet address is 10.0.0.2/24, Area 0
+  Process ID 1, Router ID 10.0.0.2, Network Type POINT-TO-POINT, Cost: 64
+  Transmit Delay is 1 sec, State POINT-TO-POINT,
+  Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5
+    Hello due in 00:00:04
+  Index 1/1, flood queue length 0
+  Next 0x0(0)/0x0(0)
+  Last flood scan length is 1, maximum is 1
+  Last flood scan time is 0 msec, maximum is 0 msec
+  Neighbor Count is 1 , Adjacent neighbor count is 1
+    Adjacent with neighbor 10.0.0.1
+  Suppress hello for 0 neighbor(s)
+R1#

@@ -1,0 +1,123 @@
+##########################
+##########################
+54_ BGP_MED_Attibute_LAB
+##########################
+##########################
+🔴Basic configurtion:
+----------------------
+! R1 Config
+enable
+configure terminal
+hostname R1
+int e0/0
+ip add 192.168.102.1 255.255.255.0
+no shut
+int e0/1
+ip add 192.168.103.1 255.255.255.0
+no shut
+exit
+
+--------------------------------------------
+
+! R2 Config
+enable
+configure terminal
+hostname R2
+int e0/0
+ip add 192.168.102.2 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 1.1.1.1 255.255.255.0
+exit
+
+--------------------------------------------
+
+! R3 Config
+enable
+configure terminal
+hostname R3
+int e0/0
+ip add 192.168.103.2 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 1.1.1.1 255.255.255.0
+exit
+
+
+🔴BGP configurtion:
+###################
+! R1 BGP config
+router bgp 1
+neighbor 192.168.102.2 remote-as 2
+neighbor 192.168.103.2 remote-as 2
+
+-----------------------------------------
+
+! R2 BGP config
+router bgp 2
+neighbor 192.168.102.1 remote-as 1
+network 1.1.1.0 mask 255.255.255.0
+
+
+-----------------------------------------
+
+! R3 BGP config
+router bgp 2
+neighbor 192.168.103.1 remote-as 1
+network 1.1.1.0 mask 255.255.255.0
+
+
+🔴Verfication_01:
+#################
+R1#show ip bgp
+BGP table version is 3, local router ID is 192.168.103.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *>  1.1.1.0/24       192.168.102.2            0             0 2 i
+ *                    192.168.103.2            0             0 2 i
+
+
+==> the BGP chose the 192.168.102.2 because it i the lowest neighbor ip
+🔴Configuration_02 MED(metric) value:
+#####################################
+! Increase the metric on R2
+en
+conf t
+route-map R1_metric permit 10
+set metric 700
+exit
+
+router bgp 2
+neighbor 192.168.102.1 route-map R1_metric out
+do clear ip bgp *
+
+🔴Verfication_02:
+#################
+R1#show ip bgp
+BGP table version is 4, local router ID is 192.168.103.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *   1.1.1.0/24       192.168.102.2          700             0 2 i
+ *>                   192.168.103.2            0             0 2 i
+
+
+
+
+
+
+
+
+
+

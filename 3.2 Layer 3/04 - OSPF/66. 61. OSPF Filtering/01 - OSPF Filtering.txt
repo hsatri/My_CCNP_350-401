@@ -1,0 +1,17 @@
+🔴3.2.b Configure simple OSPFv2/v3 environments, including multiple normal areas, summarization, and filtering (neighbor adjacency, point-to-point, and broadcast network types, and passive-interface)
+####################################################################################################################################################
+🔴filtering :
+#############
+
+
+🔴Distribute Lists:
+-------------------
+🔹is used to control routing updates either coming to router or leaving.
+🔹is mainly used for route filtering to control routing updates coming in.
+🔹to permit or block routes bein advertised.
+🔹we use the access-list to block/permit routing update.
+🔹we applied the access list under OSPF.
+
+
+🔴LAB :
+-------

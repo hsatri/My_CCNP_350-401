@@ -1,0 +1,84 @@
+🔴HSRP Show commands: 
+--------------------
+🔹show standby brief
+
+
+🔴Part 1: 
+----------
+! R1 configuration 
+en
+conf t
+hostname R1
+
+int e0/0
+ip add 10.1.1.1 255.255.255.0
+no shut
+
+int lo 0
+ip add 1.1.1.1 255.255.255.255
+no shut
+
+!HSRP configuration :
+int e0/0
+standby 1 ip 10.1.1.254
+
+---------------------------------------
+
+! R2 configuration 
+en
+conf t
+hostname R2
+
+int e0/0
+ip add 10.1.1.2 255.255.255.0
+no shut
+
+int lo 0
+ip add 1.1.1.1 255.255.255.255
+no shut
+
+!HSRP configuration :
+int e0/0
+standby 1 ip 10.1.1.254
+
+---------------------------------------
+
+!Verfication:
+R2#show standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Et0/0       1    100   Active  local           10.1.1.1        10.1.1.254
+
+R1#show standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Et0/0       1    100   Standby 10.1.1.2        local           10.1.1.254
+
+
+🔴Part 2: to change the R1 the ACTIVE status explicitly :
+----------
+
+!R1 configuration 
+en
+conf t
+int e0/0
+standby 1 priority 150
+standby 1 preempt 
+
+
+
+! Verification:
+--------------
+*Mar  6 05:05:17.869: %HSRP-5-STATECHANGE: Ethernet0/0 Grp 1 state Standby -> Active
+R1#show standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Et0/0       1    150 P Active  local           10.1.1.2        10.1.1.254
+
+
+
+
+

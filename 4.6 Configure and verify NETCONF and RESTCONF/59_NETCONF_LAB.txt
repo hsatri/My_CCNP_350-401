@@ -1,0 +1,25 @@
+#######################################################
+##                                                   ##
+##                 59_NETCONF_LAB                    ##
+##                                                   ##
+#######################################################
+
+🔴Config in CSR
+en
+conf t
+hostname R1
+int g0/0
+ip add dhcp
+no shut
+exit
+
+username admin privilege 15 password admin
+! to Enable netconf
+netconf-yang
+
+
+
+
+show platfrom software yang-management process
+! to display the Netconf sessions
+show Netconf session

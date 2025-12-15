@@ -1,0 +1,52 @@
+🔴57_QOS_LAB1:
+##############
+
+
+🔴R1 Configuration: 
+--------------------
+en
+conf t
+hostname R1
+int e0/1
+ip add 192.168.1.1 255.255.255.252
+no shut
+exit
+ip route 0.0.0.0 0.0.0.0 192.168.1.2
+
+🔴ISP Configuration: 
+--------------------
+en
+conf t
+hostname ISP
+int e0/0
+ip add 192.168.1.2 255.255.255.252
+no shut
+exit
+int loopback 0
+ip add 8.8.8.8 255.0.0.0
+exit
+
+
+--> R1 send 8000 packet to stress the ISP router --> high usage of CPU and BW
+ping 8.8.8.8 repeat 8000
+
+🔴policing configuration in ISP Router: 
+----------------------------------------
+! Step 01 : configure class map
+class-map cmap01 
+match protocol icmp
+
+! Step 02 : configure policy map
+policy-map pmap01
+class cmap01
+policy 1000
+conform-action transmit
+exceed-action drop
+
+! Step03 : Apply
+int e0/0
+service-policy input pmap01
+
+
+
+show policy-map interface e0/0

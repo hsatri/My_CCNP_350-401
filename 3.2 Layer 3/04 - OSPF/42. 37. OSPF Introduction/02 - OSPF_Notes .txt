@@ -1,0 +1,48 @@
+🔴OSPF Packet Types:
+--------------------
+🔹Hello
+🔹(DBD)Database Description.
+🔹(LSR)Link-State Request.
+🔹(LSU)Link-State Update.
+🔹(LSAck)Link-State Acknowledgment.
+
+
+🔴HELLO:
+--------
+🔹Neighbor Discovery.
+🔹Building neighbor adjacencies and maintain them.
+
+
+🔴DBD:
+------
+🔹is used to check if the LSDB between 2 routers is the same.
+🔹is a summary of the LSDB.
+
+
+🔴LSR:
+------
+🔹Requests specific link-state records from an OSPF neighbor.
+
+🔴LSU:
+------
+🔹Sends specific Link-state records that were requested -> this msg is like an envelope with multiple LSAs on it.
+
+🔴LSAck:
+--------
+🔹OSPF is a reliable protocol so we have a packet to acknoweldge the others.
+
+
+224.0.0.5  --> 
+224.0.0.6  --> to send DR/BDR msgs.
+
+
+🔴Versions of OSPF:
+-------------------
+🔹V2: for IPV4
+🔹V3: for IPV6
+
+⚙️Show commands :
+	#debug ip ospf packet
+
+
+

@@ -1,0 +1,250 @@
+#############################
+#############################
+55_ Policy-Based-Routing_LAB1
+#############################
+#############################
+🔴Basic configurtion:
+----------------------
+! R1 Config
+enable
+configure terminal
+hostname R1
+int fa0/0
+ip add 192.168.12.1 255.255.255.252
+no shut
+exit
+
+router eigrp 1
+network 0.0.0.0
+
+--------------------------------------------
+
+! R2 Config
+enable
+configure terminal
+hostname R2
+int fa0/0
+ip add 192.168.23.2 255.255.255.252
+no shut
+exit
+int fa0/1
+ip add 192.168.12.2 255.255.255.252
+no shut
+exit
+int fa1/0
+ip add 192.168.24.2 255.255.255.252
+no shut
+exit
+
+router eigrp 1
+network 0.0.0.0
+
+--------------------------------------------
+
+! R3 Config
+enable
+configure terminal
+hostname R3
+int fa0/0
+ip add 192.168.23.1 255.255.255.252
+no shut
+exit
+int fa0/1
+ip add 192.168.35.1 255.255.255.252
+no shut
+exit
+
+router eigrp 1
+network 0.0.0.0
+
+--------------------------------------------
+
+! R4 Config
+enable
+configure terminal
+hostname R4
+int e0/0
+ip add 192.168.24.1 255.255.255.252
+no shut
+exit
+int e0/1
+ip add 192.168.45.1 255.255.255.252
+no shut
+exit
+
+router eigrp 1
+network 0.0.0.0
+
+--------------------------------------------
+
+! R5 Config
+enable
+configure terminal
+hostname R5
+int e0/0
+ip add 192.168.35.2 255.255.255.252
+no shut
+exit
+int e0/1
+ip add 192.168.45.2 255.255.255.252
+no shut
+exit
+int loopback 0
+ip add 8.8.8.8 255.255.255.0
+exit
+int loopback 1
+ip add 4.4.4.4 255.255.255.0
+exit
+
+router eigrp 1
+network 0.0.0.0
+
+
+
+🔴BGP configurtion:
+###################
+! R1 BGP config
+router bgp 1
+neighbor 192.168.102.2 remote-as 2
+neighbor 192.168.103.2 remote-as 2
+
+-----------------------------------------
+
+! R2 BGP config
+router bgp 2
+neighbor 192.168.102.1 remote-as 1
+network 1.1.1.0 mask 255.255.255.0
+
+
+-----------------------------------------
+
+! R3 BGP config
+router bgp 2
+neighbor 192.168.103.1 remote-as 1
+network 1.1.1.0 mask 255.255.255.0
+
+
+🔴Verfication_01:
+#################
+R2#show ip route eigrp
+     192.168.12.0/24 is variably subnetted, 2 subnets, 2 masks
+D       192.168.12.0/24 is a summary, 00:08:21, Null0
+     192.168.45.0/30 is subnetted, 1 subnets
+D       192.168.45.0 [90/284160] via 192.168.24.1, 00:07:46, FastEthernet1/0
+     4.0.0.0/24 is subnetted, 1 subnets
+D       4.4.4.0 [90/412160] via 192.168.24.1, 00:07:46, FastEthernet1/0
+     192.168.24.0/24 is variably subnetted, 2 subnets, 2 masks
+D       192.168.24.0/24 is a summary, 00:07:41, Null0
+     8.0.0.0/24 is subnetted, 1 subnets
+D       8.8.8.0 [90/412160] via 192.168.24.1, 00:07:46, FastEthernet1/0
+     192.168.23.0/24 is variably subnetted, 2 subnets, 2 masks
+D       192.168.23.0/24 is a summary, 00:08:21, Null0
+     192.168.35.0/24 is variably subnetted, 2 subnets, 2 masks
+D       192.168.35.0/30
+           [90/309760] via 192.168.24.1, 00:07:46, FastEthernet1/0
+D       192.168.35.0/24
+           [90/307200] via 192.168.23.1, 00:08:07, FastEthernet0/0
+
+-----------------------------------------
+
+R1>traceroute 4.4.4.4
+
+Type escape sequence to abort.
+Tracing the route to 4.4.4.4
+
+  1 192.168.12.2 52 msec 68 msec 76 msec
+  2 192.168.24.1 108 msec 96 msec 112 msec
+  3 192.168.45.2 48 msec 104 msec *
+
+R1>traceroute 8.8.8.8
+
+Type escape sequence to abort.
+Tracing the route to 8.8.8.8
+
+  1 192.168.12.2 48 msec 60 msec 64 msec
+  2 192.168.24.1 108 msec 72 msec 96 msec
+  3 192.168.45.2 152 msec 40 msec *
+R1>
+
+---------------------------------------------------------------------------------------------------------------------------
+
+- we will configure PBR in the way traffic to the DST 8.8.8.8 will directed to R3
+- 4.4.4.4 via R4
+
+🔴 R2 PBR configuration :
+#########################
+en
+conf t
+! step_01 : creat ACL with the selecting the chosing src and dst
+ip access-list extended ACL01
+permit ip host 192.168.12.1 host 8.8.8.8
+exit
+
+! create the route map
+route-map PBR_8_R3 permit 10
+match ip address ACL01
+set ip next-hop 192.168.23.1
+exit
+
+! Applying the policy in the correct interface 
+int fa0/1
+ip policy route-map PBR_8_R3
+
+🔴Verfication_02:
+#################
+R1#traceroute 8.8.8.8
+
+Type escape sequence to abort.
+Tracing the route to 8.8.8.8
+
+  1 192.168.12.2 84 msec 84 msec 80 msec
+  2 192.168.23.1 144 msec 128 msec 108 msec
+  3 192.168.35.2 144 msec 144 msec *
+R1#
+
+
+==> now we can see the route to 8.8.8.8 are directed to R3 via 192.168.23.1
+
+-------------------------
+
+R1#traceroute 4.4.4.4
+
+Type escape sequence to abort.
+Tracing the route to 4.4.4.4
+
+  1 192.168.12.2 80 msec 48 msec 108 msec
+  2 192.168.24.1 112 msec 84 msec 72 msec
+  3 192.168.45.2 112 msec 132 msec *
+
+
+==> 4.4.4.4 are still the same no change 
+
+N.B ==> the routing topology are not change/affected by the PBR.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

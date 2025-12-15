@@ -1,0 +1,31 @@
+! R1 Basic Configuration
+en
+conf t
+hostname R1
+int Gig0/0/0
+no shut
+ip add 172.16.1.1 255.255.255.0
+exit
+ntp server 172.16.1.254 
+
+
+! SW1 Configuration
+en
+conf t
+hostname SW0
+int vlan 1
+ip add 172.16.1.10 255.255.255.0
+no shut
+exit
+ip default-gateway 172.16.1.1
+ntp server 172.16.1.254
+
+
+
+
+! R1 verfiification
+R1#show clo
+R1#show clock 
+1:30:23.855 UTC Thu Sep 25 2025
+
+

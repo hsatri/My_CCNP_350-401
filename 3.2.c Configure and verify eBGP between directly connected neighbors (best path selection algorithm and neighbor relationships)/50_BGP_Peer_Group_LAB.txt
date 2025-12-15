@@ -1,0 +1,201 @@
+##########################
+##########################
+50_BGP_Weight_Attribute_LAB
+##########################
+##########################
+🔴Basic configurtion:
+----------------------
+! R1 Config
+enable
+configure terminal
+hostname R1
+int e0/0
+ip add 192.168.102.1 255.255.255.0
+no shut
+int e0/1
+ip add 192.168.103.1 255.255.255.0
+no shut
+exit
+
+
+! R2 Config
+enable
+configure terminal
+hostname R2
+int e0/0
+ip add 192.168.102.2 255.255.255.0
+no shut
+int e0/1
+ip add 192.168.203.1 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 2.2.2.2 255.255.255.0
+exit
+
+
+! R3 Config
+enable
+configure terminal
+hostname R3
+int e0/0
+ip add 192.168.103.2 255.255.255.0
+no shut
+int e0/1
+ip add 192.168.203.2 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 2.2.2.2 255.255.255.0
+exit
+
+
+🔴BGP configurtion:
+--------------------
+! R1 BGP config
+router bgp 1
+neighbor 192.168.102.2 remote-as 2
+neighbor 192.168.103.2 remote-as 2
+
+
+! R2 BGP config
+router bgp 2
+bgp router-id 22.22.22.22
+neighbor 192.168.102.1 remote-as 1
+neighbor 192.168.203.2 remote-as 2
+network 2.2.2.0 mask 255.255.255.0
+
+
+! R3 BGP config
+router bgp 2
+bgp router-id 33.33.33.33
+neighbor 192.168.103.1 remote-as 1
+neighbor 192.168.203.1 remote-as 2
+network 2.2.2.0 mask 255.255.255.0
+
+🔴Verfication_01:
+-----------------
+R1#show ip bgp
+BGP table version is 7, local router ID is 192.168.103.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *   2.2.2.0/24       192.168.102.2            0             0 2 i
+ *>                   192.168.103.2            0             0 2 i
+
+
+🔴BGP increase the weight configurtion :
+----------------------------------------
+! R1 increase the weigh to the 192.168.102.2
+en
+conf t
+router bgp 1
+neighbor 192.168.102.2 weight 500
+end
+clear ip bgp * soft
+
+🔴Verfication_02:
+-----------------
+R1#show ip bgp
+BGP table version is 8, local router ID is 192.168.103.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *>  2.2.2.0/24       192.168.102.2            0           500 2 i
+ *                    192.168.103.2            0             0 2 i
+
+
+
+🔴BGP other cases :
+--------------------
+! in case of wr ahve multiple destination behince the peer router that we dont prefer.
+
+! R2 Lo1 config
+en
+conf t
+int loopback 1
+ip add 11.11.11.11 255.255.255.0
+exit
+router bgp 2
+network 11.11.11.0 mask 255.255.255.0
+
+! R3 Lo1 config
+en
+conf t
+int loopback 1
+ip add 11.11.11.11 255.255.255.0
+exit
+router bgp 2
+network 11.11.11.0 mask 255.255.255.0
+
+🔴Verfication_03:
+-----------------
+R1#show ip bgp
+BGP table version is 3, local router ID is 192.168.103.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *   2.2.2.0/24       192.168.103.2            0             0 2 i
+ *>                   192.168.102.2            0           500 2 i
+ *   11.11.11.0/24    192.168.103.2            0             0 2 i
+ *>                   192.168.102.2            0           500 2 i
+
+
+
+==> you can see also the destination 11.11.11.0 are have the weight 500 via 192.168.102.2 which we are not specified it for it .
+==> 2.2.2.0/24 next hop should be 192.168.102.2 | 11.11.11.0/24 next hop should be 192.168.103.2
+
+! R1 reconfig the weight :
+en
+conf t
+router bgp 1
+no neighbor 192.168.102.2 weight 500
+do clear ip bgp * soft
+
+! R1 Route-Maps :
+access-list 1 permit 11.11.11.0 0.0.0.255
+route-map Lab50 permit 10
+match ip add 1
+set weight 500
+exit
+route-map Lab50 permit 20
+set weight 0
+exit
+
+router bgp 1
+neighbor 192.168.103.2 route-map Lab50 in
+do clear ip bgp * soft
+
+🔴Verfication_04: the results are perfect now
+-----------------
+
+R1#show ip bgp
+BGP table version is 6, local router ID is 192.168.103.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *   2.2.2.0/24       192.168.103.2            0             0 2 i
+ *>                   192.168.102.2            0             0 2 i
+ *>  11.11.11.0/24    192.168.103.2            0           500 2 i
+ *                    192.168.102.2            0             0 2 i
+
+
+
+
+

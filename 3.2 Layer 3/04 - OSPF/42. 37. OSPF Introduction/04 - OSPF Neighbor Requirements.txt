@@ -1,0 +1,17 @@
+🔴OSPF Neighbor Requirements are given below:
+---------------------------------------------
+- The Devices must:
+🔹Hello/Dead Timers must match.
+🔹be on the same subnet.
+🔹not be passive on connected interface
+🔹be in the same area.
+🔹have unique Router ID.
+🔹have the same authentication configuration if they using it.
+
+⚙️Show commands :
+	#show ip ospf interface f0/0
+
+
+
+
+	

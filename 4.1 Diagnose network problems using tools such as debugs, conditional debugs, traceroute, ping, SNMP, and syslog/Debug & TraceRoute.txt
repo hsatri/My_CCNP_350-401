@@ -1,0 +1,55 @@
+🔴Debug and Conditional Debug: 
+------------------------------
+🔹Debug:
+	➤ Useful tools when troublshooting specifivc issues.
+	➤ Help to show the real time information on device.
+	➤ to keep track in case of events or protocol errors.
+	➤ to keep track the internal msgs taking place.
+	➤ Turn on debugging for all interfaces --> can produce a huge amount of information which overload the router.
+	
+🔹Conditional Debug:
+	➤ Is very useful to filter out some of the debug information.
+	➤ Generates debugging messages for one interface/sub-int.
+	➤ to limit information based on specific interface or protocol.
+	➤ using "no debug all" or "undebug all" does not remove the condition debugging.
+
+🔴Debug Commands: 
+------------------
+🔹CLI#debug ip icmp  => enabling debug for icmp packets
+🔹CLI#debug ip packet
+🔹CLI#debug interface
+🔹CLI#debugeigrp packets hello
+🔹CLI#show debug condition
+
+🔴condition Debugging Commands: 
+-------------------------------
+🔹CLI#debug condition ?
+🔹CLI#debug condition int f0/0
+🔹CLI#undebug condition interface f0/0
+🔹CLI#show debugging
+🔹CLI#no debug all
+
+🔴Ping:
+--------
+🔹CLI#ping     => we can specified more details how we want ping work for us :
+Protocol [ip]: 
+Target IP address: 
+Repeat count [5]: 
+Datagram size [100]: 
+Timeout in seconds [2]: 
+Extended commands [n]: 
+Sweep range of sizes [n]:
+
+🔹CLI# ping 192.168.1.1 repeat 100
+
+🔴Traceroute:
+-------------
+🔹Help us to ping every device on out path to the DST , so we can know every point the ip add and the sttus if pass or not, *
+	➤ CLI#tracert 192.168.1.1
+
+🔹extended traceroute command: 
+	➤ to see path packets are taking to get to a DST
+	➤ to check routing at the same time.
+	➤ helpful for troublshotting the routing loops/determining where packets are getting lost.
+	➤ CLI#traceroute
+➤

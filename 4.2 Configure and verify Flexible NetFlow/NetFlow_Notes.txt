@@ -1,0 +1,60 @@
+#############################################
+🔴4.2 Configure and verify Flexible NetFlow #
+#############################################
+
+
+🔴CISCO NetFlow:
+-----------------
+🔹Network management protocols like SNMP allow us to monitor our network.
+🔹we can check (CPU load, memory usage, interface status ....)
+🔹We cant track all the flow like SNMP do.
+🔹Allows us to track these flows on our network.
+🔹We can use this informatio to solve problems like bottlenecks, identify what applications are used, how much BW they use etc...
+🔹Configure router to keep track of all flows and export them to a cenral server.
+🔹Is an application.
+🔹Is a protocol developed by cisco systems to record all IP traffic flows.
+🔹Flow characteristics are like (SRC, DST Port, Address, protocol, Type, etc...). ==> netflow allows tracking these flows on in the network.
+🔹Collect and export data for network planning,
+🔹UDP/2055,9555,9995
+
+🔴In summary of NetFlow:
+-------------------------
+➤ One of the most important tasks of a network is to [monitor the health of our networks, learn how our BW is being used, what application are consuming it, when it needs upgrade...].
+➤ SNMP or SPAN : can help us answer some questions but they are not enough to give us an insightful view of our networks.
+➤ NetFlow: is a network analysis protocol that gives the ability to collect detailed information about network traffic as it flows through a router interface.
+
+🔴 NetFlow Versions:
+--------------------
+🔹Version_1:
+	➤ First Implemetation
+	➤ Now obsolete
+	➤ restricted to IPV4 only.
+
+🔹V2 to V4:
+	➤ Cisco interfnal version never released.
+
+
+🔹Version_6:
+	➤ No longer supported by CISCO encaplsulation information
+	➤ is not compatible with cisco routers.
+
+🔹Version_7:
+	➤ Cisco specific version for catalyst 5000 series switches.
+	➤ is not compatible with cisco
+
+🔹Version_8:
+	➤ Choice of aggregation schemes in order to reduce resource
+	
+🔹Version_5:
+	➤ Fixed format that cannot be added or extended.	
+	➤ Only support IPV4.
+	➤ Added BGP support.
+	➤ Export data from main cache only.
+	➤ No real concept of ingress and egress flows.
+	➤ Added flow sequence numbers and additional fields.
+	➤ is standard and most common netflow version.
+
+🔹Version_9:
+	➤ Support IPV4/IPV6.
+	➤ Added additional
+	➤

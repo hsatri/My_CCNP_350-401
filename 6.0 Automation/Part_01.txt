@@ -1,0 +1,60 @@
+🔴
+#############
+
+
+🔴Traditional Network Management : 
+----------------------------------
+🔹The traditional way to manage network devices is one at a time using SSH to the command line.
+🔹copying and pasting from a test file template is common.
+🔹GUI tools to manage on device at a time -> slow and inefficient.
+
+🔴NMS(Network Management Systems) :
+-----------------------------------
+🔹ex: Solar winds, CIsco works, cisco prime infrastructure.
+🔹SNMP/Netflow protocols: to gather information and report on the state of the network.
+	➤ SNMP can also be used to push configurzation to devices but it has limited functionality.
+
+🔴The issues with Traditional Network management :
+--------------------------------------------------
+🔹Configuring box by box is time consuming and ineffiecent.
+🔹Increase the error like typos ...
+🔹Individual edits to multiple devices by separate engineers over time with little version control leads.
+🔹Having non standardized configurations and accessing one device at a time
+
+🔴Network Authomation :
+-----------------------
+🔹Device configuration
+🔹Initial device provisioning.
+🔹Software version control.
+🔹Collecting statics from devices
+🔹Compliance verfication
+🔹Reports
+🔹Troubleshooting.
+
+🔴What NA is?
+-------------
+🔹is the process of automating the configuring, managing, testing, deploying and operating of physical and virtual devices withing a network.
+🔹is a methodology in which software automatically configures provisions, manages and tests network devices.
+🔹used by entreprises and service providers to improve efficiency and reduce human error and operating expenses.
+🔹Every day network tasks and functions are performed automatically.
+🔹Managig BW and finding best routing paths.
+🔹pyton is widely ised to perform NA.
+🔹python is an open source scripting language, used to automate anything.
+
+🔴NA benefits :
+---------------
+🔹Network programmability enables automation which reduces human to machine interfacetion.
+🔹reduce the chance of human error
+🔹more scalable than configuration one device at a time.
+🔹Network programmability can provide configuration version control.
+🔹provide software version control
+🔹Troubleshooting is more efficient.
+🔹events and error codes can be acted on programmatically.
+🔹ensure device have a standardized configuration.
+🔹provide reports on and correct any exceptions.
+🔹Methodes for automation : python script, NETCONF, RESTCONF, Ansible, Puppetn SDN, CISCO DNA....
+
+🔹
+🔹
+
+

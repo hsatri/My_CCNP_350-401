@@ -1,0 +1,42 @@
+🔴3.2.d Describe policy-based routing
+#######################################
+📌🧩
+
+🧩Normal Routing is only concerned about destination-based forwarding.
+🧩Traditional routing systems route traffic based on the DST of the traffic.
+🧩
+🧩
+🧩
+
+🔴PBR(Policy Based Routing):
+-----------------------------
+🔹supported on cisco routers
+🔹Can be used to change the next hop IP address for traffic matching,  
+🔹Useful to overrule yourroputing table for certain traffic types.
+🔹Is network routing systems route traffic based in DST of the traffic.
+🔹Is a feature to manipulate oacket routing and forwarding to follow policy set.
+🔹Is a technique that forwards and routes data packets based on policies or filters.
+🔹Enables network administrators to achieve optimal BW utilization.
+🔹Prioritize apps by selecting high-bw , low-latency for important apps.
+🔹Use ACLs and route-maps to selectively route an IP packet.
+🔹ACLs classify traffic , Route-map match on ACLs set routing attributes for the traffic.
+
+
+
+
+
+
+🔹
+🔹
+🔹
+🔹
+🔹
+
+➤
+➤
+➤
+➤
+➤
+➤
+➤
+➤

@@ -1,0 +1,88 @@
+🔴SDN(Software Defined Networking) :
+------------------------------------
+🔹is a network architecture approach that enables the networkto be intelligently and centrally controlled or progremmed by using software application.
+🔹Use a central controller fpr the control plane.
+🔹it can be physical hardware device or virtual machine.
+🔹Northbound(NBI)
+	➤ used to access the SDN itself.
+	➤ allow network administrator to access the SDN to configure it or to retrieve information from it.
+	➤ via GUI, 
+	➤ offer API which allows other apps access to SDN controller.
+	➤ we can use this towrite scripts and automate network.
+	➤ Typically REST is Northbound interface.
+🔹Sothbound(SBI)
+	➤ SDN has to communicate with our network devices
+	➤ OpenFlox, Cisco OpFlex, REST, NETCONF, RESTCONF, SSH
+🔹NBI and SBI : Are not a physical interface (API, ...)
+🔹Open Daylight : it is an Open source SDN controllser hosted by the linux foundations.
+🔹CISCO SDN controllers is APIC(Application Policy Infrastructure Controller) is design to manage Data center
+	➤ is DNA Center, it is design to manage entreprise environments like branch, campus and WAN.
+
+
+🔴CISCO DNA (Digital Network Architecture) Center:
+--------------------------------------------
+🔹Can help us to bring it all together into signle dashboard.
+🔹focus on first up theres design with design we can take a map of the world and we can add an area and we could say within that area we've got this building or theres another area ...
+🔹is assurance : 
+	➤ Monitor the health of the network -> can help with troublshooting
+	➤ CISCO TAC -> goign to give us feedback about what we should do to try to resolve this issue 
+
+🔴SDAccess:
+-----------
+🔹2 Compenets are required for SDAccess : CISCO DNA + CISCO ISE
+🔹An underlay network :
+	➤ is the underlying physical network
+	➤ physical network + phsycal connections
+🔹An overlay network :
+	➤ Is a logical topologyused to virtually connect devices 
+	➤ build over the physical underlay network.
+	➤ 
+
+
+🔴SDWan:
+---------
+🔹Provides automated setup of wan connectivity between sites.
+🔹Traffic flow control is application aware.
+🔹Monitoring and failover is automated.
+🔹Automated, standardized setup of connectivity between sites .
+🔹Lower cost 
+🔹More flexibility and easier to migrate WAN services.
+🔹Intergration with the latest cloud and network technologies
+
+
+🔴DevNet DNA Center (CISCO Catalyst Center) :
+---------------------------------------------
+🔹url : https://sandboxnac.cisco.com
+🔹user : devnetuser
+🔹password : Cisco123!
+
+
+!Cisco Vmanage
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+	➤ 
+	➤ 
+	➤ 
+	➤ 

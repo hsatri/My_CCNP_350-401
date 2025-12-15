@@ -1,0 +1,443 @@
+! ISP1 Confgurations
+! Basic configuration
+en
+conf t
+hostname ISP1
+int Loopback 1
+ip add 8.8.8.8 255.255.255.255
+exit
+int fa0/0
+no shut
+ip add 98.98.98.1 255.255.255.0
+
+------------------------------------------------------------------------
+! ISP2 Confgurations
+! Basic configuration
+en
+conf t
+hostname ISP2
+int Loopback 1
+ip add 8.8.8.8 255.255.255.255
+exit
+int fa0/0
+no shut
+ip add 20.20.20.1 255.255.255.0
+
+------------------------------------------------------------------------
+! CORE01 Confgurations
+! Basic configuration
+en
+conf t
+hostname CORE01
+int fa0/1
+no shut
+ip add 172.16.1.2 255.255.255.252
+exit
+int fa0/0
+no shut
+ip add 98.98.98.2 255.255.255.0
+exit
+
+!Default route config
+ip route 0.0.0.0 0.0.0.0 98.98.98.1
+
+! OSPF Configuration
+router ospf 1
+router-id 1.1.1.1
+default-information originate
+exit
+int fa0/1
+ip ospf 1 area 0
+
+! NAT Configuration
+access-list 1 permit 192.168.0.0 0.0.63.255 
+
+ip nat inside source list 1 int fa0/0 overload
+
+int fa0/0
+ip nat outside
+exit
+int fa0/1
+ip nat inside 
+exit
+
+
+------------------------------------------------------------------------
+! CORE02 Confgurations
+! Basic configuration
+en
+conf t
+hostname CORE02
+int fa0/1
+no shut
+ip add 172.16.2.2 255.255.255.252
+exit
+int fa0/0
+no shut
+ip add 20.20.20.2 255.255.255.0
+exit
+
+!Default route config
+ip route 0.0.0.0 0.0.0.0 98.98.98.1
+
+! OSPF Configuration
+router ospf 1
+router-id 2.2.2.2
+default-information originate
+exit
+int fa0/1
+ip ospf 1 area 0
+exit
+
+! NAT Configuration
+access-list 1 permit 192.168.0.0 0.0.63.255 
+
+ip nat inside source list 1 int fa0/0 overload
+
+int fa0/0
+ip nat outside
+exit
+int fa0/1
+ip nat inside 
+exit
+
+
+------------------------------------------------------------------------
+! DL01 Confgurations
+! Basic configuration
+en
+conf t
+hostname DL01
+ip routing
+int gig1/0/1
+no switchport
+ip add 172.16.1.1 255.255.255.252
+no shut
+exit
+
+!Trunking and vlan configuration
+vlan 99
+name native_vlan
+vlan 10
+name HR
+vlan 20
+name SALE
+vlan 30
+name IT
+vlan 40
+name MARKETING
+
+int range Gig1/0/2-7
+! switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,100
+exit
+vtp mode server
+vtp password abc
+vtp domain abc.ma
+
+!configuration intervlan
+int vlan 10
+ip add 192.168.10.10 255.255.255.0
+no shut
+exit
+int vlan 20
+ip add 192.168.20.10 255.255.255.0
+no shut
+exit
+int vlan 30
+ip add 192.168.30.10 255.255.255.0
+no shut
+exit
+int vlan 40
+ip add 192.168.40.10 255.255.255.0
+no shut
+exit
+
+! DHCP configuration
+ip dhcp excluded-address 192.168.10.1 192.168.10.3
+ip dhcp excluded-address 192.168.10.1 192.168.10.3
+ip dhcp excluded-address 192.168.10.131 192.168.10.254
+ip dhcp excluded-address 192.168.20.1 192.168.20.3
+ip dhcp excluded-address 192.168.20.1 192.168.20.3
+ip dhcp excluded-address 192.168.20.131 192.168.20.254
+ip dhcp excluded-address 192.168.30.1 192.168.30.3
+ip dhcp excluded-address 192.168.30.1 192.168.30.3
+ip dhcp excluded-address 192.168.30.131 192.168.30.254
+ip dhcp excluded-address 192.168.40.1 192.168.40.3
+ip dhcp excluded-address 192.168.40.1 192.168.40.3
+ip dhcp excluded-address 192.168.40.131 192.168.40.254
+
+ip dhcp pool HR
+default-router 192.168.10.254
+network 192.168.10.0 255.255.255.0
+exit
+
+ip dhcp pool SALE
+default-router 192.168.20.254
+network 192.168.20.0 255.255.255.0
+exit
+
+ip dhcp pool IT
+default-router 192.168.30.254
+network 192.168.30.0 255.255.255.0
+exit
+
+ip dhcp pool IT
+default-router 192.168.40.254
+network 192.168.40.0 255.255.255.0
+exit
+
+! HSRP Configuration
+interface vlan 10
+standby 10 ip 192.168.10.254
+standby 10 priority 110 
+standby 10 preempt
+exit
+interface vlan 20
+standby 20 ip 192.168.20.254
+standby 20 priority 110 
+standby 20 preempt
+exit
+interface vlan 30
+standby 30 ip 192.168.30.254
+standby 30 priority 110 
+standby 30 preempt
+exit
+interface vlan 40
+standby 40 ip 192.168.40.254
+standby 40 priority 110 
+standby 40 preempt
+exit
+
+!Opsf Configuration
+router ospf 1
+exit
+int Gig1/0/1
+ip ospf 1 area 0
+exit
+int vlan 10
+ip ospf 1 area 0
+exit
+int vlan 20
+ip ospf 1 area 0
+exit
+int vlan 30
+ip ospf 1 area 0
+exit
+int vlan 40
+ip ospf 1 area 0
+exit
+
+! EtherChannel Configuration
+int range Gig1/0/2-3
+! switchport trunk encapsulation dot1q
+switchport mode trunk
+channel-protocol pagp
+channel-group 1 mode des
+exit
+int port-channel 1
+switchport trunk native vlan 99
+
+
+------------------------------------------------------------------------
+! DL02 Confgurations
+! Basic configuration
+en
+conf t
+hostname DL02
+ip routing
+int gig1/0/1
+no switchport
+ip add 172.16.2.1 255.255.255.252
+no shut
+!Trunking and vlan configuration
+vlan 100
+int range Gig1/0/2-7
+! switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,100,99
+exit
+vtp mode server
+vtp password abc
+vtp domain abc.ma
+
+!configuration intervlan
+int vlan 10
+ip add 192.168.10.11 255.255.255.0
+no shut
+exit
+int vlan 20
+ip add 192.168.20.11 255.255.255.0
+no shut
+exit
+int vlan 30
+ip add 192.168.30.11 255.255.255.0
+no shut
+exit
+int vlan 40
+ip add 192.168.40.11 255.255.255.0
+no shut
+exit
+
+! DHCP configuration
+ip dhcp excluded-address 192.168.10.1 192.168.10.3
+ip dhcp excluded-address 192.168.10.1 192.168.10.3
+ip dhcp excluded-address 192.168.10.4 192.168.10.130
+ip dhcp excluded-address 192.168.20.1 192.168.20.3
+ip dhcp excluded-address 192.168.20.1 192.168.20.3
+ip dhcp excluded-address 192.168.20.4 192.168.20.130
+ip dhcp excluded-address 192.168.30.1 192.168.30.3
+ip dhcp excluded-address 192.168.30.1 192.168.30.3
+ip dhcp excluded-address 192.168.30.4 192.168.30.130
+ip dhcp excluded-address 192.168.40.1 192.168.40.3
+ip dhcp excluded-address 192.168.40.1 192.168.40.3
+ip dhcp excluded-address 192.168.40.4 192.168.40.130
+
+ip dhcp pool HR
+default-router 192.168.10.254
+network 192.168.10.0 255.255.255.0
+exit
+
+ip dhcp pool SALE
+default-router 192.168.20.254
+network 192.168.20.0 255.255.255.0
+exit
+
+ip dhcp pool IT
+default-router 192.168.30.254
+network 192.168.30.0 255.255.255.0
+exit
+
+ip dhcp pool IT
+default-router 192.168.40.254
+network 192.168.40.0 255.255.255.0
+exit
+
+! default rout
+ip route 0.0.0.0 0.0.0.0 172.16.2.2
+
+! HSRP Configuration
+interface vlan 10
+standby 10 ip 192.168.10.254
+standby 10 preempt
+exit
+interface vlan 20
+standby 20 ip 192.168.20.254
+standby 20 preempt
+exit
+interface vlan 30
+standby 30 ip 192.168.30.254
+standby 30 preempt
+exit
+interface vlan 40
+standby 40 ip 192.168.40.254
+standby 40 preempt
+exit
+
+! default rout
+ip route 0.0.0.0 0.0.0.0 172.16.1.2
+
+!Opsf Configuration
+router ospf 1
+exit
+int Gig1/0/1
+ip ospf 1 area 0
+exit
+int vlan 10
+ip ospf 1 area 0
+exit
+int vlan 20
+ip ospf 1 area 0
+exit
+int vlan 30
+ip ospf 1 area 0
+exit
+int vlan 40
+ip ospf 1 area 0
+exit
+
+! EtherChannel Configuration
+int range Gig1/0/2-3
+! switchport trunk encapsulation dot1q
+switchport mode trunk
+channel-protocol pagp
+channel-group 1 mode des
+------------------------------------------------------------------------
+! AL01 Confgurations
+! Basic configuration
+en
+conf t
+hostname AL01
+int range fa0/1-2
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,100,99
+exit
+int range fa0/3-4
+switchport mode access
+switchport access vlan 10
+vtp mode client
+vtp password abc
+vtp domain abc.ma
+
+! Port fast and bpduguard configuration
+int range fa0/3-4
+spanning-tree portfast
+spanning-tree bpduguard enable
+
+------------------------------------------------------------------------
+! AL02 Confgurations
+! Basic configuration
+en
+conf t
+hostname AL02
+int range fa0/1-2
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,100
+exit
+int range fa0/3-4
+switchport mode access
+switchport access vlan 20
+vtp mode client
+vtp password abc
+vtp domain abc.ma
+
+------------------------------------------------------------------------
+! AL03 Confgurations
+! Basic configuration
+en
+conf t
+hostname AL03
+int range fa0/1-2
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,100
+exit
+int range fa0/3-4
+switchport mode access
+switchport access vlan 30
+vtp mode client
+vtp password abc
+vtp domain abc.ma
+
+------------------------------------------------------------------------
+! AL04 Confgurations
+! Basic configuration
+en
+conf t
+hostname AL04
+int range fa0/1-2
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,100
+exit
+int range fa0/3-4
+switchport mode access
+switchport access vlan 40
+vtp mode client
+vtp password abc
+vtp domain abc.ma

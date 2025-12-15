@@ -1,0 +1,76 @@
+#############################
+#############################
+56_NTP_LAB1
+#############################
+#############################
+🔴Basic configurtion:
+----------------------
+! R1 Config
+enable
+configure terminal
+hostname R1
+int e0/0
+ip add dhcp
+no shut
+exit
+int e0/1
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+ip name-server 8.8.8.8
+ip domain-lookup
+
+
+
+--------------------------------------------
+
+! R2 Config
+enable
+configure terminal
+hostname R2
+int e0/0
+ip add 192.168.1.2 255.255.255.0
+no shut
+
+
+
+
+🔴Verfication_01:
+#################
+R1#show clock
+*03:21:31.241 EET Thu Sep 25 2025
+R1#
+
+
+
+
+
+
+we will synchronize our network device by Morocco ntp server : ma.pool.ntp.org
+
+
+🔴NTP configurtion:
+###################
+
+! R1 
+en
+conf t
+ntp server ma.pool.ntp.org
+
+-----------------------------------
+!R2
+en
+conf t
+ntp server ma.pool.ntp.org
+
+🔴Verfication_01:
+#################
+R1#show clock
+*03:21:31.241 EET Thu Sep 25 2025
+R1#
+
+show ntp status
+show nrt association
+
+
+

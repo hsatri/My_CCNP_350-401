@@ -1,0 +1,28 @@
+🔴1.3.b Benefits and limitations of SD-WAN solutions:
+#####################################################
+
+🔴Benefits and limitations of SD-WAN :
+--------------------------------------
+🔹Simple
+🔹Easy to manage
+🔹Secure
+🔹Scalable
+🔹Efficient
+🔹Low cost 
+🔹Zero-touch provision
+🔹Incrise agility : easy to add or remove links and change routing policies.
+🔹Emprove performance : optimizing traffic flows and avoiding congested links.
+
+🔴Limitions of SD-WAN :
+------------------------
+🔹Complexity :
+	➤ complex to deploy and manage
+	➤ 
+
+🔹Vendor lock-in:
+	➤ Some of vendors lock their customers ointo their own HW/SW.
+	➤ difficult to switch vendors if needed.
+	➤ chose SD-WAN vendor that offers a flexible architecture that can be easily integrated with other technologies.
+
+🔹Heterogeneity :
+	➤ its important to choose an SD-WAN vendor that offers a centralized management platform that can be used to manage all devices in the network.

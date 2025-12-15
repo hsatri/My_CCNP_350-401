@@ -1,0 +1,12 @@
+🔴VLANs as we know cannot communicate with different other vlans --> with help of inter-vlan we can make communication possible.
+	- - Using : (Router) or (L3 device).
+
+🔴We can use 3 different options for inter vlan routing method:
+	- Router with separate interfaces.
+	- Router on a stick --> creating a sub-interfaces.
+	- L3 Swtich	
+
+
+
+
+

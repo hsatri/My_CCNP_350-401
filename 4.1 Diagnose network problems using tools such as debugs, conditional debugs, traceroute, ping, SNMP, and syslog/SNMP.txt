@@ -1,0 +1,51 @@
+🔴SNMP Theory: 
+##############
+
+
+🔴SNMP(Simple Network Management Protocol):
+--------------------------------------------
+🔹Monitoring Protocol.
+🔹Application protocol used for Network managment.
+🔹monitor and manage devices on the whole networks.
+🔹retrieve information from network devices.
+🔹configure network devices.
+🔹RO and RW => 
+🔹using UDP port:161
+🔹SNMP Traps: information to the manager over UDP/161
+
+🔴SNMP Manager:
+----------------
+🔹is Software Running on a PC/server that will monitor the network devices. 
+
+🔴SNMP Agent:
+--------------
+🔹runs on the network devices Routers/Switches/servers ... 
+
+🔴SNMP Monitoring Tools Example:
+--------------------------------
+🔹Solar Winds Network Performance monitor
+🔹PRTG Network Monitor
+🔹MRTG
+
+ 🔴Management Information Base (MIB):
+-------------------------------------
+🔹it is collection if managed projects.
+🔹It contain set of question that the SNMP Manager can ask the Agent.
+🔹it commonly shared between the Agent and SNMP Manager.
+
+🔴SNMP Agent:
+--------------
+🔹SNMP MGMT/Agent used SNMP Messages to communicate between them,=.
+🔹GET: sent by SNMP MGMT to retrieve information from SNMP Agent.
+🔹SET: used by SNMP MGMT to assign the value to SNMP Agent.
+🔹GET-NEXT: retrieves the value of the next object present in MIB.
+🔹TRAP Messages are initiated from the SNMP Agents to inform the SNMP Manager on event.
+🔹GET-Response: used by SNMP AGents to replay to GET/GET-NEXT msgs.
+🔹GETbulk: operation efficiently retrieves large blocks of data, such a rows in a table.
+🔹Inform: is used by SNMP Manager to acknowledge that the msgs has been received.
+
+🔴SNMP Version:
+---------------
+🔹
+🔴SNMP LAB: 
+##############

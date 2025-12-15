@@ -1,0 +1,93 @@
+🔴3.4.a Interpret network time protocol configurations such as NTP and PTP
+###########################################################################
+
+📌🧩
+🔴NTP(Network Time Protocol):
+-----------------------------
+🔹Use to provide time.
+🔹Used to allow network devices to synchronize clocks with central source clock.
+🔹Is very important for network devices.
+🔹Make sure logging information and timestamps hae the accurate time and date.
+🔹Use UDP port 123
+🔹Uses a hierchical system of time sources.
+🔹Used Client/Server architecture to work.
+🔹have two version : V3 and V4.
+🔹Ntp Server called = NTP Master
+🔹By default router works in NRT server/client mode.
+🔹Stratum defines the reliability and accurancy of NTP sources.
+🔹NTP uses stratum 0 to 15 for NTP Source.
+	➤ 0 : Atomic clock and not used in cisco S/R
+	➤ 1 to 15 : one is the most reliable and 15 are the wrost.
+	➤ 16 represents NTP is not synchronized.
+🔹Default Stratum : 8
+🔹Syslog messages timestamp using the NTP.
+
+🔴NTP Sratum :
+--------------
+🔹Levels define the distance from the reference clock.
+🔹Stratum 0 :
+	➤ assumed to be most accurate and it has no dely.
+	➤ cannot be used on the network.
+
+
+🔴NTP Architecture :
+--------------------
+🔹NTP uses stratums 1 to 16 to define clock accuracy.
+🔹A lower NTP stratum value represents higher accurancy.
+🔹NTP stratums 1 to 16 are in synchronized state.
+🔹stratum 16 : are not synchronized.
+
+🔴NTP Modes :
+-------------
+🔹NTP Server :
+	➤ Is a network device which running NTP service.
+	➤ Configured to provide time information to NTP Client 
+	➤ Never accept time synchronization information from other devices
+	➤ Router reads time from NTP source or uses its own clock as NTP source.
+
+🔹NTP Client
+	➤ Only receives NTP updates.
+	➤ Does not advertise received updates.
+	➤ Uses them to synchronize its own clock.
+
+🔹NTP Server/Client :
+	➤ Router receives updates from NTP Server .
+	➤ Also advertise them from its own interfaces .
+	➤ Play both role NTP Server and Clients.
+
+🔹NTP Peer :
+	➤ Each device can provide tume sychronization to other.
+	➤ its play as a back up for the main NTP server.
+
+🔴NTP Master :
+--------------
+🔹NTP master comman tells router that it is an NTP Server .
+🔹NTP Server also referred to as an NTP Master
+
+🔴NTP Version :
+---------------
+🔹Version 3 :
+	➤ Use broadcast messages .
+	➤ Support IPv6
+🔹Version 4 :
+	➤ Support IPv6
+	➤ Adds DNS support for IPv6 
+	➤ Use Multicast messages .
+
+🔴NTP Security and Authentication :
+-----------------------------------
+🔹Support security and authentication mechanism that uses MD5 algorithm.
+🔹The packets will be authenticated using HMAC MD5 which carries a key number.
+🔹
+🔹
+
+➤
+➤
+
+🔹
+🔹
+🔹
+🔹
+
+➤
+➤

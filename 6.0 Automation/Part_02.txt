@@ -1,0 +1,153 @@
+🔴JSON(JavaScript Object Notation) :
+------------------------------------
+🔹Easier for humans to read and work.
+🔹is a standard text based format for representing strctured data based on javascript object syntax.
+🔹commonly used for transmitting data from the server to the client.
+🔹RESTful API often use JSON.
+
+
+🔴 JSON Data Types :Object 
+---------------------------
+🔹Is an unordered colleciton of key or value pairs.
+🔹It surrounded by curly braces{}
+🔹keys : must be strings
+🔹values : must be a valid JSON data type (string, numbers, object, array, boolean, null)
+🔹
+{
+"name": "Ethernet",
+"description": "Internet Link",
+"enabled": false
+}
+
+🔴JSON Data Types :ARRAY
+-------------------------
+🔹is an ordered listof values
+🔹they are surrounded by square brackets [].
+🔹valid data types (string, numbers, object, array, boolean, null).
+🔹
+
+{
+"name": "Hatim",
+"Age": "26",
+"Alias": ["Spiderman", "Battman", "ninja"]
+}
+
+🔴JSON Data Types :
+--------------------
+🔹String: "name" : "hatim"
+🔹Number: "Output Errors": 3
+🔹Bollean : "Enabled";false
+🔹Null : "nsec": null
+
+🔴XML(Extensible Markup Language):
+----------------------------------
+🔹standardized in 1998
+🔹widely used across the internet.
+🔹XML was designed to describe and transfer data.
+🔹<key>value</key> contained withing object tags.
+🔹ex:
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<note>
+	<to>To</to>
+	<from>Raja</from>
+	<heading>Reminder</heading>
+	<body>Enjoy !< /body>
+</note>
+
+🔴API(Application Programming Interfaces):
+------------------------------------------
+🔹Similar to a waiter in a restaurant.
+🔹machine to machine communication
+🔹Used to perfom CRUD operations
+	➤ Creat
+	➤ Read
+	➤ Update
+	➤ Delete
+🔹is software interface which allows other apps to cpmminicate with our application.
+🔹used for building programmable network automation.
+🔹XML/JSON are two the most common data formats that are used with APIs.
+🔹REST(REpresentational State Transfer):
+	➤ REpresentational : transfer the represnetation of a resource between a SRVER and a client.(adta format : XML/JSON).
+	➤ State Transfer : each operation with a REST API is self-contained -> each request carries (transfers) all information (state) to complete the operation.
+	➤ REST API : use HTTP methods toretrieve or send inforamtion between applications
+🔹HTTP Methods:
+	➤ GET 
+	➤ POST : create new resources
+	➤ PUT : update the specied resource by replacing the existing data.
+	➤ DELETE
+🔹REST have some constraints :
+	➤ Client -- Server : (the client send a request, the server sends a respons).
+	➤ Uniform interface : Provides Simplicity.
+	➤ State less : no client context is stored one the server between requests.
+	➤ Cacheability : Responses must define themselves as either cacheable or no cacheable.
+	➤ Layered system : Any intermediary devices such as load balancers(Router/FW ...) must be transparent to the Client/Server.
+	➤ Code on demand : 
+	➤ NETCONF/RESETCONF : are API specially designed to work with network devices.
+
+🔴DATA Models:
+--------------
+🔹Describe the things you can (configure, monitor, Actions perfom on a device, ).
+🔹is a well understood and agreed upon method to describe somthing.
+
+🔴YANG(Yet Another Next Generation):
+------------------------------------
+🔹Is a data modeling language
+🔹Provides a standardized way to represent the operational and configuration data of a network device.
+🔹Uses data models that are similar to SNMP(MIBs)
+🔹NA tools like (NETCONF/RESTCONF/gRPC) require YANG data models.
+
+🔴Configuration Management Tools:
+----------------------------------
+🔹Offer an automated method to implements and monitor changes to our systems.
+🔹designed to make controlling large numbers of devices.
+🔹there are 2 types of configuration management tools:
+	➤ Agent based tools : require the installation of an agent on the system we want to manage ex:(Puppet and chef).
+	➤ Agentless tools : do not required an agent software to be installed on the target devices ex:(Ansible).
+
+🔴Puppet :
+----------
+🔹Is a configuration management tool.
+🔹Used for deploying, configuring and managing servers.
+🔹Uses an agent on the target devices.
+🔹Puppet master runs on linux server.
+🔹Pull model, agent checks in every 30 mins by default.
+🔹Writen in Ruby
+🔹created in 2005.
+
+🔴Chef :
+--------
+🔹Is an automation platform.
+🔹Configures and manages our infrastructures.
+🔹uses a master/slave architecture similar to puppet
+🔹Agent must installed on the target devices.
+🔹Use pull model
+🔹Written in ruby
+🔹Created in 2009
+🔹In this terminology is cook book - Recipe
+🔹Terminology:
+	➤ Cookbook: A collection of recipes.
+	➤ Recipe: Defines how a specific piece of infrastructure should be configured.
+	➤ In short:
+		- A Cookbook = group of related setup steps (like a folder)
+		- A Recipe = specific instructions (like a script)
+
+🔴Ansible :
+-----------
+🔹can run from any machine with (python 2 or 3).
+🔹More suitable for network envr than puppet/chef. -> doesnt require an agent.
+🔹agentless : no need to install any software on target machine.
+🔹Used Push Model
+🔹Use SSH by default.
+🔹release in 2012
+🔹Pre-built python scripts
+🔹Ansible Inventory files : defines all hosts that will be managed by the control workstation.
+🔹Ansible Playbooks : Are YAML files that outline the instructions it need to run.
+🔹ANSIBLE, Puppet, Chef: designed primarily for server system administration.
+🔹CISCO devices usually cannot run an agent.
+
+🔴SaltStack(Agent and Server Mode) :
+------------------------------------
+🔹Is a configuration management tool.
+🔹same category as CHEF/PUPPET.
+🔹is built on python
+🔹only requirement on the remote system are SSH/TELNET

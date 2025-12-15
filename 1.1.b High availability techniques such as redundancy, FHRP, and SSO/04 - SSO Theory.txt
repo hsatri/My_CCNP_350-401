@@ -1,0 +1,7 @@
+🔴Stateful Switchover (SSO): 
+-----------------------------
+🔹is a technology.
+🔹help to implement high availability when facing a broken non-redundant network design.
+🔹A Network DEVICE RUNS TWO COPIES OF The control plane (primary and backup):
+	-> primary control plane continuously synchronizes its state with the back control plane.
+	-> when the primary control plane crashes, the backup control plane already has all the required state and is ready to take over in moment.

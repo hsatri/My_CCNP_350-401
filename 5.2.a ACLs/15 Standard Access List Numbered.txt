@@ -1,0 +1,80 @@
+🔴Show commands: 
+--------------------
+🔹show access-list 
+
+
+🔴Part 1 Simple configuration for each network : 
+-------------------------------------------------
+! R1 configuration 
+
+en
+conf t
+hostname R1
+int e0/0
+ip add 1.1.1.1 255.255.255.252
+no shut
+
+int e0/1
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+
+ip dhcp pool LAN01
+network 192.168.1.0 255.255.255.0
+default-router 192.168.1.1
+exit
+
+router ospf 1
+int range e0/0-1
+ip ospf 1 area 0
+
+
+-----------------------------------
+
+! R2 configuration 
+
+en
+conf t
+hostname R2
+int e0/0
+ip add 1.1.1.2 255.255.255.252
+no shut
+
+int e0/1
+ip add 192.168.2.1 255.255.255.0
+no shut
+exit
+
+ip dhcp pool LAN01
+network 192.168.2.0 255.255.255.0
+default-router 192.168.2.1
+
+router ospf 1
+int range e0/0-1
+ip ospf 1 area 0
+
+-----------------------------------
+
+!Verfication: ping from PC1_LAN01 -> PC01_LAN02
+=============
+
+PC1> ping 192.168.2.2
+
+84 bytes from 192.168.2.2 icmp_seq=1 ttl=62 time=5.673 ms
+84 bytes from 192.168.2.2 icmp_seq=2 ttl=62 time=3.036 ms
+84 bytes from 192.168.2.2 icmp_seq=3 ttl=62 time=3.548 ms
+84 bytes from 192.168.2.2 icmp_seq=4 ttl=62 time=4.286 ms
+84 bytes from 192.168.2.2 icmp_seq=5 ttl=62 time=2.796 ms
+
+🔴Part 2: we need to block any traffic from PC1_LAN01 to PC01_LAN02: 
+--------------------------------------------------------------------
+! R2 configuration 
+en
+conf t
+access-list 99 deny host 192.168.1.2 
+access-list 99 permit any 
+
+int e0/1
+ip access-group 99 out
+
+

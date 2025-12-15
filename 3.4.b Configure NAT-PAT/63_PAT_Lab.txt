@@ -1,0 +1,81 @@
+#########################
+#      63_PAT_Lab       #
+#########################
+
+🔴Basic Configuration :
+-----------------------
+! ISP Configuration
+en
+conf t
+hostname ISP
+int e0/0
+ip add 200.1.1.1 255.255.255.0
+no shut
+exit
+int loopback 0
+ip add 8.8.8.8 255.0.0.0
+exit
+
+! GW Configuration
+en
+conf t
+hostname GW
+int e0/0
+ip add 200.1.1.2 255.255.255.0
+no shut
+exit
+int e0/1
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+ip route 0.0.0.0 0.0.0.0 200.1.1.1
+ip dhcp pool LAN01
+network 192.168.1.0 255.255.255.0
+default-router 192.168.1.1
+
+🔴NAT Configuration :
+-----------------------
+! GW NAT CONFIG
+
+access-list 1 permit 192.168.1.0 0.0.0.255
+ip nat pool abc 200.1.1.2 200.1.1.2 netmask 255.255.255.0
+ip nat inside source list 1 pool abc overload
+
+int e0/1
+ip nat inside
+
+int e0/0
+ip nat outside
+
+
+🔴Verfication :
+----------------
+GW#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 200.1.1.2:9310    192.168.1.2:9310   8.8.8.8:9310       8.8.8.8:9310
+icmp 200.1.1.2:9566    192.168.1.2:9566   8.8.8.8:9566       8.8.8.8:9566
+icmp 200.1.1.2:9822    192.168.1.2:9822   8.8.8.8:9822       8.8.8.8:9822
+icmp 200.1.1.2:10078   192.168.1.2:10078  8.8.8.8:10078      8.8.8.8:10078
+icmp 200.1.1.2:10334   192.168.1.2:10334  8.8.8.8:10334      8.8.8.8:10334
+GW#show ip nat statistics
+Total active translations: 5 (0 static, 5 dynamic; 5 extended)
+Peak translations: 5, occurred 00:00:21 ago
+Outside interfaces:
+  Ethernet0/0
+Inside interfaces:
+  Ethernet0/1
+Hits: 10  Misses: 0
+CEF Translated packets: 10, CEF Punted packets: 0
+Expired translations: 0
+Dynamic mappings:
+-- Inside Source
+[Id: 1] access-list 1 pool abc refcount 5
+ pool abc: netmask 255.255.255.0
+        start 200.1.1.2 end 200.1.1.2
+        type generic, total addresses 1, allocated 1 (100%), misses 0
+
+Total doors: 0
+Appl doors: 0
+Normal doors: 0
+Queued Packets: 0
+

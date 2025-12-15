@@ -1,0 +1,16 @@
+! R1 configuration
+
+en
+conf t
+hostname R1
+int se0/3/0
+ip add 192.168.1.1 255.255.255.0
+encapsulation frame-relay
+no shu
+ip ospf network point-to-multipoint
+router ospf 1
+network 192.168.1.1 255.255.255.0 area 0
+
+
+
+

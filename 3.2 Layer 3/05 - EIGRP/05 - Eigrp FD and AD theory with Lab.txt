@@ -1,0 +1,28 @@
+🔴Eigrp FD and AD theory with Lab
+#################################
+
+
+🔴EIGRP Terminologies : 
+-----------------------
+🔹AD(Advertised Distance)/(RD)Reported Distance:
+	- The cost from the neighbor to the Destination :
+		Ex : R1--R2--R3--L1
+		-> R2 to L1 : AD = 15
+🔹(FD)Feasible Distance: The total cost to reach a DST network: 
+	Ex : R1--R2--R3--L1
+		-> R2 to L1 : AD = 15
+	so FD = (R1--R2) + AD = 5 + 15 = 20
+
+🔴Successor : 
+	- The primary route used to reach a DST.
+	- Best route
+
+🔴Feasible Successor :
+	- The backup route.		
+
+
+🔴 Show commands: 
+
+
+
+	

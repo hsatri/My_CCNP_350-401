@@ -1,0 +1,84 @@
+#######################################################
+##                                                   ##
+##  4.6 Configure and verify NETCONF and RESTCONF    ##
+##                                                   ##
+#######################################################
+
+
+🔴NETCONF(Network Configuration Protocol) : 
+-------------------------------------------
+	➜  Developed by IETF.
+	➜ To install,ma,ipulate ,delete the configuration on network devices.
+	➜ Developed to manage network devices.
+	➜ To make network automation easier.
+	➜ Uses XML 
+		- For data encoding
+		- RPC(Remote Procedure Call) for messages
+		- XML messages exchanged via SSH TCP/830
+	➜ NETCONF and SNMP have many similarities and people referring to NETCONF as "SNMPv4"	
+	➜ YANG 
+		- Describes the data structures exchanged in NETCONF message like SNMP MIBs.
+	➜ RPC-based mechanism to facilite communication between client/server
+	➜ Is one of key APIs used by SDN controller on Southbound to control the devices.
+	➜ Used XML-based data encoding for configuration data and protocol msgs with YANG.
+	➜ NETCOF/RESTCONF were developed to manages devices in a standard way .
+	➜ NETCONF agent can be managed through following list :
+NETCONF Agent Operations:
+
++-----------------+----------------------------------------------------+
+| Operation       | Description                                        |
++-----------------+----------------------------------------------------+
+| <get>           | Retrieve configuration and state data from device  |
+| <get-config>    | Fetch configuration data from a specific datastore |
+| <edit-config>   | Modify the device configuration                    |
+| <copy-config>   | Copy configuration data between datastores         |
+| <delete-config> | Remove configuration data from a datastore         |
+| <commit>        | Apply pending configuration changes                |
+| <unlock>        | Release a locked configuration datastore           |
+| <close-session> | Gracefully close the current NETCONF session       |
+| <kill-session>  | Forcefully terminate a NETCONF session             |
++-----------------+----------------------------------------------------+
+
+
+
+🔴RESTCONF : 
+------------
+	➜ Developed by IETF.
+	➜ Implementing some NETCONF functionality on top.
+	➜ via HTTP/HTTPS using XML or JSON msgs.
+	➜ RESTCONF agent can be managed through 5 HTTP operations :
+
+RESTCONF      | NETCONF
+-------------------------------
+GET           | <get> / <get-config>
+POST          | <edit-config> (create new resource)
+PUT           | <edit-config> (replace resource)
+PATCH         | <edit-config> (merge/update resource)
+DELETE        | <delete-config>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

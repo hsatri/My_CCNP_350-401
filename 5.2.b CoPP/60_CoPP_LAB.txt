@@ -1,0 +1,77 @@
+🔴60_CoPP_LAB
+##############
+
+🔴CoPP(Control Plane Policing):
+-------------------------------
+
+
+🔴R1 Configuration :
+====================
+en
+conf t
+hostname R1
+int e0/0
+ip add dhcp !192.168.11.121
+no shut
+
+
+! to check the CPU status
+show processes 
+
+🔴Test01 :
+===========
+! Using UDP Unicorn
+
+! R1
+show process
+
+🔴R1 CoPP Configuration : to stop UDP DOS Attack
+=========================
+ip access-list extended test01
+permit udp any any
+
+class-map cmap
+match access-group name test01
+exit
+
+policy-map cmap
+class cmap
+! Rate limit to 8000 bits per second (bps)
+police 8000 conform-action transmit exceed-action drop
+exit
+exit
+exit
+
+control-plan 
+service-policy input pmap
+
+
+🔴Verification :
+================
+show policy-map control-plane
+
+
+🔴R1 CoPP Configuration : to stop ping flood
+=========================
+ip access-list extended test02
+permit icmp any any
+
+class-map cmap
+match access-group name test02
+exit
+
+policy-map pmap
+class cmap
+
+police 8000 conform-action transmit exceed-action drop
+exit
+exit
+exit
+
+control-plane 
+service-policy input pmap
+
+🔴Verification :
+================
+ping 192.168.11.121 repeat 100000000
+

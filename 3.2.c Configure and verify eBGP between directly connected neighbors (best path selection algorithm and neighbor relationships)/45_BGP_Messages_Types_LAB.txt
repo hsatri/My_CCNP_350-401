@@ -1,0 +1,48 @@
+##################
+##################
+BGP Messages Types
+##################
+##################
+🔴Basic configurtion:
+----------------------
+! R1 Config
+enable
+configure terminal
+hostname R1
+int e0/0
+ip add 192.168.200.1 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 1.1.1.1 255.0.0.0
+exit
+
+
+! R2 Config
+enable
+configure terminal
+hostname R2
+int e0/0
+ip add 192.168.200.2 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 2.2.2.2 255.0.0.0
+exit
+
+
+🔴BGP configurtion:
+----------------------
+! R1 IBGP Config
+router bgp 1
+neighbor 192.168.200.2 remote-as 2
+network 1.0.0.0 mask 255.0.0.0
+
+! R2 IBGP Config
+router bgp 2
+neighbor 192.168.200.1 remote-as 1
+network 2.0.0.0 mask 255.0.0.0
+
+
+🔴Verfication:
+---------------

@@ -1,0 +1,166 @@
+##########################
+##########################
+49_BGP_Peer_Group_LAB
+##########################
+##########################
+🔴Basic configurtion:
+----------------------
+! R1 Config
+enable
+configure terminal
+hostname R1
+int e0/0
+ip add 192.168.102.1 255.255.255.0
+no shut
+int e0/1
+ip add 192.168.103.1 255.255.255.0
+no shut
+int e0/2
+ip add 192.168.104.1 255.255.255.0
+no shut
+int lo 0
+ip add 1.1.1.1 255.255.255.0
+exit
+
+
+! R2 Config
+enable
+configure terminal
+hostname R2
+int e0/0
+ip add 192.168.102.2 255.255.255.0
+no shut
+int lo 0
+ip add 2.2.2.2 255.255.255.0
+exit
+
+
+! R3 Config
+enable
+configure terminal
+hostname R3
+int e0/0
+ip add 192.168.103.2 255.255.255.0
+no shut
+int lo 0
+ip add 3.3.3.3 255.255.255.0
+exit
+
+
+! R4 Config
+enable
+configure terminal
+hostname R4
+int e0/0
+ip add 192.168.104.2 255.255.255.0
+no shut
+int lo 0
+ip add 4.4.4.4 255.255.255.0
+exit
+
+🔴BGP configurtion:
+--------------------
+! R1 Configuration
+ip route 2.2.2.0 255.255.255.0 192.168.102.2
+ip route 3.3.3.0 255.255.255.0 192.168.103.2
+ip route 4.4.4.0 255.255.255.0 192.168.104.2
+router bgp 1
+neighbor 2.2.2.2 remote-as 2
+neighbor 3.3.3.3 remote-as 3
+neighbor 4.4.4.4 remote-as 4
+network 1.1.1.0 mask 255.255.255.0
+! R1 peer group
+neighbor gp1 peer-group
+neighbor 2.2.2.2 peer-group gp1
+neighbor 3.3.3.3 peer-group gp1
+neighbor 4.4.4.4 peer-group gp1
+neighbor gp1 update-source loopback 0
+neighbor gp1 ebgp-multihop 2
+
+! R2 Configuration
+ip route 1.1.1.0 255.255.255.0 192.168.102.1
+router bgp 2
+neighbor 1.1.1.1 remote-as 1
+network 2.2.2.0 mask 255.255.255.0
+neighbor 1.1.1.1 update-source loopback 0
+neighbor 1.1.1.1 ebgp-multihop 2
+
+! R3 Configuration
+ip route 1.1.1.0 255.255.255.0 192.168.103.1
+router bgp 3
+neighbor 1.1.1.1 remote-as 1
+network 3.3.3.0 mask 255.255.255.0
+neighbor 1.1.1.1 update-source loopback 0
+neighbor 1.1.1.1 ebgp-multihop 2
+
+! R4 Configuration
+ip route 1.1.1.0 255.255.255.0 192.168.104.1
+router bgp 4
+neighbor 1.1.1.1 remote-as 1
+network 4.4.4.0 mask 255.255.255.0
+neighbor 1.1.1.1 update-source loopback 0
+neighbor 1.1.1.1 ebgp-multihop 2
+
+
+🔴Verfication_01:
+-----------------
+R1#show ip bgp
+BGP table version is 5, local router ID is 1.1.1.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *>  1.1.1.0/24       0.0.0.0                  0         32768 i
+ r>  2.2.2.0/24       2.2.2.2                  0             0 2 i
+ r>  3.3.3.0/24       3.3.3.3                  0             0 3 i
+ r>  4.4.4.0/24       4.4.4.4                  0             0 4 i
+
+
+
+
+==========================
+R4#ping 2.2.2.2 source loopback 0
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 2.2.2.2, timeout is 2 seconds:
+Packet sent with a source address of 4.4.4.4
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 6/7/9 ms
+
+==========================
+R4#traceroute 2.2.2.2 source loopback 0
+Type escape sequence to abort.
+Tracing the route to 2.2.2.2
+VRF info: (vrf in name/id, vrf out name/id)
+  1 192.168.104.1 8 msec 7 msec 5 msec
+  2 192.168.102.2 15 msec 5 msec *
+
+==========================
+R4# show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      1.0.0.0/24 is subnetted, 1 subnets
+S        1.1.1.0 [1/0] via 192.168.104.1
+      2.0.0.0/24 is subnetted, 1 subnets
+B        2.2.2.0 [20/0] via 1.1.1.1, 00:02:15
+      3.0.0.0/24 is subnetted, 1 subnets
+B        3.3.3.0 [20/0] via 1.1.1.1, 00:02:15
+      4.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+C        4.4.4.0/24 is directly connected, Loopback0
+L        4.4.4.4/32 is directly connected, Loopback0
+      192.168.104.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.104.0/24 is directly connected, Ethernet0/0
+L        192.168.104.2/32 is directly connected, Ethernet0/0
+

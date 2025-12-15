@@ -1,0 +1,95 @@
+🔴40_EFM_LAB_EVE.unl :
+#######################
+
+
+🔴Basic Configuration :
+------------------------
+!R1 Config
+en
+conf t
+hostname R1
+int e0/0
+ip add 192.168.11.1 255.255.255.0
+no shut
+
+
+!R2 Config
+en
+conf t
+hostname R2
+int e0/0
+ip add 192.168.11.2 255.255.255.0
+no shut
+
+🔴EEM Configuration :
+---------------------
+! R2 EEM config f
+en
+conf t
+event manager applet abc
+event syslog pattern "Interface Ethernet0/0, changed state to administratively down"
+action 1 cli command "enable"
+action 2 cli command "config t"
+action 3 cli command "interface e0/0"
+action 4 cli command "no shut"
+
+
+➤ To see in real-time how its work
+! R2
+en
+debug event manager action cli
+conf t
+int e0/0
+shut
+
+
+
+R2#en
+R2#debug event manager action cli
+Debug EEM action cli debugging is on
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#int e0/0
+R2(config-if)#shut
+R2(config-if)#
+*Jul  1 22:03:21.075: %LINK-5-CHANGED: Interface Ethernet0/0, changed state to a                                                                                                             dministratively down
+R2(config-if)#
+*Jul  1 22:03:21.077: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : CTL : cli_open call                                                                                                             ed.
+*Jul  1 22:03:21.081: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : OUT : R2>
+*Jul  1 22:03:21.081: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : IN  : R2>enable
+*Jul  1 22:03:21.205: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : OUT : R2#
+*Jul  1 22:03:21.205: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : IN  : R2#config t
+*Jul  1 22:03:21.322: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : OUT : Enter configu                                                                                                             ration commands, one per line.  End with CNTL/Z.
+*Jul  1 22:03:21.322: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : OUT : R2(config)#
+*Jul  1 22:03:21.322: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : IN  : R2(config)#in                                                                                                             terface e0/0
+*Jul  1 22:03:21.445: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : OUT : R2(config-if)                                                                                                             #
+*Jul  1 22:03:21.445: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : IN  : R2(config-if)                                                                                                             #no shut
+*Jul  1 22:03:21.567: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : OUT : R2(config-if)                                                                                                             #
+*Jul  1 22:03:21.567: %HA_EM-6-LOG: abc : DEBUG(cli_lib) : : CTL : cli_close cal                                                                                                             led.
+*Jul  1 22:03:21.568:
+*Jul  1 22:03:21.568: tty is now going through its death sequence
+R2(config-if)#
+*Jul  1 22:03:23.479: %LINK-3-UPDOWN: Interface Ethernet0/0, changed state to up
+R2(config-if)#
+
+
+
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+	➤ 
+	➤ 
+	➤ 
+	➤ 

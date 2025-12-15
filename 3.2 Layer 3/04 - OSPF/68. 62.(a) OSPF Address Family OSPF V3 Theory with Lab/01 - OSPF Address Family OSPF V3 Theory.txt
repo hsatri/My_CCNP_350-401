@@ -1,0 +1,13 @@
+🔴 
+#############
+
+
+🔴OSPF Address Family : 
+-----------------------
+🔹OSPFv2 : IPV4
+🔹OSPFv3 : IPV6
+	➜ Runs per-link rather than per-subnet.
+	➜ Enables both IPV4/IPV6 unicast traffic to be supported.
+	➜ Messages are send over IPV6 and therefore requires that IPV6 routing is enabled.
+	➜ after configuring OSPFV3 families, show cmnds should be use.
+	➜ commands to active (AF) : address-family ipv6

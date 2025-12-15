@@ -1,0 +1,88 @@
+######################
+   MINI Project:
+STP Security Project 1
+######################
+
+🔴1. Configure RSTP on all Switch.
+====================================
+! SW1: RSTP Config
+en 
+conf t 
+hostname SW1
+spanning-tree mode rapid-pvst
+
+! SW2: RSTP Config
+en 
+conf t 
+hostname SW2
+spanning-tree mode rapid-pvst
+
+! SW3: RSTP Config
+en 
+conf t 
+hostname SW3
+spanning-tree mode rapid-pvst
+
+! SW4: RSTP Config
+en 
+conf t 
+hostname SW4
+spanning-tree mode rapid-pvst
+
+! SW5: RSTP Config
+en 
+conf t 
+hostname SW5
+spanning-tree mode rapid-pvst
+
+🔴2. In Access switch configure portfast + BPDU gurad
+=====================================================
+!SW3 : config of portfast and BPDU guard
+int fa0/2
+spanning-tree port-fast
+spanning-tree bpduguard enable
+
+!SW4 : config of portfast and BPDU guard
+int fa0/3
+spanning-tree port-fast
+spanning-tree bpduguard enable
+
+!SW6 : config of portfast and BPDU guard
+int fa0/2
+spanning-tree port-fast
+spanning-tree bpduguard enable
+
+🔴3. Configure Trunk in between switch link
+=====================================================
+! SW1
+interface range fa0/1-3
+switchport mode trunk
+
+! SW2
+interface range fa0/2-3
+switchport mode trunk
+
+🔴4.Configure SW1 to be Root bridge
+====================================
+spanning-tree vlan 1 root primary
+
+🔴5. configure SW2 to be Root bridge if SW1 not avaible :
+=========================================================
+spanning-tree vlan 1 root secondary
+
+🔴6. Configure Root guard so Access level switch will not become Root Bridge :
+==============================================================================
+! we will enable it on the interfaces of the switched that linked with access swotches interfaces :
+! SW1 config
+interface fa0/2-3
+spanning-tree guard root
+
+! SW2 config
+interface fa0/2-3
+spanning-tree guard root
+
+
+
+
+
+

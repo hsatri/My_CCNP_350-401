@@ -1,0 +1,41 @@
+🔴 PTP(Precision Time Protocol) :
+#################################
+🔹Standard network protocol (IEEE-1588)
+🔹Is more accuracy and precise version of NTP.
+🔹Used in applications where high-accuracy time synchronization is required (Telecommunications, power grids ....).
+🔹Accuracy is in the sub-microsecond range , is a very good quality.(NTP only provide the millisecond accuracy).
+🔹Very good in time synchronizations.
+🔹Achieve accuracies of a few microseconds over short distances and a few milliseconds over long distances.
+🔹 NTP and PTP
+	NTP :
+		➤ Millisecond accuracy.
+		➤ WAN Networks and public networks
+		➤ Security with hash codes.	
+		➤ Used in home automation , industrial automation etc...
+
+	PTP :
+		➤ Sub-Microsecond accuracy
+		➤ LAN and WAN
+		➤ Security with cryptography
+		➤ Used in financial transactions, aircraft monitoring.
+
+🔴 PTP Configuration :
+######################
+--> if we cant to enable ptp in cisco we should enable it globally :
+en
+conf t
+ptp
+commit
+end
+show ptp advertised-clock  ! check clock provided by PTP
+
+-> to configure PTP Master , we use ptp under interface , when we enable it , by default it becomes PTP Master
+en
+conf t
+int gig0/0
+ptp 
+commit
+end
+show ptp interface gig 0/0  ! to check ptp master state of an interface.
+
+

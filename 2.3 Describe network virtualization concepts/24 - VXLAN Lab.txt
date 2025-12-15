@@ -1,0 +1,55 @@
+🔴/CCNP ENCOR/24 VXLAN Lab.unl
+###############################
+
+🔴VXLAN(Virtual extensible Local Area Network):
+-----------------------------------------------
+🔹is a tunneling protocol that tunnels ethernet L2 traffic over an IP L3 network.
+
+
+🔴Why VXLAN?:
+-------------
+🔹Traditional L2 netowrk issues:
+	1.spanning-tree (itwill block all of our redundancy link)
+	2.Limited amount of VLANs(12 Bit vlan id = 4094 Vlan)
+	3.Large MAC address tables
+
+
+🔴How VXLAN work?:
+------------------
+🔹VXLAN 
+	-> have overlay and underlay Network.
+	-> Have VNI(Vxlan Netwok Identifier), this is similar to the VLAN ID(in traditional VLAN).
+		- 24bits.
+		- 16 milions VXLANs.
+	-> Have VTEP(VXLAN Tunnel End Point) it is device which encapsylate and De-encapsulates L3 traffic and this connect  to the overlay and the underlay network.
+🔹OVERLAY: 
+	-> is Virtual network run top of underlay netowrk.
+	-> is Virtual L2
+	-> Runs on top of underlay
+	
+🔹UNDERLAY: 
+	-> is a physical Network(it is imple netowrk we only use routing here all the fancy stuff happend on the overlay network).
+	-> is L3
+
+🔴Two Options of VTEP:
+-----------------------
+🔹Software: host-based. 
+	- it hypervisors (VMWARE ESXI, Microsoft Hyper-V).
+	- run virtual switch support VXLAN-> so vxlan tunnel tun between virtual switches of the hypervisor.
+	
+🔹Hardware: VXLAN Gateway
+	- we can use VTEP Hardware devices like routers, switch, firewall that support VXLAN
+
+
+🔴VTEP IP interface:
+--------------------
+🔹it connect VTEP to underlay network.
+🔹Unique IP address.
+🔹Encapsulation and de--encapsulation traffic.
+
+
+🔴VNI interface:
+-----------------
+🔹Similar to SVI interface.
+🔹Keeps netowrk traffic seperated on pysical interface.
+

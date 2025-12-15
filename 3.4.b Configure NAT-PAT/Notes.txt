@@ -1,0 +1,59 @@
+🔴3.4.b Configure NAT/PAT
+#########################
+
+🔴NAT(Network Address Translation) :
+-------------------------------------
+🔹Translate private IP address into public ip address.
+🔹To comminicate with internet we need to have public ip address.
+🔹We use NAT to trasnlate from private ip address to public ip address
+
+🔴NAT was originally developed to solve two problms ? 
+-----------------------------------------------------
+🔹Tohandle a shortage of IPV4 addresses.
+🔹Hide network addressing schemes.
+
+🔴Types of NAT :
+-----------------
+🔹Static NAT
+🔹Dynamic NAT
+🔹PAT
+
+🔴Static NAT :
+--------------
+🔹Designed to allow one-to-one mapping between local and global address.
+🔹Is bidirectional whether the internal host or the external host.
+🔹Allows connections from an outside host to an inside host.
+
+🔴Dynamic NAT :
+---------------
+🔹Sometime referred to as a ONE-to-Many.
+🔹Is used when we have a "pool" of public IP address that you want to assign to your internal hosts dynamically.
+
+🔴PAT(Port Address Translation) :
+---------------------------------
+🔹can map multiple private IP addrs to a single public IP by using a technology know as Port address translation
+🔹The router changes the source port number with another port number.
+🔹The port mapping are kept in a table, when the router received data from internet, it will refer the table.
+
+🔴Inside LOCAL ADDRESS :
+------------------------
+🔹Is an IP address assigned to a workstation inside our network.
+🔹Are typically private IP addresses.
+
+🔴Inside GLOBAL ADDRESS :
+------------------------
+🔹Is Public IP address which are assigned to our end internet facing router.
+🔹inside local ip addresses are removed at NAT router and translate with inside global address.
+
+🔴Outside GLOBAL ADDRESS :
+--------------------------
+🔹is the public ip address assigned to the end device on the other network to comminucate with other devices in the internet.
+🔹are Public ip addresses which are routable.
+
+🔴Outside LOCAL ADDRESS :
+--------------------------
+🔹Real IP address of the end devices at other network.
+
+
+
+➜ 

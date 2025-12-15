@@ -1,0 +1,150 @@
+🔴1.6 Describe hardware and software switching mechanisms such as CEF, CAM, TCAM, FIB, RIB, and adjacency tables
+##################################################################################################################################
+
+📌🧩
+🔴MAC(Media Access Control):
+-----------------------------
+🔹Called also : physical addres, Hardware address, burn address.
+🔹Eeach Network has a unique identifier called MAD address.
+🔹Uses process called "ARP" to find out the MAC of the DST device.
+🔹48 bits :
+	➤ 24 bits : OUI(Organization Unique Identifier)
+	➤ 24 bits : Company serial number.
+
+🔹Show commands for mac addres :
+	➤ show ip arp
+	➤ show mac address-table
+	➤ 
+🔹Mac address is a combinitionof VLAN ID, MAC ADDRESS? address Type and Port Number.
+🔹Cisco switches default aging time : 300 min | 5min. -> we can modifier it.
+	➤ aging time is used to remove inactive MAC addresses from the table.
+	
+
+🔴CAM(Content Addressable Memory):
+----------------------------------
+🔹Is system memory  
+🔹construct used by Ethernet switch logic,
+🔹Stores information such as MAC addresses available on physical ports with their associated VLAN Parameters.
+🔹CAM Table : Content addressable memory table 
+
+🔴TCAM(Ternary Content Addressable Memory):
+-------------------------------------------
+🔹Is a specialised type of high-speed memory that searches its entire contents in a single clock cycle.
+
+🔴Router and L3 SWitches: methods to process he packet flow:
+--------------------------
+🔹Process switching
+🔹Fast Switching
+🔹CEF :
+	➤ We need it for MPLS.
+	➤ Enabled by default for new cisco devices.
+	➤ Best on all compared with other methodes.
+
+🔴Process switching:
+--------------------
+🔹Called software switching or slow path 
+🔹Is slow 
+🔹is primary function of forwarding the packets to the DST.
+🔹Inspecting every single packet to process before send to DST.
+🔹Requires CPU to be personally involved with every forwarding decision.
+
+🔴Fast switching:
+------------------
+🔹Improves on process swithcing by making use of cache concept.
+🔹The first packet to a DST is process switched method -> subsequent packets are forwarded using the information stored in "fast cach"
+🔹so we only use the CPU on the first packet , 
+
+🔴CEF(CISCO Express Forwarding):
+--------------------------------
+🔹Buit aroiund two main components (two tables):
+	➤ FIB(Forwarding Information Base).
+		- Maintains L3 forwarding information.
+		- maintains mirror image of forwarding inforamtion contained in the IP Routing table.
+		- Maintains next-hop address information, based on the IP Routing.
+		- Contains interface identifier and enxt hops info for each reachable DSTs.
+		- Contains necessary information from the routing table.
+	➤ Adjacency Table.
+		- Know as AIB(Adjacency Information Base) Table.
+		- Maintains L2 information for next hops listed in the FIB able.
+		- To avoide need for an address resolution protocol request for each table lookup.
+		- Maintining the L2 next-hop information for the FIB.
+🔹Put all this information into single Hardware table which allows very fast packet forwarding.
+🔹is Enabled by default in CISCO mulilayers and Routers
+🔹Also called Topology based switching.
+
+🔴RIB(Routing Information Base): 
+--------------------------------
+🔹Where all IP routing inforamtion is stored.
+🔹Routing table = RIB
+🔹Built from dynamic/static routing protocol or with direct connected
+🔹Built in Control plane
+🔹To check the routing table :
+	➤ show ip route
+
+
+🔴 Remark :  ->>>>>>>> you can make or folooowe the configuration for this type of switching ....
+------------
+
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹	
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹	
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹	
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+🔹
+➤ 

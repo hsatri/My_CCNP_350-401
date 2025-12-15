@@ -1,0 +1,45 @@
+🔴5.3 Describe REST API security
+################################
+API = Application Programming Interfaces
+
+🔴what is an API ?
+------------------
+🔹API is a way for computer program to communicate directly with another computer program (Machine to machine communication).
+🔹To interfact with applications or network devices.
+🔹Is a software interface which allows other applications to communicate with our application.
+
+
+🔴What a REST(Representational State Transfer) API is ? 
+-------------------------------------------------------
+🔹We transfer the representation of a resource between a server and a client.
+🔹We use a data format for this representation (JSON, XML, ...)
+🔹State Transfer means that each operation with a REST API is self-contained.
+🔹Use HTTP methods to retrieve or send information beween applications
+🔹Same HTTP mehods when we sue web browser to visit websites, but now we use them to interface with an application.
+🔹Most common ones :
+	➜ GET : read-only to retriece a specified resource.
+	➜ POST : Submits data to the specified resource to process, also creat new resources.
+	➜ PUT : Update the specified resource by replacing the existing data.
+	➜ DELETE : Deletes specified resource.
+	➜ 
+	➜ 
+🔹HTTP is popular so you can use REST APIs in almost any programming language.
+🔹We access a resource with uniform resource locator(URL), also use in it for websites.
+
+🔴REST have some constraints as given below :
+---------------------------------------------
+🔹Client/Server architecture (Client sends a request --- server sends a response).
+🔹Uniform Interface : provides simplicity
+🔹State less : no client context is stored  on the server between requests.
+🔹Cacheability : Responses must define themselves as either cacheable or non cacheable.
+🔹Layerd system : any intermediary devies such as load balancers must be transparent to the client/server.
+🔹Code on demand : it is optional that is servers can temporarily extend or customize the functionality of a client by transferring executable code.
+🔹NETCONF/RESTCONF : are API specially designed to work with network devices.
+
+🔴How we can protext our self by using API :
+--------------------------------------------
+🔹Use SSL(http --> https)
+🔹Follow REST API rules :
+	➜ like stateless we will not have any session open (be stateless)
+	➜ Use authenticate and authorize
+	➜ Dont include system detail in URL.

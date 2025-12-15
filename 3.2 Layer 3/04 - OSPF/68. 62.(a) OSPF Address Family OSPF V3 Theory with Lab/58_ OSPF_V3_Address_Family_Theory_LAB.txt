@@ -1,0 +1,156 @@
+##########################################
+##########################################
+58_ OSPF_Address_Family_OSPF_V3_Theory_LAB
+##########################################
+##########################################
+🔴Basic configurtion:
+----------------------
+! R1 Config
+enable
+configure terminal
+hostname R1
+int e0/0
+ip add 192.168.12.1 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 1.1.1.1 255.0.0.0
+exit
+
+--------------------------------------------
+! R2 Config
+enable
+configure terminal
+hostname R2
+int e0/0
+ip add 192.168.12.2 255.255.255.0
+no shut
+exit
+int lo 0
+ip add 2.2.2.2 255.0.0.0
+exit
+
+
+
+🔴IPV6 configuration:
+#####################
+! R1 
+ipv6 unicast-routing
+
+router ospfv3 1
+address-family  ipv4 unicast
+exit
+
+int e0/0
+ipv6 enable
+ospfv3 1 ipv4 area 0
+
+int lo 0
+ipv6 enable
+ospfv3 1 ipv4 area 0
+
+-----------------------------------------
+
+! R2
+ipv6 unicast-routing
+
+router ospfv3 1
+address-family  ipv4 unicast
+exit
+
+int e0/0
+ipv6 enable
+ospfv3 1 ipv4 area 0
+
+int lo 0
+ipv6 enable
+ospfv3 1 ipv4 area 0
+
+
+
+🔴Verfication_01:
+#################
+show ip route ospfv3
+show ospfv3 neighbor
+show ospfv3 database
+show ip  int brief
+
+
+
+R2#show ip route ospfv3
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      1.0.0.0/32 is subnetted, 1 subnets
+O        1.1.1.1 [110/10] via 192.168.12.1, 00:09:41, Ethernet0/0
+R2#
+R2#
+R2#
+R2#
+R2#
+R2#
+R2#show ospfv3 neighbor
+
+          OSPFv3 1 address-family ipv4 (router-id 2.2.2.2)
+
+Neighbor ID     Pri   State           Dead Time   Interface ID    Interface
+1.1.1.1           1   FULL/BDR        00:00:38    3               Ethernet0/0
+R2#
+R2#
+R2#
+R2#
+R2#show ospfv3 database
+
+          OSPFv3 1 address-family ipv4 (router-id 2.2.2.2)
+
+                Router Link States (Area 0)
+
+ADV Router       Age         Seq#        Fragment ID  Link count  Bits
+ 1.1.1.1         604         0x80000002  0            1           None
+ 2.2.2.2         603         0x80000002  0            1           None
+
+                Net Link States (Area 0)
+
+ADV Router       Age         Seq#        Link ID    Rtr count
+ 2.2.2.2         603         0x80000001  3          2
+
+                Link (Type-8) Link States (Area 0)
+
+ADV Router       Age         Seq#        Link ID    Interface
+ 1.1.1.1         656         0x80000001  3          Et0/0
+ 2.2.2.2         643         0x80000001  3          Et0/0
+
+                Intra Area Prefix Link States (Area 0)
+
+ADV Router       Age         Seq#        Link ID    Ref-lstype  Ref-LSID
+ 1.1.1.1         604         0x80000003  0          0x2001      0
+ 2.2.2.2         603         0x80000003  0          0x2001      0
+ 2.2.2.2         603         0x80000001  3072       0x2002      3
+R2#
+R2#
+R2#
+R2#
+R2#
+R2#show ip ospf int brief
+R2#show ip  int brief
+Interface                  IP-Address      OK? Method Status                Protocol
+Ethernet0/0                192.168.12.2    YES manual up                    up
+Ethernet0/1                unassigned      YES unset  administratively down down
+Ethernet0/2                unassigned      YES unset  administratively down down
+Ethernet0/3                unassigned      YES unset  administratively down down
+Loopback0                  2.2.2.2         YES manual up                    up
+R2#
+
+
+
+
+

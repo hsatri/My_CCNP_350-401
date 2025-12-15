@@ -1,0 +1,29 @@
+🔴4.4 Configure and verify IPSLA
+#################################
+
+🔴IPSLA (IP Service-Level Agreement):
+-------------------------------------
+🔹Cisco IOS feature
+🔹used to monitor and measure network performance in real-time.
+🔹collect data on latency
+	-> packet loss
+	-> jitter
+🔹Response time using various traffic types like : ICMP, RTP, TCP, UDP, DNS, DHCP, HTTP, and FTP.
+
+
+🔴Key Features:
+---------------
+🔹Traffic Monitoring: Uses active monitoring for continuous network performance evaluation.
+🔹Periodic Measurements: Conducted by Cisco routers and switches.
+🔹Operations & Components:
+	->Source Router: Defines the IP SLA operation (type of packets sent).
+	->Target Router (Responder): Receives and responds to the SLA request packets.
+	->Each measurement is called an "operation."
+
+🔴Use Cases:
+-------------
+🔹Network Performance Testing: Measures response time, packet loss, and connectivity.
+🔹Routing Optimization: Helps adjust routes dynamically using static routes or policy-based routing (PBR).
+🔹Failover Mechanism:
+	->In multi-ISP setups, IP SLA can detect ISP failures and switch traffic accordingly.
+	->Example: If ISP1 fails to reach a remote server, the router switches traffic to ISP2, ensuring reliability.

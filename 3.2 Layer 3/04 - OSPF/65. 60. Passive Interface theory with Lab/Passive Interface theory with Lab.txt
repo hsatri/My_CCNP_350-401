@@ -1,0 +1,81 @@
+🔴 Passive Interfaces :
+-----------------------
+🔹when we enable the OSPF --> all the interfaces will be advertised in OSPF 
+🔹The OSPF packets will be send all the interfaces instead of LAN network for exemple
+🔹To stop the packets we use "passive-interface" command:
+	-> restrict the outgoing advertisements only.
+	-> stops both outgoing/incoming routing updates.
+
+R1(config)#router ospf 1
+R1(config-router)#pass
+R1(config-router)#passive-interface e0/1
+
+
+🔴 12 OSPF Passive Interfaces :
+-------------------------------
+! R1 Configuration
+en
+conf t
+hostname R1
+
+router ospf 1
+exit
+int e0/0
+ip add 192.168.0.1 255.255.255.0
+ip ospf 1 area 0
+no shut
+
+int e0/1
+ip add 172.16.1.1 255.255.255.0
+ip ospf 1 area 1
+no shut
+
+ip dhcp pool LAN01
+network 172.16.1.0 255.255.255.0
+default-router 172.16.1.1
+
+
+! R2 Configuration
+en
+conf t
+hostname R2
+
+router ospf 1
+exit
+int e0/1
+ip add 192.168.0.2 255.255.255.0
+ip ospf 1 area 0
+no shut
+
+int e0/0
+ip add 192.168.1.1 255.255.255.0
+ip ospf 1 area 0
+no shut
+
+
+! R3 Configuration
+en
+conf t
+hostname R3
+
+router ospf 1
+exit
+int e0/1
+ip add 172.16.2.1 255.255.255.0
+ip ospf 1 area 2
+no shut
+
+int e0/0
+ip add 192.168.1.2 255.255.255.0
+ip ospf 1 area 0
+no shut
+
+ip dhcp pool LAN02
+network 172.16.2.0 255.255.255.0
+default-router 172.16.2.1
+
+
+
+
+
+

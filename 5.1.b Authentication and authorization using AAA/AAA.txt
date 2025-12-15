@@ -1,0 +1,50 @@
+🔴5.1.b Authentication and authorization using AAA: 
+###################################################
+
+
+🔴AAA(Athentication Athorization Accounting):
+---------------------------------------------
+🔹Athentication : Verify the Identity if the user, who are you.
+
+🔹Athorization : 
+	➤ What is the user allowed to do?
+	➤ What resources he can access etc...
+	➤ how much you can spend.
+
+🔹 Accounting :
+	➤ what is done by the user it will keep all record
+	➤ Used for billing and auditing
+	➤ what did you spend it on record.
+
+🔹It is a Centralized Management of users to access the network devices.
+🔹Allow setting up access control on Cisco R/S.
+🔹User management is done with AAA server without need to reconfigure to individuak R/S.
+🔹AAA Server use 2 Types of protocols:
+	➤ Radius(Remote Authentication Dial-in User Service)
+	➤ TACACS+(Terminal Access Controller Access-Control System plus).
+
+🔴 Radius:
+----------
+🔹OPEN Standard
+🔹UDP ports: 1812,1645,1813,1646
+🔹Encrypts password only
+🔹Light weight protocol(Consume less resources).
+
+🔴 TACACS+:
+-----------
+🔹CISCO Proprietary
+🔹TCP/49
+🔹Encrypts entire comminucation
+🔹heavy weight protocol consuming more resources.
+
+
+
+
+
+
+
+
+
+
+
+

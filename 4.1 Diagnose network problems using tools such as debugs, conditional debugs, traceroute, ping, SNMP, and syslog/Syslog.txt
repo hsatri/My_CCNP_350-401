@@ -1,0 +1,69 @@
+🔴
+######################################################
+
+🔴Syslog(System Logging Protocol): 
+----------------------------------
+🔹standard for messaging logging and ofteb used on network devices.
+🔹showen messages 
+🔹able to store the logs on the local device or syslog server.
+	➤ its good but it stored in RAM and when it reload it will gone.
+🔹Anything happen on the the devices informs us with the help of syslog.
+🔹default : syslog msgs are only outputted to the console
+🔹'CLI#terminal monitor' : enabling on TELNET/SSH
+🔹'CLI(config)#logging' : Check syslog msgs 
+	➤ if the device restarte then it will lose all logs 
+🔹'CLI(config)#logging buffered 162484' : *size by bytes
+	➤ 'CLI#sh logging | include log buffer' : check the buffer on logging 
+🔹in production networks we can use a 'central server called syslog server'.
+	➤ we can configure network devices to forward syslog msgs to the syslog server.
+	➤ 'CLI(config)#logging host "@syslog"
+🔹
+🔹
+
+
+🔴Syslog Servers: 
+------------------
+🔹Kiwi syslog by solarwinds
+🔹Splunk Light
+🔹Snmpsoft syslog watcher
+🔹The Dude
+🔹PRTG
+
+🔴 Syslog Format:
+-----------------
+###############################################################
+# Seq_no:time_stamp: %facility-Severity-MNEMONIC: description #
+###############################################################
+	➤ time_stamp : time and date message generated.
+	➤ Facility : Reports protocol, module or process that generated the msg.
+	➤ Severity : level from 0-7 SPECIFIES HOW IMPORTANT THE MSG is.
+	➤ MNEMONIC : a code that identifies the action reported.
+	➤ description: A plain text description of the event.
+
+Exemple: 
+🔹May 25, 21:08:39.088: %LINK-5-CHANGED: interface FastEthernet0/0, changed state to up
+
+
+🔴 Syslog Severity Levels:
+--------------------------
+
++---------------------------------------------------------------+
+| Value | Severity     | Description                            |
++---------------------------------------------------------------+
+| 0     | Emergency    | System is unusable (A panic condition) |
+| 1     | Alert        | Immediate action needed                |
+| 2     | Critical     | Critical conditions                    |
+| 3     | Error        | Error conditions                       |
+| 4     | Warning      | Warning conditions                     |
+| 5     | Notice       | Normal but significant condition       |
+| 6     | Informational| Informational messages                 |
+| 7     | Debug        | Debug-level messages                   |
++---------------------------------------------------------------+
+
+
+
+
+
+
+
+
