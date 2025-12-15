@@ -1,8 +1,0 @@
-🔴Eigrp Unequal Cost Load Balancing
-####################################
-
-
-🔴Eigrp Unequal Cost : 
-----------------------
-🔹EIGRP can also balance traffic across multiple routes that have different metrics and it is called "Unequal Cost Load Balancing".
-🔹
